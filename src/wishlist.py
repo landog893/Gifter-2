@@ -93,5 +93,5 @@ class wishlist():
         else:
             print("INVALID INPUT")
             self.option()
-obj = wishlist()
-obj.option()
+#obj = wishlist()
+#obj.option()
