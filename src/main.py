@@ -101,17 +101,20 @@ def editprofile_page():
 def wishlist_page():
     acc = st.session_state.account
     st.header("Your Wishlist")
-    items = (acc.wishlist.to_string(index=False)).replace("\"", "").split(",")
-    items = [int(item) for item in items]
-    item_objs = [item(ID=id) for id in items] 
-    item_titles = [(i.title.to_string(index=False)).replace("\"", "") for i in item_objs]
-    item_descs = [(i.desc.to_string(index=False)).replace("\"", "") for i in item_objs]
-    item_links = [(i.link.to_string(index=False).replace("\"", "")) for i in item_objs]
-    item_costs = [(i.cost.to_string(index=False).replace("\"", "")) for i in item_objs]
+    items = (acc.wishlist.to_string(index=False))
 
-    df = pd.DataFrame(list(zip(items, item_titles, item_descs, item_links, item_costs)), columns=('ID', 'Title', 'Description', 'Link', 'Cost'))
-    df.set_index('ID', inplace=True)
-    st.dataframe(df)
+    if items != 'NaN':
+        items = (acc.wishlist.to_string(index=False)).replace("\"", "").split(",")
+        items = [int(item) for item in items]
+        item_objs = [item(ID=id) for id in items] 
+        item_titles = [(i.title.to_string(index=False)).replace("\"", "") for i in item_objs]
+        item_descs = [(i.desc.to_string(index=False)).replace("\"", "") for i in item_objs]
+        item_links = [(i.link.to_string(index=False).replace("\"", "")) for i in item_objs]
+        item_costs = [(i.cost.to_string(index=False).replace("\"", "")) for i in item_objs]
+
+        df = pd.DataFrame(list(zip(items, item_titles, item_descs, item_links, item_costs)), columns=('ID', 'Title', 'Description', 'Link', 'Cost'))
+        df.set_index('ID', inplace=True)
+        st.table(df)
 
     if st.button('Add item'):
         st.session_state.runpage = 'additem'
@@ -141,7 +144,10 @@ def additem_page():
         a_interests = acc.interests.to_string(index=False)
         a_wishlist = acc.wishlist.to_string(index=False)
         a_friendlist = acc.friendlist.to_string(index=False)
-        a_wishlist += "," + str(i.itemID)
+        if a_wishlist == 'NaN':
+            a_wishlist = str(i.itemID)
+        else: 
+            a_wishlist += "," + str(i.itemID)
         acc.update_account(a_name, a_surname, a_birthday, a_interests, a_wishlist, a_friendlist)
         acc = Account(ID = int(acc.ID))
         st.session_state.account = acc
@@ -204,13 +210,14 @@ def friendlist_page():
     st.header('Friend List')
     acc = st.session_state.account
     friendlist = acc.friendlist.to_string(index=False)
-    friendlist = friendlist.split(',')
-    friendobj = [Account(ID=int(f)) for f in friendlist]
-    friendName = [f.name.to_string(index=False) for f in friendobj]
-    friendSur = [f.surname.to_string(index=False) for f in friendobj]
-    df = pd.DataFrame(list(zip(friendlist,friendName,friendSur)), columns=('ID', 'Name', 'Surname'))
-    df.set_index('ID', inplace=True)
-    st.table(df)
+    if friendlist != 'NaN':        
+        friendlist = friendlist.split(',')
+        friendobj = [Account(ID=int(f)) for f in friendlist]
+        friendName = [f.name.to_string(index=False) for f in friendobj]
+        friendSur = [f.surname.to_string(index=False) for f in friendobj]
+        df = pd.DataFrame(list(zip(friendlist,friendName,friendSur)), columns=('ID', 'Name', 'Surname'))
+        df.set_index('ID', inplace=True)
+        st.table(df)
     if st.button('View Wishlist of friend'):
         st.session_state.runpage = 'friendwishlist'
         st.experimental_rerun() 
@@ -252,9 +259,12 @@ def addfriend_page():
     acc = st.session_state.account
     friendlist = acc.friendlist.to_string(index=False)
     form = st.form(key='addfriend')
-    id =form.text_input('Please enter ID of the friend', value=friendlist[0])
+    id =form.text_input('Please enter ID of the friend')
     if form.form_submit_button('Add friend'):
-        friendlist += ',' + str(id)
+        if friendlist != 'NaN':
+            friendlist += ',' + str(id)
+        else:
+            friendlist = str(id)
         a_name = acc.name.to_string(index=False)
         a_surname = acc.surname.to_string(index=False)
         a_birthday = acc.birthday.to_string(index=False)
@@ -274,10 +284,9 @@ def addfriend_page():
 def deletefriend_page():
     acc = st.session_state.account
     friends = (acc.friendlist.to_string(index=False)).replace("\"", "").split(",")
-    items = [int(f) for f in friends]
     form = st.form(key='DeleteItemForm')
 
-    id =form.text_input('Please enter ID of the item friend want to delete', value=items[0])
+    id =form.text_input('Please enter ID of the item friend want to delete', value=friends[0])
     if form.form_submit_button('Delete item'):
         a_name = acc.name.to_string(index=False)
         a_surname = acc.surname.to_string(index=False)
@@ -308,7 +317,6 @@ if 'runpage' not in st.session_state:
 if 'account' not in st.session_state:
     st.session_state.account = 'None'
 
-st.session_state.runpage
 if st.session_state.runpage == 'initial':
     initial_page()
 elif st.session_state.runpage == 'login':

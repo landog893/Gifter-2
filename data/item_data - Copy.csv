@@ -1,11 +1,14 @@
 ItemID,Title,Description,Link,Cost
-2,Phone,Samsung,www.target.com,240
-3,"""Electro Guitar""","""With Extra Music""",https://www.target.com/p/women-s-janelle-dress-...,3000
-4,"""PC""","""Alienware The Chunkiest Gamebook""",www.amazon.com,2500
+2,Phone,Samsung,www.target.com,240.0
+3,"""Electro Guitar""","""With Extra Music""",https://www.target.com/p/women-s-janelle-dress-...,3000.0
+4,"""PC""","""Alienware The Chunkiest Gamebook""",www.amazon.com,2500.0
 5,"""Caramel Chocolate""",,https://www.target.com/p/skittles-38-starburst-halloween-candy-bag-fun-size-21-35oz-55ct/-/A-79712946#lnk=sametab,10.99
 6,"""Love of my family""","""All the love""",,
-7,"""Halloween Candy Basket""","""Pink, from Target""",https://www.target.com/p/pink-pumpkin-stackable-halloween-trick-or-treat-pail-hyde-38-eek-boutique-8482/-/A-78825582#lnk=sametab,1
+7,"""Halloween Candy Basket""","""Pink, from Target""",https://www.target.com/p/pink-pumpkin-stackable-halloween-trick-or-treat-pail-hyde-38-eek-boutique-8482/-/A-78825582#lnk=sametab,1.0
 8,"""Five Guys Burger""","""No onions, extra bacon and cheese""",,9.99
 9,"""Power to rule the world""",,,
 10,"""Lobster Dinner""","""Seafood fest from Red Lobster""",https://www.redlobster.com/?gclsrc=aw.ds&,36.99
-11,Jump Rope,,15,
+11,Jump Rope,Pink,amazon.com,15
+12,Suit,Armani,1500,www.armani.com
+13,Suit,Armani,1500,www.armani.com
+14,Scotch,Glen Mckenna 35 Years,,350
