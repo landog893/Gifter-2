@@ -2,7 +2,7 @@ try:
     from item_manager import ItemManager
 except ImportError as e:
     import sys
-    sys.path.append("../CSC510_PROJECT1/src")
+    sys.path.append("./src")
 
 from item_manager import ItemManager
 
