@@ -1,5 +1,6 @@
 # CSC510_Project1
 
+[![DOI](https://zenodo.org/badge/541408861.svg)](https://zenodo.org/badge/latestdoi/541408861)
 [![GitHub license](https://img.shields.io/github/license/yagmurbbayraktar/CSC510_Project1)](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/yagmurbbayraktar/CSC510_Project1)](https://github.com/yagmurbbayraktar/CSC510_Project1/network)
 [![GitHub license](https://img.shields.io/github/license/yagmurbbayraktar/CSC510_Project1)](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/LICENSE)
