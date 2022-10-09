@@ -1,4 +1,4 @@
-#Class Description for Gifter
+# Class Description for Gifter
 
 ### Class: Account
 Account class has six attributes, name, surname, birthday, interests, Wishlist and friend list. As the name implies, it keeps all the attributes regarding a user account. When an account gets created or gets updated, it creates an instance of Account Info class that functions as a manager for the accounts.
