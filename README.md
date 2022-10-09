@@ -8,7 +8,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build](https://github.com/yagmurbbayraktar/CSC510_Project1/actions/workflows/python-app.yml/badge.svg)](https://github.com/yagmurbbayraktar/CSC510_Project1/actions/workflows/python-app.yml)
 
-This repository contain the roject 1 of CSC 510 Fall 2022 group 39: Gifter.
+This repository contain the Project 1 of CSC 510 Fall 2022 group 39: Gifter.
 
 ## Introduction
 
