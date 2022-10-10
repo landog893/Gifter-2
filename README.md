@@ -17,7 +17,7 @@ Gifter is a social platform that is built on the idea of gift giving and gift re
 ##Requirements
 Please make sure latest versions of Python and Streamlit are installed. For Windows users, use Anaconda Navigator's command prompt. Get the command window to the space where the application is located and use the command 
 
-'''streamlit run main.py'''
+```streamlit run main.py```
 
 ## Usage
 
