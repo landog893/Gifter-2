@@ -14,6 +14,11 @@ This repository contain the Project 1 of CSC 510 Fall 2022 group 39: Gifter.
 
 Gifter is a social platform that is built on the idea of gift giving and gift receiving. It runs as web application that allows users to create themselves a wishlist with items they want. The aim of this application is to help users with the process of picking out a gift. The application allows users to add friends and look at their wishlists. Items under the gift registries may also contain the cost and the website of the item. Currently, this project is not deployed on the web and functions on a local file that imitates a database. The project uses Python Smartlit for the GUI.
 
+##Requirements
+Please make sure latest versions of Python and Streamlit are installed. For Windows users, use Anaconda Navigator's command prompt. Get the command window to the space where the application is located and use the command 
+
+'''streamlit run main.py'''
+
 ## Usage
 
 A user first has to register the application with their name and surname. They the application will provide them with an ID they will be using to log in. User IDs are also used when a user wants to add a friend. The user can create items to add the items they want to receive as gifts. From friends window the user can add or delete friends, and see their wishlists. 
