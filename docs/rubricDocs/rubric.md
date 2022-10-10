@@ -1,4 +1,4 @@
-|Notes|Score|Evidence|
+|Notes|Score (Total = 201)|Evidence|
 |-----|---------|---------|
 |Video1|NA||
 |Video2|3|[Video](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/docs/rubricDocs/GifterDemo_V0.1.0.mp4)| 
