@@ -35,7 +35,7 @@ class ItemManager:
         except: 
             self.database = &#39;../data/item_data - Copy.csv&#39;
 
-    def add_item(self, title, desc = &#39;&#39;, cost = &#39;&#39;, link = &#39;&#39;):
+    def add_item(self, title, desc = &#39;&#39;, link = &#39;&#39;,  cost = &#39;&#39;):
         if title == &#39;&#39;:
             print(&#39;Title cannot be empty&#39;)
             return -1
@@ -107,7 +107,7 @@ class ItemManager:
         except: 
             self.database = &#39;../data/item_data - Copy.csv&#39;
 
-    def add_item(self, title, desc = &#39;&#39;, cost = &#39;&#39;, link = &#39;&#39;):
+    def add_item(self, title, desc = &#39;&#39;, link = &#39;&#39;,  cost = &#39;&#39;):
         if title == &#39;&#39;:
             print(&#39;Title cannot be empty&#39;)
             return -1
@@ -155,7 +155,7 @@ class ItemManager:
 <h3>Methods</h3>
 <dl>
 <dt id="item_manager.ItemManager.add_item"><code class="name flex">
-<span>def <span class="ident">add_item</span></span>(<span>self, title, desc='', cost='', link='')</span>
+<span>def <span class="ident">add_item</span></span>(<span>self, title, desc='', link='', cost='')</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -163,7 +163,7 @@ class ItemManager:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def add_item(self, title, desc = &#39;&#39;, cost = &#39;&#39;, link = &#39;&#39;):
+<pre><code class="python">def add_item(self, title, desc = &#39;&#39;, link = &#39;&#39;,  cost = &#39;&#39;):
     if title == &#39;&#39;:
         print(&#39;Title cannot be empty&#39;)
         return -1
