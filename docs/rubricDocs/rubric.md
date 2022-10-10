@@ -64,5 +64,16 @@
 |Is your source code stored in a repository under revision control?|3|Github|
 |Is each source code release a snapshot of the repository?|0|No|
 |Are releases tagged in the repository?|3|[Releases](https://github.com/yagmurbbayraktar/CSC510_Project1/releases)|
+|Is there a branch of the repository that is always stable? (i.e. tests always pass, code always builds successfully)|2|Currently only trunk is active|
+|Do you back-up your repository?|3|Github|
+|Do you provide publicly-available instructions for building your software from the source code?|3|[Readme](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/README.md)|
+|Can you build, or package, your software using an automated tool? e.g. Make (https://www.gnu.org/software/make/), ANT (http://ant.apache.org/), Maven (https://maven.apache.org/), CMake (https://cmake.org/), Python setuptools (https://pypi.python.org/pypi/setuptools), or R package tools (https://cran.r-project.org/doc/manuals/r-devel/R-exts.html)|0||
+|Do you provide publicly-available instructions for deploying your software?|3|(https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/README.md)|
+|Does your documentation list all third-party dependencies?|3|No dependencies|
+|Does your documentation list the version number for all third-party dependencies?|NA||
+|Does your software list the web address, and licences for all third-party dependencies and say whether the dependencies are mandatory or optional?|NA||
+|Can you download dependencies using a dependency management tool or package manager?|NA||
+|Do you have tests that can be run after your software has been built or deployed to show whether the build or deployment has been successful?|3|Running the code would test it|
+
 
 
