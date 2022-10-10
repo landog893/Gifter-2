@@ -73,7 +73,36 @@
 |Does your documentation list the version number for all third-party dependencies?|NA||
 |Does your software list the web address, and licences for all third-party dependencies and say whether the dependencies are mandatory or optional?|NA||
 |Can you download dependencies using a dependency management tool or package manager?|NA||
-|Do you have tests that can be run after your software has been built or deployed to show whether the build or deployment has been successful?|3|Running the code would test it|
+|Do you have tests that can be run after your software has been built or deployed to show whether the build or deployment has been successful?|3|Running the code would test itLicence|([
+](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/LICENSE))
+|Do you have an automated test suite for your software?|3|Github workflow|
+|Do you have a framework to periodically (e.g. nightly) run your tests on the latest version of the source code?|0||
+|Do you use continuous integration, automatically running tests whenever changes are made to your source code?|0|Github workflow|
+|Are your test results publicly visible?|0|No|
+|Are all manually-run tests documented?|0|No|
+|Does your project have resources (e.g. blog, Twitter, RSS feed, Facebook page, wiki, mailing list) that are regularly updated with information about your software?|0|No|
+|Does your website state how many projects and users are associated with your project?|2|Single project, no current users|
+|Do you provide success stories on your website?|0|No|
+|Do you list your important partners and collaborators on your website?|3|[Contributing](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/CONTRIBUTING.md)|
+|Do you list your project's publications on your website or link to a resource where these are available?|0|There aren't any publications|
+|Do you list third-party publications that refer to your software on your website or link to a resource where these are available?|0||
+|Can users subscribe to notifications to changes to your source code repository?|3|Github|
+|If your software is developed as an open source project (and, not just a project developing open source software), do you have a governance model?|NA||
+|Do you accept contributions (e.g. bug fixes, enhancements, documentation updates, tutorials) from people who are not part of your project?|3|[Contributing](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/CONTRIBUTING.md)|
+|Do you have a contributions policy|3|[Contributing](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/CONTRIBUTING.md)|
+|Is your contributions' policy publicly available?|3|[Contributing](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/CONTRIBUTING.md)|
+|Do contributors keep the copyright/IP of their contributions|3|[Licence](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/LICENSE)|
+|Does your website and documentation clearly state the copyright owners of your software and documentation?|3|Licence|
+|Does each of your source code files include a copyright statement?|0|No|
+|Does your website and documentation clearly state the licence of your software?|3|[Licence](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/LICENSE)|
+|Is your software released under an open source licence?|3|[Licence](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/LICENSE)|
+|Is your software released under an OSI-approved open-source licence?|3|Licence](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/LICENSE)|
+|Does each of your source code files include a licence header?|0|No|
+|Do you have a recommended citation for your software?|0|No|
+|Does your website or documentation include a project roadmap (a list of project and development milestones for the next 3, 6 and 12 months)?|3|[Readme](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/README.md)|
+|Does your website or documentation describe how your project is funded, and the period over which funding is guaranteed?|0|Project isn't funded|
+|Do you make timely announcements of the deprecation of components, APIs, etc.?|0|No|
+
 
 
 
