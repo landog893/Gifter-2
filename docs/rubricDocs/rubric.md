@@ -1,7 +1,7 @@
 |Notes|Score|Evidence|
 |-----|---------|---------|
 |Video1|NA||
-|Video2|3|[https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/docs/rubricDocs/GifterDemo_V0.1.0.mp4](Video)| 
+|Video2|3|[Video](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/docs/rubricDocs/GifterDemo_V0.1.0.mp4)| 
 |Workload is spread over the whole team|3|Github, Insights, Contributors, commit numbers between 6 to 34|
 |Number of commits|3|Github|
 |Number of commits: by different people|3|Github, Total 106|
