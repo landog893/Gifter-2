@@ -7,7 +7,7 @@ class ItemManager:
         except: 
             self.database = '../data/item_data - Copy.csv'
 
-    def add_item(self, title, desc = '', cost = '', link = ''):
+    def add_item(self, title, desc = '', link = '',  cost = ''):
         if title == '':
             print('Title cannot be empty')
             return -1

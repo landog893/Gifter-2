@@ -286,8 +286,8 @@ def deletefriend_page():
     friends = (acc.friendlist.to_string(index=False)).replace("\"", "").split(",")
     form = st.form(key='DeleteItemForm')
 
-    id =form.text_input('Please enter ID of the item friend want to delete', value=friends[0])
-    if form.form_submit_button('Delete item'):
+    id =form.text_input('Please enter ID of the friend want to delete', value=friends[0])
+    if form.form_submit_button('Delete friend'):
         a_name = acc.name.to_string(index=False)
         a_surname = acc.surname.to_string(index=False)
         a_birthday = acc.birthday.to_string(index=False)
