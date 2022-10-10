@@ -5,28 +5,29 @@
 |Workload is spread over the whole team|3|[Github, Insights](https://github.com/yagmurbbayraktar/CSC510_Project1/graphs/contributors)|
 |Number of commits|3|[Github, Insights](https://github.com/yagmurbbayraktar/CSC510_Project1/graphs/contributors)|
 |Number of commits: by different people|3|[Github, Insights](https://github.com/yagmurbbayraktar/CSC510_Project1/graphs/contributors)|
-|Issues reports: there are **many**|3|Github, 2 closed|
-|Issues are being closed|2|Github, 2 closed|
-|DOI badge: exists|3|In readme|
-|Docs: doco generated, format not ugly |0|Github|
-|Docs: what: point descriptions of each class/function (in isolation) |1|Only explained in main readme|
-|Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z|0|Github|
-|Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing|3|Readme file|
-|Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.|0|Non existent|
+|Issues reports: there are **many**|3|[Github Issues](https://github.com/yagmurbbayraktar/CSC510_Project1/issues)|
+|Issues are being closed|2|[Github Issues](https://github.com/yagmurbbayraktar/CSC510_Project1/issues)|
+|DOI badge: exists|3|[Readme](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/README.md)|
+|Docs: doco generated, format not ugly |3|[Documemtation](https://github.com/yagmurbbayraktar/CSC510_Project1/tree/main/src)|
+|Docs: what: point descriptions of each class/function (in isolation) |3|[Documentation](https://github.com/yagmurbbayraktar/CSC510_Project1/tree/main/docs/rubricDocs)|
+|Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z|3|[Documentation](https://github.com/yagmurbbayraktar/CSC510_Project1/tree/main/docs/rubricDocs)|
+|Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing|3|[Documentation](https://github.com/yagmurbbayraktar/CSC510_Project1/tree/main/docs/rubricDocs)|
+|Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.|3|[Documentation](https://github.com/yagmurbbayraktar/CSC510_Project1/tree/main/docs/rubricDocs)|
 |Use of version control tools|3|Github itself|
 |Use of style checkers|0|Github|
 |Use of code formatters. |0|Github|
 |Use of syntax checkers. |0|Github|
-|Use of code coverage|3|Github readme badges|
-|Other automated analysis tools|3|Github, flow|
-|Test cases exist|3|Github under tests|
+|Use of code coverage|3|[Readme](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/README.md)|
+|Other automated analysis tools|3|Github, travis|
+|Test cases exist|3|[Tests](https://github.com/yagmurbbayraktar/CSC510_Project1/tree/main/test)|
 |Test cases are routinely executed|3|Github, automated|
-|The files CONTRIBUTING.md lists coding standards and lots of tips on how to extend the system without screwing things up|3|Github, contributing|
-|Issues are discussed before they are closed|3|Github, discussion in chat exists|
-|Chat channel: exists|1|No way of knowing|
-|Test cases: a large proportion of the issues related to handling failing cases.|2|Github, half of them are|
+|The files CONTRIBUTING.md lists coding standards and lots of tips on how to extend the system without screwing things up|3|[Contributing](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/CONTRIBUTING.md)
+|Issues are discussed before they are closed|3|[Github Issues](https://github.com/yagmurbbayraktar/CSC510_Project1/issues)|
+|Chat channel: exists|1|[Documentation](https://github.com/yagmurbbayraktar/CSC510_Project1/tree/main/docs/rubricDocs)|
+|Use of version control tools|3|Github itself|
+|Test cases: a large proportion of the issues related to handling failing cases.|2|[Github Issues](https://github.com/yagmurbbayraktar/CSC510_Project1/issues)|
 |Evidence that the whole team is using the same tools: everyone can get to all tools and files|3|Github|
 |Evidence that the whole team is using the same tools (e.g. config files in the repo, updated by lots of different people)|3|Github, collaborators appear on various folders|
 |Evidence that the whole team is using the same tools (e.g. tutor can ask anyone to share screen, they demonstrate the system running on their computer)|3|Github|
 |Evidence that the members of the team are working across multiple places in the code base|3|Github|
-|Short release cycles |1|Github, single release|
+|Short release cycles |1|[Releases](https://github.com/yagmurbbayraktar/CSC510_Project1/releases)|
