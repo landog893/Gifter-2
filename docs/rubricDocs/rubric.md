@@ -30,4 +30,10 @@
 |Evidence that the whole team is using the same tools (e.g. config files in the repo, updated by lots of different people)|3|Github, collaborators appear on various folders|
 |Evidence that the whole team is using the same tools (e.g. tutor can ask anyone to share screen, they demonstrate the system running on their computer)|3|Github|
 |Evidence that the members of the team are working across multiple places in the code base|3|Github|
-|Short release cycles |1|[Releases](https://github.com/yagmurbbayraktar/CSC510_Project1/releases)|
+|Short release cycles |3|[Releases](https://github.com/yagmurbbayraktar/CSC510_Project1/releases)|
+|Does your website and documentation provide a clear, high-level overview of your software?|3|[Documentation](https://github.com/yagmurbbayraktar/CSC510_Project1/tree/main/docs/rubricDocs)|
+|Does your website and documentation clearly describe the type of user who should use your software?|3|[Documentation](https://github.com/yagmurbbayraktar/CSC510_Project1/tree/main/docs/rubricDocs)|
+|Do you publish case studies to show how your software has been used by yourself and others?|0||
+|Is the name of your project/software unique?|3|Gifter|
+|Is your project/software name free from trademark violations?|3|No|
+
