@@ -55,6 +55,20 @@ def connect():
         for command in commands:
             cur.execute(command)
         # close communication with the PostgreSQL database server
+        
+        cur.execute('SELECT * FROM public."itemData";')
+        itemData_table = cur.fetchone()
+        print(itemData_table)
+        
+        cur.execute('SELECT * FROM public."peopleData";')
+        peopleData_table = cur.fetchone()
+        print(peopleData_table)
+        
+        cur.execute('SELECT * FROM public."nonExisting";')
+        nonExisting = cur.fetchone()
+        print(nonExisting)
+        
+        
         cur.close()
         # commit the changes
         conn.commit()
