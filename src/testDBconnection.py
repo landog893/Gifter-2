@@ -5,6 +5,33 @@ from config import config
 def connect():
     """ Connect to the PostgreSQL database server """
     conn = None
+    
+    commands = (
+        """
+        CREATE TABLE IF NOT EXISTS public."itemData"
+        (
+            "ID" serial NOT NULL,
+            "Title" character varying COLLATE pg_catalog."default",
+            "Description" character varying COLLATE pg_catalog."default",
+            "Link" character varying COLLATE pg_catalog."default",
+            "Cost" numeric DEFAULT 0,
+            CONSTRAINT "itemData_pkey" PRIMARY KEY ("ID")
+        )
+        """,
+        """ 
+        CREATE TABLE IF NOT EXISTS public."peopleData"
+        (
+            "ID" serial NOT NULL,
+            "Name" character varying COLLATE pg_catalog."default",
+            "Surname" character varying COLLATE pg_catalog."default",
+            "Interests" character varying COLLATE pg_catalog."default",
+            "WishList" character varying COLLATE pg_catalog."default",
+            "FriendList" character varying COLLATE pg_catalog."default",
+            "Birthday" date,
+            CONSTRAINT "peopleData_pkey" PRIMARY KEY ("ID")
+        )
+        """
+        )
     try:
         # read connection parameters
         params = config()
@@ -23,6 +50,14 @@ def connect():
         # display the PostgreSQL database server version
         db_version = cur.fetchone()
         print(db_version)
+        
+        # create table one by one
+        for command in commands:
+            cur.execute(command)
+        # close communication with the PostgreSQL database server
+        cur.close()
+        # commit the changes
+        conn.commit()
        
 	# close the communication with the PostgreSQL
         cur.close()
