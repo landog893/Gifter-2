@@ -6,23 +6,30 @@ import pandas as pd
 from account import Account
 from account_info import AccountInfo
 from item import item
+import streamlit.components.v1 as components
+import utils as utl
+import requests
+from streamlit.components.v1 import html
 
+extrajs = ''''''
 
 def initial_page():
     st.header("Gift Finder!")
-    create = st.button('Create Account') 
-    login = st.button('Log In')
+    create = st.button('Create Account', type="primary") 
+    login = st.button('Log In', type="primary")
     if create:
         st.session_state.runpage = 'createaccount'
         st.experimental_rerun()
     if login:
         st.session_state.runpage = 'login'
         st.experimental_rerun()
+    
 
 def login_page():
+    st.header("Login")
     form1 = st.form(key='Login form')
     userID = form1.text_input('UserID: ')
-    but = form1.form_submit_button('Log in')
+    but = form1.form_submit_button('Log in', type="primary")
     if but:
         acc = Account(ID=int(userID))
         st.session_state.runpage = 'account'
@@ -30,37 +37,54 @@ def login_page():
         st.experimental_rerun()
     
 def create_account():
-    st.write('Please fill out the form')
+    # st.write('Please fill out the form')
     form = st.form(key='Create_form')
     name = form.text_input('Name:')
     surname = form.text_input('Surname:')
     birthday = form.text_input('Birthday (MM/DD/YYYY):')
     interest = form.text_input('Interests (please enter them comma seperated):')
-    but1 = form.form_submit_button('Submit')
+    but1 = form.form_submit_button('Submit', type="primary")
+    but2 = form.form_submit_button("Back")
     if but1:
         acc = Account(name, surname, birthday, interest)
         acc = Account(ID = int(acc.ID))
         st.session_state.runpage = 'account'
         st.session_state.account = acc
         st.experimental_rerun()
-    #return account
+    if but2:
+        st.session_state.runpage = 'initial'
+        st.experimental_rerun()
+    global extrajs
+    extrajs += '''
+        forms = window.parent.document.querySelectorAll('[data-testid="stFormSubmitButton"]');
+        for (const element of forms) {
+            element.classList.add("horizontalDiv");
+            element.parentElement.classList.add("horizontalDiv");
+            element.parentElement.parentElement.classList.add("horizontalDiv");
+        }
+    '''
 
 def account_page():
     acc = st.session_state.account
     st.header('Welcome ' + acc.name.to_string(index=False) + '!')
-    st.write("What a beautiful day to gift!")
-    if st.button('Profile'):
-        st.session_state.runpage = 'profile'
-        st.experimental_rerun()
-    if st.button('Wishlist'): 
-        st.session_state.runpage = 'wishlist'
-        st.experimental_rerun()
-    if st.button('Friendlist'):
-        st.session_state.runpage = 'friendlist'
-        st.experimental_rerun()
-    if st.button('Logout'):
-        st.session_state.runpage = 'initial'
-        st.experimental_rerun()
+    st.write("Quote of the day:")
+    if 'response' not in st.session_state:
+        st.session_state.response = requests.get('https://zenquotes.io/api/today')
+    st.markdown(st.session_state.response.json()[0]["h"].replace('&mdash;', ''), unsafe_allow_html=True)
+
+
+    # if st.button('Profile'):
+    #     st.session_state.runpage = 'profile'
+    #     st.experimental_rerun()         
+    # if st.button('Wishlist'): 
+    #     st.session_state.runpage = 'wishlist'
+    #     st.experimental_rerun()
+    # if st.button('Friendlist'):
+    #     st.session_state.runpage = 'friendlist'
+    #     st.experimental_rerun()
+    # if st.button('Logout'):
+    #     st.session_state.runpage = 'initial'
+    #     st.experimental_rerun()
 
 
 def profile_page():
@@ -71,7 +95,7 @@ def profile_page():
     st.write('Surname: ' + acc.surname.to_string(index=False))
     st.write('Birthday: ' + acc.birthday.to_string(index=False))
     st.write('Interests: ' + (acc.interests.to_string(index=False)).replace("\"", ""))
-    if st.button("Edit Profile"):
+    if st.button("Edit Profile", type="primary"):
         st.session_state.runpage = 'editprofile'
         st.experimental_rerun()
     if st.button("Back"):
@@ -87,7 +111,7 @@ def editprofile_page():
     birthday = form.text_input('Birthday:', value= acc.birthday.to_string(index=False), placeholder= acc.birthday.to_string(index=False))
     ints = (acc.interests.to_string(index=False)).replace("\"", "")
     interests = form.text_input('Interest:', value=ints, placeholder=ints)
-    if form.form_submit_button('Update'):
+    if form.form_submit_button('Update', type="primary"):
         acc.update_account(name, surname, birthday, interests, acc.wishlist.to_string(index=False), acc.friendlist.to_string(index=False))
         acc = Account(ID = int(acc.ID))
         st.session_state.account = acc
@@ -116,18 +140,30 @@ def wishlist_page():
         df.set_index('ID', inplace=True)
         st.table(df)
 
-    if st.button('Add item'):
+    if st.button('Add item', type="primary"):
         st.session_state.runpage = 'additem'
         st.experimental_rerun()
-    if st.button('Modify item'):
+    if st.button('Modify item', type="primary"):
         st.session_state.runpage = 'modifyitem'
         st.experimental_rerun()
-    if st.button('Remove item'):
+    if st.button('Remove item', type="primary"):
         st.session_state.runpage = 'deleteitem'
         st.experimental_rerun()
     if st.button('Back'):
         st.session_state.runpage = 'account'
-        st.experimental_rerun()        
+        st.experimental_rerun()      
+    global extrajs
+    extrajs += '''
+        document.addEventListener('DOMContentLoaded', function(event) {
+    //the event occurred
+        forms = window.parent.document.querySelectorAll('.stButton');
+        for (const element of forms) {
+            element.classList.add("horizontalDiv");
+            element.parentElement.classList.add("horizontalDiv");
+        }
+        
+        })
+    '''
 
 def additem_page():
     form = st.form(key='AddItemForm')
@@ -135,7 +171,7 @@ def additem_page():
     desc = form.text_input('Description')
     link = form.text_input('Link')
     cost = form.text_input('Cost')
-    if form.form_submit_button('Add item'):
+    if form.form_submit_button('Add item', type="primary"):
         i = item(title, desc, link, cost)
         acc = st.session_state.account
         a_name = acc.name.to_string(index=False)
@@ -169,7 +205,7 @@ def modifyitem_page():
     desc = form.text_input('Description', value= i.desc.to_string(index=False), placeholder= i.desc.to_string(index=False))
     link = form.text_input('Link', value= i.link.to_string(index=False), placeholder= i.link.to_string(index=False))
     cost = form.text_input('Cost', value= i.cost.to_string(index=False), placeholder= i.cost.to_string(index=False))
-    if form.form_submit_button('Modify item'):
+    if form.form_submit_button('Modify item', type="primary"):
         i.modify_item(title, desc, link, cost)
         st.session_state.runpage = 'wishlist'
         st.experimental_rerun()
@@ -184,7 +220,7 @@ def deleteitem_page():
     form = st.form(key='DeleteItemForm')
     id =form.text_input('Please enter ID of the item you want to delete', value=items[0])
     i = item(ID=int(id))
-    if form.form_submit_button('Delete item'):
+    if form.form_submit_button('Delete item', type="primary"):
         acc = st.session_state.account
         a_name = acc.name.to_string(index=False)
         a_surname = acc.surname.to_string(index=False)
@@ -218,13 +254,13 @@ def friendlist_page():
         df = pd.DataFrame(list(zip(friendlist,friendName,friendSur)), columns=('ID', 'Name', 'Surname'))
         df.set_index('ID', inplace=True)
         st.table(df)
-    if st.button('View Wishlist of friend'):
+    if st.button('View Wishlist of friend', type="primary"):
         st.session_state.runpage = 'friendwishlist'
         st.experimental_rerun() 
-    if st.button('Add friend'):
+    if st.button('Add friend', type="primary"):
         st.session_state.runpage = 'addfriend'
         st.experimental_rerun() 
-    if st.button('Delete friend'):
+    if st.button('Delete friend', type="primary"):
         st.session_state.runpage = 'deletefriend'
         st.experimental_rerun() 
     if st.button('Back'):
@@ -239,7 +275,7 @@ def viewwishlist_page():
     form = st.form(key='Viewwishlistform')
     id =form.text_input('Please enter ID of the friend', value=friendlist[0])
     friend = Account(ID=int(id))
-    if form.form_submit_button('See wishlist'):
+    if form.form_submit_button('See wishlist', type="primary"):
         items = (friend.wishlist.to_string(index=False)).replace("\"", "").split(",")
         items = [int(item) for item in items]
         item_objs = [item(ID=id) for id in items] 
@@ -260,7 +296,7 @@ def addfriend_page():
     friendlist = acc.friendlist.to_string(index=False)
     form = st.form(key='addfriend')
     id =form.text_input('Please enter ID of the friend')
-    if form.form_submit_button('Add friend'):
+    if form.form_submit_button('Add friend', type="primary"):
         if friendlist != 'NaN':
             friendlist += ',' + str(id)
         else:
@@ -287,7 +323,7 @@ def deletefriend_page():
     form = st.form(key='DeleteItemForm')
 
     id =form.text_input('Please enter ID of the friend want to delete', value=friends[0])
-    if form.form_submit_button('Delete friend'):
+    if form.form_submit_button('Delete friend', type="primary"):
         a_name = acc.name.to_string(index=False)
         a_surname = acc.surname.to_string(index=False)
         a_birthday = acc.birthday.to_string(index=False)
@@ -307,15 +343,57 @@ def deletefriend_page():
         st.session_state.runpage = 'friendlist'
         st.experimental_rerun() 
 
+if 'account' not in st.session_state or st.session_state.runpage == 'initial':
+    st.session_state.account = 'None'
 
-
-
-
-if 'runpage' not in st.session_state:
+if 'runpage' not in st.session_state or (st.session_state.account == 'None' and not st.session_state.runpage == 'login' and not st.session_state.runpage == 'createaccount'):
     st.session_state.runpage = 'initial'
 
-if 'account' not in st.session_state:
-    st.session_state.account = 'None'
+# st.set_page_config(layout="wide", page_title='Navbar sample')
+st.set_page_config(page_title='Gifter 2', page_icon='assets/images/gift-flat.ico')
+st.set_option('deprecation.showPyplotGlobalUse', False)
+utl.inject_custom_css()
+utl.navbar_component(st.session_state.account)
+
+
+navtab, tab2= st.tabs(["Navtab", "test"])
+
+with navtab:    
+    if st.button('home'):
+        st.session_state.runpage = 'account'
+        st.experimental_rerun() 
+    if st.button('wishlist'):
+        st.session_state.runpage = 'wishlist'
+        st.experimental_rerun()
+    if st.button('friendlist'):
+        st.session_state.runpage = 'friendlist'
+        st.experimental_rerun() 
+    if st.button('acount'):
+        st.session_state.runpage = 'profile'
+        st.experimental_rerun() 
+    if st.button('logout'):
+        st.session_state.runpage = 'initial'
+        del st.session_state["account"]
+        st.experimental_rerun() 
+with tab2:
+    st.header("Placeholder")
+
+
+
+extrajs = '''
+        buttonDivs = window.parent.document.querySelectorAll('[data-testid="stVerticalBlock"] > [data-stale="false"] > .stButton');
+        console.log(buttonDivs)
+        while (!buttonDiv) {
+            buttonDivs = window.parent.document.querySelectorAll('[data-testid="stVerticalBlock"] > [data-stale="false"] > .stButton');
+            console.log(buttonDivs)
+        }
+        console.log("Test")
+        for (const element of buttonDivs) {
+            element.parentElement.classList.add("show");
+        }
+    '''
+
+# navigation()
 
 if st.session_state.runpage == 'initial':
     initial_page()
@@ -345,3 +423,19 @@ elif st.session_state.runpage == 'addfriend':
     addfriend_page()
 elif st.session_state.runpage == 'deletefriend':
     deletefriend_page()
+
+extrajs += '''
+    </script>
+'''
+js = '''
+    <script>
+        body = window.parent.document.querySelectorAll("body")[0]
+        body.className = "''' + st.session_state.runpage + '''";
+        buttonDivs = window.parent.document.querySelectorAll('[data-testid="stVerticalBlock"] > [data-stale="false"] > .stButton');
+        for (const element of buttonDivs) {
+            element.parentElement.classList.add("buttonDiv");
+        }
+        ''' + extrajs + '''
+    '''
+html(js)
+utl.footer_component()
