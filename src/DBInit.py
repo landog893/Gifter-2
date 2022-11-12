@@ -8,27 +8,27 @@ def connect():
     
     commands = (
         """
-        CREATE TABLE IF NOT EXISTS public."itemData"
+        CREATE TABLE IF NOT EXISTS public."Item"
         (
             "ID" serial NOT NULL,
             "Title" character varying COLLATE pg_catalog."default",
             "Description" character varying COLLATE pg_catalog."default",
             "Link" character varying COLLATE pg_catalog."default",
             "Cost" numeric DEFAULT 0,
-            CONSTRAINT "itemData_pkey" PRIMARY KEY ("ID")
+            CONSTRAINT "Item_pkey" PRIMARY KEY ("ID")
         )
         """,
         """ 
-        CREATE TABLE IF NOT EXISTS public."peopleData"
+        CREATE TABLE IF NOT EXISTS public."Account"
         (
             "ID" serial NOT NULL,
             "Name" character varying COLLATE pg_catalog."default",
-            "Surname" character varying COLLATE pg_catalog."default",
+            "UserName" character varying COLLATE pg_catalog."default",
             "Interests" character varying COLLATE pg_catalog."default",
             "WishList" character varying COLLATE pg_catalog."default",
             "FriendList" character varying COLLATE pg_catalog."default",
             "Birthday" date,
-            CONSTRAINT "peopleData_pkey" PRIMARY KEY ("ID")
+            CONSTRAINT "Account_pkey" PRIMARY KEY ("ID")
         )
         """
         )
@@ -56,18 +56,55 @@ def connect():
             cur.execute(command)
         # close communication with the PostgreSQL database server
         
-        cur.execute('SELECT * FROM public."itemData";')
-        itemData_table = cur.fetchone()
-        print(itemData_table)
+        ###INSERT
+        print("INSERT")
+        test_title = "test_title"
+        test_desc = "test_desc"
+        test_link = "test_link"
+        cost ="21"
+        query = """Insert Into public."Item" ("Title","Description","Link","Cost") values(%s,%s,%s,%s) returning "ID" """
+        cur.execute(query, (test_title,test_desc,test_link,cost))
+        _id  = cur.fetchone()
+        print(_id)
+ 
         
-        cur.execute('SELECT * FROM public."peopleData";')
-        peopleData_table = cur.fetchone()
-        print(peopleData_table)
+        ###CHECK INSERT
+        print("CHECK INSERT")
+        # _id = 13
+        query = """Select * From "Item" WHERE "ID" = %s;"""
+        cur.execute(query,(_id,))
+        res = cur.fetchall()
+        for item in res[0]:
+            print(item)
         
-        cur.execute('SELECT * FROM public."nonExisting";')
-        nonExisting = cur.fetchone()
-        print(nonExisting)
+        ###UPDATE
+        print("UPDATE")
+        new_title = "new_title"
+        new_description = "new_description"    
+        query = """UPDATE "Item" Set "Title" = %s, "Description" = %s Where "ID" = %s"""
+        cur.execute(query,(new_title,new_description,_id))
         
+        ###CHECK RESULT AFTER UPDATE
+        print("CHECK RESULT AFTER UPDATE")
+        query = """Select * From "Item" Where "ID" = %s;"""
+        cur.execute(query,(_id,))
+        res = cur.fetchall()
+        for item in res[0]:
+            print(item)
+        
+        
+        ###DELETE
+        print("DELETE")
+        query = """Delete From "Item" Where "ID" = %s;"""
+        cur.execute(query,(_id,))
+        
+        ###CHECK RESULT AFTER DELETE
+        print("CHECK RESULT AFTER DELETE")
+        query = """Select * From "Item";"""
+        cur.execute(query)
+        res = cur.fetchall()
+        for item in res:
+            print(item)
         
         cur.close()
         # commit the changes
