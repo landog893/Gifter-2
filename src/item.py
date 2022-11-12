@@ -10,6 +10,9 @@ class item():
                 self.link = info[2]
                 self.cost = info[3]
                 self.itemID = ID
+            else:
+                self.itemID = None
+
         else:
             self.title = title
             self.desc = desc

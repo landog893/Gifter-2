@@ -108,16 +108,17 @@ def wishlist_page():
         items = [item.replace(" ","") for item in items]
         items = [int(item) for item in items if item.isnumeric()]
         item_objs = [item(ID=id) for id in items]
-        item_titles = [i.title for i in item_objs if len(i.title)>0]
-        item_descs = [i.desc for i in item_objs if len(i.desc)>0]
-        item_links = [i.link for i in item_objs if len(i.link)>0]
-        item_costs = [i.cost for i in item_objs if i.cost]
+        item_ids = [i.itemID for i in item_objs if i.itemID!= None]
+        item_titles = [i.title for i in item_objs if i.itemID!= None]
+        item_descs = [i.desc for i in item_objs if i.itemID!= None]
+        item_links = [i.link for i in item_objs if i.itemID!= None]
+        item_costs = [i.cost for i in item_objs if i.itemID!= None]
         # item_titles = [(i.title.to_string(index=False)).replace("\"", "") for i in item_objs]
         # item_descs = [(i.desc.to_string(index=False)).replace("\"", "") for i in item_objs]
         # item_links = [(i.link.to_string(index=False).replace("\"", "")) for i in item_objs]
         # item_costs = [(i.cost.to_string(index=False).replace("\"", "")) for i in item_objs]
 
-        df = pd.DataFrame(list(zip(items, item_titles, item_descs, item_links, item_costs)), columns=('ID', 'Title', 'Description', 'Link', 'Cost'))
+        df = pd.DataFrame(list(zip(item_ids, item_titles, item_descs, item_links, item_costs)), columns=('ID', 'Title', 'Description', 'Link', 'Cost'))
         df.set_index('ID', inplace=True)
         st.table(df)
 

@@ -64,7 +64,8 @@ class ItemManager:
             if conn is not None:
                 conn.close()
                 print('Database connection closed.')
-        return item_info[0] if item_info != None else item_info
+        
+        return item_info[0] if len(item_info) > 0 else None
         
         
         # data = read_csv(self.database)
