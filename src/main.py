@@ -165,49 +165,52 @@ def additem_page():
 
 def modifyitem_page():
     acc = st.session_state.account
-    items = (acc.wishlist.to_string(index=False)).replace("\"", "").split(",")
-    items = [int(item) for item in items]
-    id =st.selectbox('Please select ID of the item you want to modify',items)
-    i = item(ID=int(id))
-    form = st.form(key='ModifyItemForm')
-    title = form.text_input('Title:', value= i.title, placeholder= i.title)
-    desc = form.text_input('Description', value= i.desc, placeholder= i.desc)
-    link = form.text_input('Link', value= i.link, placeholder= i.link)
-    cost = form.text_input('Cost', value= i.cost, placeholder= i.cost)
-    if form.form_submit_button('Modify item'):
-        i.modify_item(title, desc, link, cost)
-        st.session_state.runpage = 'wishlist'
-        st.experimental_rerun()
+    itemIDs = (acc.wishlist.to_string(index=False)).replace("\"", "").split(",")
+    itemIDs = [id.replace(" ","") for id in itemIDs]
+    itemIDs = [int(id) for id in itemIDs if id.isnumeric()]
+    if(itemIDs):
+        id =st.selectbox('Please select ID of the item you want to modify',itemIDs)
+        i = item(ID=int(id))
+        form = st.form(key='ModifyItemForm')
+        title = form.text_input('Title:', value= i.title, placeholder= i.title)
+        desc = form.text_input('Description', value= i.desc, placeholder= i.desc)
+        link = form.text_input('Link', value= i.link, placeholder= i.link)
+        cost = form.text_input('Cost', value= i.cost, placeholder= i.cost)
+        if form.form_submit_button('Modify item'):
+            i.modify_item(title, desc, link, cost)
+            st.session_state.runpage = 'wishlist'
+            st.experimental_rerun()
     if st.button('Back'):
         st.session_state.runpage = 'wishlist'
         st.experimental_rerun() 
 
 def deleteitem_page():
     acc = st.session_state.account
-    items = (acc.wishlist.to_string(index=False)).replace("\"", "").split(",")
-    items = [int(item) for item in items]
-    id =st.selectbox('Please enter ID of the item you want to delete', items)
-    print(id)
-    i = item(ID=int(id))
-    form = st.form(key='DeleteItemForm')
-    if form.form_submit_button('Delete item'):
-        acc = st.session_state.account
-        a_name = acc.name.to_string(index=False)
-        a_surname = acc.surname.to_string(index=False)
-        a_birthday = acc.birthday.to_string(index=False)
-        a_interests = acc.interests.to_string(index=False)
-        a_wishlist = acc.wishlist.to_string(index=False)
-        a_friendlist = acc.friendlist.to_string(index=False)
+    itemIDs = (acc.wishlist.to_string(index=False)).replace("\"", "").split(",")
+    itemIDs = [id.replace(" ","") for id in itemIDs]
+    itemIDs = [int(id) for id in itemIDs if id.isnumeric()]
+    if(itemIDs):
+        id =st.selectbox('Please enter ID of the item you want to delete', itemIDs)
+        i = item(ID=int(id))
+        form = st.form(key='DeleteItemForm')
+        if form.form_submit_button('Delete item'):
+            acc = st.session_state.account
+            a_name = acc.name.to_string(index=False)
+            a_surname = acc.surname.to_string(index=False)
+            a_birthday = acc.birthday.to_string(index=False)
+            a_interests = acc.interests.to_string(index=False)
+            a_wishlist = acc.wishlist.to_string(index=False)
+            a_friendlist = acc.friendlist.to_string(index=False)
 
-        a_wishlist = a_wishlist.split(",")
-        a_wishlist.remove(str(i.itemID))
-        a_wishlist = ','.join(a_wishlist)
+            a_wishlist = a_wishlist.split(",")
+            a_wishlist.remove(str(i.itemID))
+            a_wishlist = ','.join(a_wishlist)
 
-        acc.update_account(a_name, a_surname, a_birthday, a_interests, a_wishlist, a_friendlist)
-        acc = Account(ID = int(acc.ID))
-        st.session_state.account = acc
-        st.session_state.runpage = 'wishlist'
-        st.experimental_rerun()
+            acc.update_account(a_name, a_surname, a_birthday, a_interests, a_wishlist, a_friendlist)
+            acc = Account(ID = int(acc.ID))
+            st.session_state.account = acc
+            st.session_state.runpage = 'wishlist'
+            st.experimental_rerun()
     if st.button('Back'):
         st.session_state.runpage = 'wishlist'
         st.experimental_rerun() 
