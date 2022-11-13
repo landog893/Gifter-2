@@ -6,6 +6,7 @@ def connect():
     """ Connect to the PostgreSQL database server """
     conn = None
     
+    ### commands for creating tables
     commands = (
         """
         CREATE TABLE IF NOT EXISTS public."Item"
@@ -56,55 +57,58 @@ def connect():
             cur.execute(command)
         # close communication with the PostgreSQL database server
         
-        ###INSERT
-        print("INSERT")
-        test_title = "test_title"
-        test_desc = "test_desc"
-        test_link = "test_link"
-        cost ="21"
-        query = """Insert Into public."Item" ("Title","Description","Link","Cost") values(%s,%s,%s,%s) returning "ID" """
-        cur.execute(query, (test_title,test_desc,test_link,cost))
-        _id  = cur.fetchone()
-        print(_id)
+        
+        ###The following are sample queries
+        
+        # ###INSERT
+        # print("INSERT")
+        # test_title = "test_title"
+        # test_desc = "test_desc"
+        # test_link = "test_link"
+        # cost ="21"
+        # query = """Insert Into public."Item" ("Title","Description","Link","Cost") values(%s,%s,%s,%s) returning "ID" """
+        # cur.execute(query, (test_title,test_desc,test_link,cost))
+        # _id  = cur.fetchone()
+        # print(_id)
  
         
-        ###CHECK INSERT
-        print("CHECK INSERT")
-        # _id = 13
-        query = """Select * From "Item" WHERE "ID" = %s;"""
-        cur.execute(query,(_id,))
-        res = cur.fetchall()
-        for item in res[0]:
-            print(item)
+        # ###CHECK INSERT
+        # print("CHECK INSERT")
+        # # _id = 13
+        # query = """Select * From "Item" WHERE "ID" = %s;"""
+        # cur.execute(query,(_id,))
+        # res = cur.fetchall()
+        # for item in res[0]:
+        #     print(item)
         
-        ###UPDATE
-        print("UPDATE")
-        new_title = "new_title"
-        new_description = "new_description"    
-        query = """UPDATE "Item" Set "Title" = %s, "Description" = %s Where "ID" = %s"""
-        cur.execute(query,(new_title,new_description,_id))
+        # ###UPDATE
+        # print("UPDATE")
+        # new_title = "new_title"
+        # new_description = "new_description"    
+        # query = """UPDATE "Item" Set "Title" = %s, "Description" = %s Where "ID" = %s"""
+        # cur.execute(query,(new_title,new_description,_id))
         
-        ###CHECK RESULT AFTER UPDATE
-        print("CHECK RESULT AFTER UPDATE")
-        query = """Select * From "Item" Where "ID" = %s;"""
-        cur.execute(query,(_id,))
-        res = cur.fetchall()
-        for item in res[0]:
-            print(item)
+        # ###CHECK RESULT AFTER UPDATE
+        # print("CHECK RESULT AFTER UPDATE")
+        # query = """Select * From "Item" Where "ID" = %s;"""
+        # cur.execute(query,(_id,))
+        # res = cur.fetchall()
+        # for item in res[0]:
+        #     print(item)
         
         
-        ###DELETE
-        print("DELETE")
-        query = """Delete From "Item" Where "ID" = %s;"""
-        cur.execute(query,(_id,))
+        # ###DELETE
+        # print("DELETE")
+        # query = """Delete From "Item" Where "ID" = %s;"""
+        # cur.execute(query,(_id,))
         
-        ###CHECK RESULT AFTER DELETE
-        print("CHECK RESULT AFTER DELETE")
-        query = """Select * From "Item";"""
-        cur.execute(query)
-        res = cur.fetchall()
-        for item in res:
-            print(item)
+        # ###CHECK RESULT AFTER DELETE
+        # print("CHECK RESULT AFTER DELETE")
+        # query = """Select * From "Item";"""
+        # cur.execute(query)
+        # res = cur.fetchall()
+        # for item in res:
+        #     print(item)
         
         cur.close()
         # commit the changes
