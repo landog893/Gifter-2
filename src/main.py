@@ -13,6 +13,17 @@ from streamlit.components.v1 import html
 
 extrajs = ''''''
 
+def horizontalButtons():
+    global extrajs
+    extrajs += '''
+        forms = window.parent.document.querySelectorAll('[data-testid="stFormSubmitButton"]');
+        for (const element of forms) {
+            element.classList.add("horizontalDiv");
+            element.parentElement.classList.add("horizontalDiv");
+            element.parentElement.parentElement.classList.add("horizontalDiv");
+        }
+    '''
+
 def initial_page():
     st.header("Gift Finder!")
     create = st.button('Create Account', type="primary") 
@@ -54,15 +65,8 @@ def create_account():
     if but2:
         st.session_state.runpage = 'initial'
         st.experimental_rerun()
-    global extrajs
-    extrajs += '''
-        forms = window.parent.document.querySelectorAll('[data-testid="stFormSubmitButton"]');
-        for (const element of forms) {
-            element.classList.add("horizontalDiv");
-            element.parentElement.classList.add("horizontalDiv");
-            element.parentElement.parentElement.classList.add("horizontalDiv");
-        }
-    '''
+    horizontalButtons()
+    
 
 def account_page():
     acc = st.session_state.account
@@ -382,14 +386,11 @@ with tab2:
 
 extrajs = '''
         buttonDivs = window.parent.document.querySelectorAll('[data-testid="stVerticalBlock"] > [data-stale="false"] > .stButton');
-        console.log(buttonDivs)
-        while (!buttonDiv) {
+        while (!buttonDivs) {
             buttonDivs = window.parent.document.querySelectorAll('[data-testid="stVerticalBlock"] > [data-stale="false"] > .stButton');
-            console.log(buttonDivs)
         }
-        console.log("Test")
         for (const element of buttonDivs) {
-            element.parentElement.classList.add("show");
+            element.parentElement.classList.add("but");
         }
     '''
 

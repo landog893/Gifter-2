@@ -227,18 +227,18 @@ blockquote footer:before {
     background: pink !important;
 }
 
-button[kind="primary"], button[kind="primaryFormSubmit"]{
-    background-color: #C00000 !important;
+button[kind="primary"], button[kind="formSubmit"]{
+    background-color: #C00000;
     color: white;
 }
 
-button[kind="primary"]:hover, button[kind="primaryFormSubmit"]:hover{
-    background-color: #c00000a3 !important;
+button[kind="primary"]:hover, button[kind="formSubmit"]:hover{
+    background-color: #c00000a3;
     color: white;
 }
 
-button[kind="primary"]:active, button[kind="primaryFormSubmit"]:active {
-    background-color: #c00000a3 !important;
+button[kind="primary"]:active, button[kind="formSubmit"]:active {
+    background-color: #c00000a3;
     color: white;
 }
 
@@ -267,9 +267,6 @@ button[kind="primary"]:active, button[kind="primaryFormSubmit"]:active {
 
 .createaccount [data-testid="stVerticalBlock"] > .horizontalDiv:last-child {
     float: right;
-}
-
-.createaccount button[kind="Secondary"] {
     margin-right: 10px;
 }
 
