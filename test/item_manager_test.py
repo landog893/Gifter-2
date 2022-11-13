@@ -22,7 +22,7 @@ item_info = itemMan.get_item(new_item_id)
 assert(item_info[0] == 'Toaster')
 assert(item_info[1] == '4 slice, with bagel setting')
 assert(item_info[2] == 'www.amazon.com')
-assert(item_info[3] == '35')
+assert(str(item_info[3]) == '35')
 
 print('Reading non-existing item, error case')
 assert(itemMan.get_item(new_item_id+100) == None)
