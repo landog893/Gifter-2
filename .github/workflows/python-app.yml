@@ -16,6 +16,21 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: gifter2        
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
@@ -52,6 +67,10 @@ jobs:
            git fetch origin main
            git push -f origin HEAD:main
         fi
+
+    - name: Create Tables
+      run: |
+        python src/DBInit.py
     - name: Test with pytest
       run: |
         python test/item_manager_test.py
