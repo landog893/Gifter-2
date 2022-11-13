@@ -5,13 +5,16 @@ class Account():
         if ID != None:
             accountMan = AccountInfo()
             info = accountMan.get_info(ID)
-            self.name = info['Name']
-            self.surname = info['Surname']
-            self.birthday = info['Birthday']
-            self.interests = info['Interests']
-            self.wishlist = info['WishList']
-            self.friendlist = info['FriendList']
-            self.ID = ID
+            if isinstance(info, int):
+                raise ValueError
+            else: 
+                self.name = info['Name']
+                self.surname = info['Surname']
+                self.birthday = info['Birthday']
+                self.interests = info['Interests']
+                self.wishlist = info['WishList']
+                self.friendlist = info['FriendList']
+                self.ID = ID
         else: 
             self.name = name
             self.surname = surname
