@@ -50,7 +50,7 @@ jobs:
         if ! git diff-index --quiet HEAD; then
            git commit -m "Documentation"
            git fetch origin main
-           git push origin HEAD:main
+           git push -f origin HEAD:main
         fi
     - name: Test with pytest
       run: |
