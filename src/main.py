@@ -1,5 +1,4 @@
 
-from msilib.schema import ProgId
 from multiprocessing.sharedctypes import Value
 import streamlit as st
 import pandas as pd
@@ -105,14 +104,20 @@ def wishlist_page():
 
     if items != 'NaN':
         items = (acc.wishlist.to_string(index=False)).replace("\"", "").split(",")
-        items = [int(item) for item in items]
-        item_objs = [item(ID=id) for id in items] 
-        item_titles = [(i.title.to_string(index=False)).replace("\"", "") for i in item_objs]
-        item_descs = [(i.desc.to_string(index=False)).replace("\"", "") for i in item_objs]
-        item_links = [(i.link.to_string(index=False).replace("\"", "")) for i in item_objs]
-        item_costs = [(i.cost.to_string(index=False).replace("\"", "")) for i in item_objs]
+        items = [item.replace(" ","") for item in items]
+        items = [int(item) for item in items if item.isnumeric()]
+        item_objs = [item(ID=id) for id in items]
+        item_ids = [i.itemID for i in item_objs if i.itemID!= None]
+        item_titles = [i.title for i in item_objs if i.itemID!= None]
+        item_descs = [i.desc for i in item_objs if i.itemID!= None]
+        item_links = [i.link for i in item_objs if i.itemID!= None]
+        item_costs = [i.cost for i in item_objs if i.itemID!= None]
+        # item_titles = [(i.title.to_string(index=False)).replace("\"", "") for i in item_objs]
+        # item_descs = [(i.desc.to_string(index=False)).replace("\"", "") for i in item_objs]
+        # item_links = [(i.link.to_string(index=False).replace("\"", "")) for i in item_objs]
+        # item_costs = [(i.cost.to_string(index=False).replace("\"", "")) for i in item_objs]
 
-        df = pd.DataFrame(list(zip(items, item_titles, item_descs, item_links, item_costs)), columns=('ID', 'Title', 'Description', 'Link', 'Cost'))
+        df = pd.DataFrame(list(zip(item_ids, item_titles, item_descs, item_links, item_costs)), columns=('ID', 'Title', 'Description', 'Link', 'Cost'))
         df.set_index('ID', inplace=True)
         st.table(df)
 
@@ -136,7 +141,7 @@ def additem_page():
     link = form.text_input('Link')
     cost = form.text_input('Cost')
     if form.form_submit_button('Add item'):
-        i = item(title, desc, link, cost)
+        new_item = item(title, desc, link, cost)
         acc = st.session_state.account
         a_name = acc.name.to_string(index=False)
         a_surname = acc.surname.to_string(index=False)
@@ -145,9 +150,9 @@ def additem_page():
         a_wishlist = acc.wishlist.to_string(index=False)
         a_friendlist = acc.friendlist.to_string(index=False)
         if a_wishlist == 'NaN':
-            a_wishlist = str(i.itemID)
+            a_wishlist = str(new_item.itemID)
         else: 
-            a_wishlist += "," + str(i.itemID)
+            a_wishlist += "," + str(new_item.itemID)
         acc.update_account(a_name, a_surname, a_birthday, a_interests, a_wishlist, a_friendlist)
         acc = Account(ID = int(acc.ID))
         st.session_state.account = acc
@@ -160,48 +165,52 @@ def additem_page():
 
 def modifyitem_page():
     acc = st.session_state.account
-    items = (acc.wishlist.to_string(index=False)).replace("\"", "").split(",")
-    items = [int(item) for item in items]
-    id =st.text_input('Please enter ID of the item you want to modify', value=items[0])
-    i = item(ID=int(id))
-    form = st.form(key='ModifyItemForm')
-    title = form.text_input('Title:', value= i.title.to_string(index=False), placeholder= i.title.to_string(index=False))
-    desc = form.text_input('Description', value= i.desc.to_string(index=False), placeholder= i.desc.to_string(index=False))
-    link = form.text_input('Link', value= i.link.to_string(index=False), placeholder= i.link.to_string(index=False))
-    cost = form.text_input('Cost', value= i.cost.to_string(index=False), placeholder= i.cost.to_string(index=False))
-    if form.form_submit_button('Modify item'):
-        i.modify_item(title, desc, link, cost)
-        st.session_state.runpage = 'wishlist'
-        st.experimental_rerun()
+    itemIDs = (acc.wishlist.to_string(index=False)).replace("\"", "").split(",")
+    itemIDs = [id.replace(" ","") for id in itemIDs]
+    itemIDs = [int(id) for id in itemIDs if id.isnumeric()]
+    if(itemIDs):
+        id =st.selectbox('Please select ID of the item you want to modify',itemIDs)
+        i = item(ID=int(id))
+        form = st.form(key='ModifyItemForm')
+        title = form.text_input('Title:', value= i.title, placeholder= i.title)
+        desc = form.text_input('Description', value= i.desc, placeholder= i.desc)
+        link = form.text_input('Link', value= i.link, placeholder= i.link)
+        cost = form.text_input('Cost', value= i.cost, placeholder= i.cost)
+        if form.form_submit_button('Modify item'):
+            i.modify_item(title, desc, link, cost)
+            st.session_state.runpage = 'wishlist'
+            st.experimental_rerun()
     if st.button('Back'):
         st.session_state.runpage = 'wishlist'
         st.experimental_rerun() 
 
 def deleteitem_page():
     acc = st.session_state.account
-    items = (acc.wishlist.to_string(index=False)).replace("\"", "").split(",")
-    items = [int(item) for item in items]
-    form = st.form(key='DeleteItemForm')
-    id =form.text_input('Please enter ID of the item you want to delete', value=items[0])
-    i = item(ID=int(id))
-    if form.form_submit_button('Delete item'):
-        acc = st.session_state.account
-        a_name = acc.name.to_string(index=False)
-        a_surname = acc.surname.to_string(index=False)
-        a_birthday = acc.birthday.to_string(index=False)
-        a_interests = acc.interests.to_string(index=False)
-        a_wishlist = acc.wishlist.to_string(index=False)
-        a_friendlist = acc.friendlist.to_string(index=False)
+    itemIDs = (acc.wishlist.to_string(index=False)).replace("\"", "").split(",")
+    itemIDs = [id.replace(" ","") for id in itemIDs]
+    itemIDs = [int(id) for id in itemIDs if id.isnumeric()]
+    if(itemIDs):
+        id =st.selectbox('Please enter ID of the item you want to delete', itemIDs)
+        i = item(ID=int(id))
+        form = st.form(key='DeleteItemForm')
+        if form.form_submit_button('Delete item'):
+            acc = st.session_state.account
+            a_name = acc.name.to_string(index=False)
+            a_surname = acc.surname.to_string(index=False)
+            a_birthday = acc.birthday.to_string(index=False)
+            a_interests = acc.interests.to_string(index=False)
+            a_wishlist = acc.wishlist.to_string(index=False)
+            a_friendlist = acc.friendlist.to_string(index=False)
 
-        a_wishlist = a_wishlist.split(",")
-        a_wishlist.remove(str(i.itemID))
-        a_wishlist = ','.join(a_wishlist)
+            a_wishlist = a_wishlist.split(",")
+            a_wishlist.remove(str(i.itemID))
+            a_wishlist = ','.join(a_wishlist)
 
-        acc.update_account(a_name, a_surname, a_birthday, a_interests, a_wishlist, a_friendlist)
-        acc = Account(ID = int(acc.ID))
-        st.session_state.account = acc
-        st.session_state.runpage = 'wishlist'
-        st.experimental_rerun()
+            acc.update_account(a_name, a_surname, a_birthday, a_interests, a_wishlist, a_friendlist)
+            acc = Account(ID = int(acc.ID))
+            st.session_state.account = acc
+            st.session_state.runpage = 'wishlist'
+            st.experimental_rerun()
     if st.button('Back'):
         st.session_state.runpage = 'wishlist'
         st.experimental_rerun() 
