@@ -11,7 +11,7 @@ class AccountInfo:
             self.database = '../data/people_data-copy.csv'
             self.data = pd.read_csv(self.database)
         
-    def create_account(self, name, surname='', birthday='', interests='', wishlist='', friendlist=''):
+    def create_account(self, name, surname='', birthday='', email='', interests='', wishlist='', friendlist=''):
         id_list = sorted(self.data.ID.tolist(), reverse=True)
         lastID = id_list[0]
         if name == '':
@@ -23,6 +23,7 @@ class AccountInfo:
                 'Name': name,
                 'Surname': surname,
                 'Birthday': birthday,
+                'Email': email,
                 'Interests': interests,
                 'WishList': wishlist,
                 'FriendList': friendlist
@@ -32,7 +33,7 @@ class AccountInfo:
             print('Account created successfully!')
         return self.data[self.data['ID']==lastID+1]
     
-    def update_account(self, ID, name='', surname='', birthday='', interests='', wishlist='', friendlist=''):
+    def update_account(self, ID, name='', surname='', birthday='', email='', interests='', wishlist='', friendlist=''):
         id_list = self.data.ID.tolist()
         if ID not in id_list:
             print('User ID:', ID, 'is not in the database!!!')
@@ -57,6 +58,7 @@ class AccountInfo:
                 'Name': name,
                 'Surname': surname,
                 'Birthday': birthday,
+                'Email': email,
                 'Interests': interests,
                 'WishList': wishlist,
                 'FriendList': friendlist
@@ -67,6 +69,7 @@ class AccountInfo:
             self.data.loc[index,'Name'] = name
             self.data.loc[index, 'Surname'] = surname
             self.data.loc[index, 'Birthday'] = birthday
+            self.data.loc[index, 'Email'] = email
             self.data.loc[index, 'Interests'] = interests
             self.data.loc[index, 'WishList'] = wishlist
             print(type(wishlist))
@@ -131,6 +134,14 @@ class AccountInfo:
         else:
             result_dict = result.values
             return result_dict[0][3]
+
+    # def get_email(self, ID):
+    #     result, flag = self.search_ID(ID)
+    #     if flag == -1:
+    #         return -1
+    #     else:
+    #         result_dict = result.values
+    #         return result_dict[0][4]
     
     def get_interests(self, ID):
         result, flag = self.search_ID(ID)
@@ -146,8 +157,8 @@ class AccountInfo:
             return -1
         else:
             result_dict = result.values
-            return result_dict[0][5]
-        
+            return result_dict[0][6]
+    
     def add_wishlist(self, ID, items):
         flag = 1
         wl_str = self.get_wishlist(ID)

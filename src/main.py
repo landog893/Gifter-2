@@ -35,10 +35,11 @@ def create_account():
     name = form.text_input('Name:')
     surname = form.text_input('Surname:')
     birthday = form.text_input('Birthday (MM/DD/YYYY):')
+    email = form.text_input('Email:')
     interest = form.text_input('Interests (please enter them comma seperated):')
     but1 = form.form_submit_button('Submit')
     if but1:
-        acc = Account(name, surname, birthday, interest)
+        acc = Account(name, surname, birthday, email, interest)
         acc = Account(ID = int(acc.ID))
         st.session_state.runpage = 'account'
         st.session_state.account = acc
@@ -70,6 +71,7 @@ def profile_page():
     st.write('Name: ' + acc.name.to_string(index=False))
     st.write('Surname: ' + acc.surname.to_string(index=False))
     st.write('Birthday: ' + acc.birthday.to_string(index=False))
+    st.write('Email: ' + acc.email.to_string(index=False))
     st.write('Interests: ' + (acc.interests.to_string(index=False)).replace("\"", ""))
     if st.button("Edit Profile"):
         st.session_state.runpage = 'editprofile'
@@ -85,10 +87,11 @@ def editprofile_page():
     name = form.text_input('Name:', value= acc.name.to_string(index=False), placeholder= acc.name.to_string(index=False))
     surname = form.text_input('Surname:', value= acc.surname.to_string(index=False), placeholder= acc.surname.to_string(index=False))
     birthday = form.text_input('Birthday:', value= acc.birthday.to_string(index=False), placeholder= acc.birthday.to_string(index=False))
+    email = form.text_input('Email:', value= acc.email.to_string(index=False), placeholder= acc.email.to_string(index=False))
     ints = (acc.interests.to_string(index=False)).replace("\"", "")
     interests = form.text_input('Interest:', value=ints, placeholder=ints)
     if form.form_submit_button('Update'):
-        acc.update_account(name, surname, birthday, interests, acc.wishlist.to_string(index=False), acc.friendlist.to_string(index=False))
+        acc.update_account(name, surname, birthday, email, interests, acc.wishlist.to_string(index=False), acc.friendlist.to_string(index=False))
         acc = Account(ID = int(acc.ID))
         st.session_state.account = acc
         st.session_state.runpage = 'profile'
@@ -141,6 +144,7 @@ def additem_page():
         a_name = acc.name.to_string(index=False)
         a_surname = acc.surname.to_string(index=False)
         a_birthday = acc.birthday.to_string(index=False)
+        a_email = acc.email.to_string(index=False)
         a_interests = acc.interests.to_string(index=False)
         a_wishlist = acc.wishlist.to_string(index=False)
         a_friendlist = acc.friendlist.to_string(index=False)
@@ -148,7 +152,7 @@ def additem_page():
             a_wishlist = str(i.itemID)
         else: 
             a_wishlist += "," + str(i.itemID)
-        acc.update_account(a_name, a_surname, a_birthday, a_interests, a_wishlist, a_friendlist)
+        acc.update_account(a_name, a_surname, a_birthday, a_email, a_interests, a_wishlist, a_friendlist)
         acc = Account(ID = int(acc.ID))
         st.session_state.account = acc
         st.session_state.runpage = 'wishlist'
@@ -189,6 +193,7 @@ def deleteitem_page():
         a_name = acc.name.to_string(index=False)
         a_surname = acc.surname.to_string(index=False)
         a_birthday = acc.birthday.to_string(index=False)
+        a_email = acc.email.to_string(index=False)
         a_interests = acc.interests.to_string(index=False)
         a_wishlist = acc.wishlist.to_string(index=False)
         a_friendlist = acc.friendlist.to_string(index=False)
@@ -197,7 +202,7 @@ def deleteitem_page():
         a_wishlist.remove(str(i.itemID))
         a_wishlist = ','.join(a_wishlist)
 
-        acc.update_account(a_name, a_surname, a_birthday, a_interests, a_wishlist, a_friendlist)
+        acc.update_account(a_name, a_surname, a_birthday, a_email, a_interests, a_wishlist, a_friendlist)
         acc = Account(ID = int(acc.ID))
         st.session_state.account = acc
         st.session_state.runpage = 'wishlist'
@@ -268,10 +273,11 @@ def addfriend_page():
         a_name = acc.name.to_string(index=False)
         a_surname = acc.surname.to_string(index=False)
         a_birthday = acc.birthday.to_string(index=False)
+        a_email = acc.email.to_string(index=False)
         a_interests = acc.interests.to_string(index=False)
         a_wishlist = acc.wishlist.to_string(index=False)
         a_friendlist = acc.friendlist.to_string(index=False)
-        acc.update_account(a_name, a_surname, a_birthday, a_interests, a_wishlist, friendlist)
+        acc.update_account(a_name, a_surname, a_birthday, a_email, a_interests, a_wishlist, friendlist)
         acc = Account(ID = int(acc.ID))
         st.session_state.account = acc
         st.session_state.runpage = 'friendlist'
@@ -291,6 +297,7 @@ def deletefriend_page():
         a_name = acc.name.to_string(index=False)
         a_surname = acc.surname.to_string(index=False)
         a_birthday = acc.birthday.to_string(index=False)
+        a_email = acc.email.to_string(index=False)
         a_interests = acc.interests.to_string(index=False)
         a_wishlist = acc.wishlist.to_string(index=False)
         a_friendlist = acc.friendlist.to_string(index=False)
@@ -298,7 +305,7 @@ def deletefriend_page():
         friends.remove(id)
         friends = ','.join(friends)
 
-        acc.update_account(a_name, a_surname, a_birthday, a_interests, a_wishlist, friends)
+        acc.update_account(a_name, a_surname, a_birthday, a_email, a_interests, a_wishlist, friends)
         acc = Account(ID = int(acc.ID))
         st.session_state.account = acc
         st.session_state.runpage = 'friendlist'
