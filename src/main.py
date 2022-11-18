@@ -6,7 +6,8 @@ import pandas as pd
 from account import Account
 from account_info import AccountInfo
 from item import item
-
+from datetime import datetime
+import re
 
 def initial_page():
     st.header("Gift Finder!")
@@ -39,12 +40,51 @@ def create_account():
     notifications = form.text_input('Email notifications (enter On or Off):')
     interest = form.text_input('Interests (please enter them comma seperated):')
     but1 = form.form_submit_button('Submit')
+
+    # check if birthday is valid format
+    format = "%m/%d/%Y"
+    validB = True
+    try:
+        validB = bool(datetime.strptime(birthday, format))
+    except ValueError:
+        validB = False
+
+    # check if email is valid format using regex
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    validE = True
+    if not (re.fullmatch(regex, email)):
+        validE = False
+    
+    # when create account button is clicked, check input before creating account
     if but1:
-        acc = Account(name, surname, birthday, email, notifications, interest)
-        acc = Account(ID = int(acc.ID))
-        st.session_state.runpage = 'account'
-        st.session_state.account = acc
-        st.experimental_rerun()
+        error = False
+        errorMessage = ""
+        if (name == ""):
+            error = True
+            errorMessage += "Name cannot be empty.\n"
+        if (surname == ""):
+            error = True
+            errorMessage += "Surname cannot be empty.\n"
+        if (birthday == "" or validB == False):
+            error = True
+            errorMessage += "Birthday should be formatted MM/DD/YYYY.\n"
+        if (email == "" or validE == False):
+            error = True
+            errorMessage += "Please enter a valid email.\n"
+        if (notifications == "" or notifications != "On"):
+            if (notifications != "Off"):
+                error = True
+                errorMessage += "Email notifications should be either 'On' or 'Off'.\n"
+        # if there is an error, print the associated messages and allow for user to correct
+        if (error == True):
+            st.error(errorMessage)
+        # if there is not an error, create the account
+        else:
+            acc = Account(name, surname, birthday, email, notifications, interest)
+            acc = Account(ID = int(acc.ID))
+            st.session_state.runpage = 'account'
+            st.session_state.account = acc
+            st.experimental_rerun()
     #return account
 
 def account_page():
@@ -97,11 +137,48 @@ def editprofile_page():
     ints = (acc.interests.to_string(index=False)).replace("\"", "")
     interests = form.text_input('Interest:', value=ints, placeholder=ints)
     if form.form_submit_button('Update'):
-        acc.update_account(name, surname, birthday, email, notifications, interests, acc.wishlist.to_string(index=False), acc.friendlist.to_string(index=False))
-        acc = Account(ID = int(acc.ID))
-        st.session_state.account = acc
-        st.session_state.runpage = 'profile'
-        st.experimental_rerun()
+        # check if birthday is valid format
+        format = "%m/%d/%Y"
+        validB = True
+        try:
+            validB = bool(datetime.strptime(birthday, format))
+        except ValueError:
+            validB = False
+
+        # check if email is valid format using regex
+        regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+        validE = True
+        if not (re.fullmatch(regex, email)):
+            validE = False
+        
+        error = False
+        errorMessage = ""
+        if (name == ""):
+            error = True
+            errorMessage += "Name cannot be empty.\n"
+        if (surname == ""):
+            error = True
+            errorMessage += "Surname cannot be empty.\n"
+        if (birthday == "" or validB == False):
+            error = True
+            errorMessage += "Birthday should be formatted MM/DD/YYYY.\n"
+        if (email == "" or validE == False):
+            error = True
+            errorMessage += "Please enter a valid email.\n"
+        if (notifications == "" or notifications != "On"):
+            if (notifications != "Off"):
+                error = True
+                errorMessage += "Email notifications should be either 'On' or 'Off'.\n"
+        # if there is an error, print the associated messages and allow for user to correct
+        if (error == True):
+            st.error(errorMessage)
+        # if there is not an error, update the account
+        else:
+            acc.update_account(name, surname, birthday, email, notifications, interests, acc.wishlist.to_string(index=False), acc.friendlist.to_string(index=False))
+            acc = Account(ID = int(acc.ID))
+            st.session_state.account = acc
+            st.session_state.runpage = 'profile'
+            st.experimental_rerun()
     if st.button("Back"):
         st.session_state.runpage = 'profile'
         st.experimental_rerun()
