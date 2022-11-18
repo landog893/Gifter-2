@@ -20,28 +20,45 @@ def initial_page():
 
 def login_page():
     form1 = st.form(key='Login form')
-    userID = form1.text_input('UserID: ')
+    f_name = form1.text_input('User Name')
+    password = form1.text_input('Enter a password', type='password')
     but = form1.form_submit_button('Log in')
     if but:
-        acc = Account(ID=int(userID))
-        st.session_state.runpage = 'account'
-        st.session_state.account = acc
-        st.experimental_rerun()
+        accountMan = AccountInfo()
+        info = accountMan.get_account(f_name,password)
+        if isinstance(info, int) == True and info == -2:
+            st.error("Password is wrong. Please put valid password!")
+            st.session_state.runpage = 'login'
+        elif isinstance(info, int) == True and info == -1:
+            st.error("User Name is Incorrect. Please use correct user name!")
+            st.session_state.runpage = 'login'
+        else:
+            acc = Account(ID = int(info['ID']),username = f_name,password = password)
+            st.session_state.runpage = 'account'
+            st.session_state.account = acc
+            st.experimental_rerun()
     
 def create_account():
     st.write('Please fill out the form')
     form = st.form(key='Create_form')
-    name = form.text_input('Name:')
-    surname = form.text_input('Surname:')
+    f_name = form.text_input('First Name:')
+    surname = form.text_input('Last Name:')
     birthday = form.text_input('Birthday (MM/DD/YYYY):')
+    username = form.text_input('User Name:')
+    password = form.text_input('Enter a password:', type='password')
     interest = form.text_input('Interests (please enter them comma seperated):')
     but1 = form.form_submit_button('Submit')
     if but1:
-        acc = Account(name, surname, birthday, interest)
-        acc = Account(ID = int(acc.ID))
-        st.session_state.runpage = 'account'
-        st.session_state.account = acc
-        st.experimental_rerun()
+        acc = Account(f_name, surname, birthday,username,password, interest)
+        if int(acc.ID)==-2:
+            st.session_state.runpage = 'createaccount'
+            # st.write('Please fill out the form with unique user name')
+            # st.experimental_rerun()
+        else:
+            Account(ID = int(acc.ID))
+            st.session_state.runpage = 'account'
+            st.session_state.account = acc
+            st.experimental_rerun()
     #return account
 
 def account_page():
@@ -66,9 +83,11 @@ def profile_page():
     st.header('Profile')
     acc = st.session_state.account
     st.write('ID: ' + str(acc.ID))
-    st.write('Name: ' + acc.name.to_string(index=False))
-    st.write('Surname: ' + acc.surname.to_string(index=False))
+    st.write('First Name: ' + acc.name.to_string(index=False))
+    st.write('Last Name: ' + acc.surname.to_string(index=False))
     st.write('Birthday: ' + acc.birthday.to_string(index=False))
+    st.write('User Name: ' + acc.username.to_string(index=False))
+    st.write('Password: ' + acc.password.to_string(index=False))
     st.write('Interests: ' + (acc.interests.to_string(index=False)).replace("\"", ""))
     if st.button("Edit Profile"):
         st.session_state.runpage = 'editprofile'
@@ -81,13 +100,17 @@ def editprofile_page():
     st.header('Edit Profile')
     form = st.form(key='EditProfileForm')
     acc = st.session_state.account
-    name = form.text_input('Name:', value= acc.name.to_string(index=False), placeholder= acc.name.to_string(index=False))
-    surname = form.text_input('Surname:', value= acc.surname.to_string(index=False), placeholder= acc.surname.to_string(index=False))
+    name = form.text_input('First Name:', value= acc.name.to_string(index=False), placeholder= acc.name.to_string(index=False))
+    surname = form.text_input('Last Name:', value= acc.surname.to_string(index=False), placeholder= acc.surname.to_string(index=False))
     birthday = form.text_input('Birthday:', value= acc.birthday.to_string(index=False), placeholder= acc.birthday.to_string(index=False))
+    birthday = form.text_input('User Name:', value= acc.username.to_string(index=False), placeholder= acc.birthday.to_string(index=False))
+    password = form.text_input('Password:', value= acc.password.to_string(index=False), placeholder= acc.password.to_string(index=False))
     ints = (acc.interests.to_string(index=False)).replace("\"", "")
     interests = form.text_input('Interest:', value=ints, placeholder=ints)
     if form.form_submit_button('Update'):
-        acc.update_account(name, surname, birthday, interests, acc.wishlist.to_string(index=False), acc.friendlist.to_string(index=False))
+        print(acc.password.to_string(index=False))
+        print(interests)
+        acc.update_account(name, surname, birthday, password,interests,acc.wishlist.to_string(index=False), acc.friendlist.to_string(index=False))
         acc = Account(ID = int(acc.ID))
         st.session_state.account = acc
         st.session_state.runpage = 'profile'
@@ -141,19 +164,21 @@ def additem_page():
     link = form.text_input('Link')
     cost = form.text_input('Cost')
     if form.form_submit_button('Add item'):
-        new_item = item(title, desc, link, cost)
+        i = item(title, desc, link, cost)
         acc = st.session_state.account
         a_name = acc.name.to_string(index=False)
         a_surname = acc.surname.to_string(index=False)
         a_birthday = acc.birthday.to_string(index=False)
+        a_username = acc.username.to_string(index=False)
+        a_password = acc.password.to_string(index=False)
         a_interests = acc.interests.to_string(index=False)
         a_wishlist = acc.wishlist.to_string(index=False)
         a_friendlist = acc.friendlist.to_string(index=False)
         if a_wishlist == 'NaN':
-            a_wishlist = str(new_item.itemID)
+            a_wishlist = str(i.itemID)
         else: 
-            a_wishlist += "," + str(new_item.itemID)
-        acc.update_account(a_name, a_surname, a_birthday, a_interests, a_wishlist, a_friendlist)
+            a_wishlist += "," + str(i.itemID)
+        acc.update_account(a_name, a_surname, a_birthday,a_username,a_password, a_interests, a_wishlist, a_friendlist)
         acc = Account(ID = int(acc.ID))
         st.session_state.account = acc
         st.session_state.runpage = 'wishlist'
