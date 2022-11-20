@@ -1,6 +1,6 @@
 try:
     from account_info import AccountInfo, Friends
-except ImportError as e:
+except ModuleNotFoundError as e:
     import sys
     sys.path.append("./src")
     from account_info import AccountInfo, Friends
