@@ -7,10 +7,10 @@ class item():
             if isinstance(info, int):
                 raise ValueError
             else:  
-                self.title = info['Title']
-                self.desc = info['Description']
-                self.link = info['Link']
-                self.cost = info['Cost']
+                self.title = info[0]
+                self.desc = info[1]
+                self.link = info[2]
+                self.cost = info[3]
                 self.itemID = ID
     
         else:
@@ -18,7 +18,7 @@ class item():
             self.desc = desc
             self.link = link
             self.cost = cost
-            self.itemID = int(self.create_item()['ItemID'])
+            self.itemID = int(self.create_item())
 
 
     
