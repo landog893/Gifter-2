@@ -4,17 +4,22 @@ class item():
         if ID != None:
             itemMan = ItemManager()
             info = itemMan.get_item(ID)
-            self.title = info['Title']
-            self.desc = info['Description']
-            self.link = info['Link']
-            self.cost = info['Cost']
-            self.itemID = ID
+            if isinstance(info, int):
+                raise ValueError
+            else:  
+                self.title = info['Title']
+                self.desc = info['Description']
+                self.link = info['Link']
+                self.cost = info['Cost']
+                self.itemID = ID
+    
         else:
             self.title = title
             self.desc = desc
             self.link = link
             self.cost = cost
             self.itemID = int(self.create_item()['ItemID'])
+
 
     
     def create_item(self):

@@ -5,6 +5,21 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: gifter2        
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
     - uses: actions/checkout@main
     - uses: codecov/codecov-action@v3
@@ -12,7 +27,10 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
     - name: Generate report
       run: |
-        pip install coverage pandas
+        python -m pip install --upgrade pip
+        pip install flake8 pytest pandas pdoc3 mslib streamlit psycopg2
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        python src/DBInit.py
         coverage run test/item_manager_test.py
         coverage run test/test_account_info.py
         coverage xml
