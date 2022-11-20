@@ -129,7 +129,6 @@ class AccountInfo:
     def get_info(self, ID):
         id_list = self.data.ID.tolist()
         if ID not in id_list:
-            print('Invalid ID, please enter valid ID.')
             return -1
         else:
             return self.data[self.data['ID']==ID]
