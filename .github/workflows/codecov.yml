@@ -29,6 +29,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install coverage flake8 pytest pandas pdoc3 mslib streamlit psycopg2
+        pip install --upgrade jinja2
         python src/DBInit.py
         coverage run test/item_manager_test.py
         coverage run test/test_account_info.py
