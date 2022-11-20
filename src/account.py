@@ -1,10 +1,20 @@
 from account_info import AccountInfo
+import streamlit as st
 
 class Account():
-    def __init__(self, name='', surname='', birthday='', interests='', wishlist='', friendlist='', ID = None):
+    def __init__(self, name='', surname='', birthday='', username='',password = '', interests='', wishlist='', friendlist='', ID = None):
         if ID != None:
             accountMan = AccountInfo()
             info = accountMan.get_info(ID)
+            self.name = info['First Name']
+            self.surname = info['Last Name']
+            self.birthday = info['Birthday']
+            self.username = info['UserName']
+            self.password = info['Password']
+            self.interests = info['Interests']
+            self.wishlist = info['WishList']
+            self.friendlist = info['FriendList']
+            self.ID = ID
             if isinstance(info, int):
                 raise ValueError
             else: 
@@ -15,34 +25,47 @@ class Account():
                 self.wishlist = info['WishList']
                 self.friendlist = info['FriendList']
                 self.ID = ID
+
         else: 
             self.name = name
             self.surname = surname
             self.birthday = birthday
+            self.username = username
+            self.password = password
             self.interests = interests
             self.wishlist = wishlist
             self.friendlist = friendlist
-            self.ID = self.create_account()['ID']
+            acc = self.create_account()
+            print(acc)
+            if isinstance(acc, int) == True and acc == -2:
+                print("Can not create account with same user name")
+                self.ID = -2
+            else:
+                self.ID = acc['ID']
+                print(self.ID)
         
 
+        
     def create_account(self):
         accountMan = AccountInfo()
-        acc = accountMan.create_account(self.name, self.surname, self.birthday, self.interests, self.wishlist, self.friendlist)
+        acc = accountMan.create_account(self.name, self.surname, self.birthday,self.username, self.password,self.interests, self.wishlist, self.friendlist)
         return acc
     
     def view_account(self):
         accountMan = AccountInfo()
         return accountMan.get_info(self.ID)
 
-    def update_account(self, name='', surname='', birthday='', interests='', wishlist='', friendlist=''):
+    def update_account(self, name='', surname='', birthday='', username='',password = '', interests='', wishlist='', friendlist=''):
             self.name = name
             self.surname = surname
             self.birthday = birthday
+            self.username = username
+            self.password = password
             self.interests = interests
             self.wishlist = wishlist
             self.friendlist = friendlist
             accountMan = AccountInfo()
-            accountMan.update_account(self.ID, name, surname, birthday, interests, wishlist, friendlist)
+            accountMan.update_account(self.ID, name, surname, birthday,username, password,interests, wishlist, friendlist)
 
 
 

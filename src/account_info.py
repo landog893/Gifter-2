@@ -1,28 +1,31 @@
 import numpy as np
 import pandas as pd
 import sys
+import streamlit as st
 
 class AccountInfo:
     def __init__(self):
         try:
-            self.database = 'data/people_data-copy.csv'
+            self.database = 'data/UserInfo.csv'
             self.data = pd.read_csv(self.database)
         except FileNotFoundError:
-            self.database = '../data/people_data-copy.csv'
+            self.database = '../data/UserInfo.csv'
             self.data = pd.read_csv(self.database)
         
-    def create_account(self, name, surname='', birthday='', interests='', wishlist='', friendlist=''):
-        id_list = sorted(self.data.ID.tolist(), reverse=True)
-        lastID = id_list[0]
-        if name == '':
-            print('Name cannot be empty')
-            return -1
-        else:
+    def create_account(self, name, surname='', birthday='',username='', password = '',interests='', wishlist='', friendlist=''):
+        print("whole data")
+        if self.data.empty:
+            if name == '':
+                print('Name cannot be empty')
+                return -1
+            
             account_dict = {
-                'ID': lastID+1,
-                'Name': name,
-                'Surname': surname,
+                'ID': 0,
+                'First Name': name,
+                'Last Name': surname,
                 'Birthday': birthday,
+                'UserName' : username,
+                'Password' : password,
                 'Interests': interests,
                 'WishList': wishlist,
                 'FriendList': friendlist
@@ -30,15 +33,42 @@ class AccountInfo:
             self.data = self.data.append(account_dict, ignore_index=True)
             self.data.to_csv(self.database, index=False)
             print('Account created successfully!')
-        return self.data[self.data['ID']==lastID+1]
+            return self.data[self.data['ID']==1]
+        else:
+            id_list = sorted(self.data.ID.tolist(), reverse=True)
+            lastID = id_list[0]
+            if name == '':
+                print('Name cannot be empty')
+                return -1
+            elif username in self.data['UserName'].values:
+                print('User Name already in use. Please use another one!')
+                st.error("User Name already in use. Please use another one!")
+                return -2
+            else:
+                account_dict = {
+                    'ID': lastID+1,
+                    'First Name': name,
+                    'Last Name': surname,
+                    'Birthday': birthday,
+                    'UserName' : username,
+                    'Password' : password,
+                    'Interests': interests,
+                    'WishList': wishlist,
+                    'FriendList': friendlist
+                    }
+                self.data = self.data.append(account_dict, ignore_index=True)
+                self.data.to_csv(self.database, index=False)
+                print('Account created successfully!')
+                return self.data[self.data['ID']==lastID+1]
     
-    def update_account(self, ID, name='', surname='', birthday='', interests='', wishlist='', friendlist=''):
+    def update_account(self, ID, name='', surname='', birthday='',username='',password = '', interests='', wishlist='', friendlist=''):
         id_list = self.data.ID.tolist()
         if ID not in id_list:
             print('User ID:', ID, 'is not in the database!!!')
             return -1
         else:
             data = self.data[self.data['ID']==ID]
+            print(data)
             # if name=='':
             #     name = data.Name.values[0]
             # if surname=='':
@@ -54,19 +84,26 @@ class AccountInfo:
             #     friendlist = data.FriendList.values[0]
             account_dict = {
                 'ID': ID,
-                'Name': name,
-                'Surname': surname,
+                'Fist Name': name,
+                'Last Name': surname,
                 'Birthday': birthday,
+                'UserName' : username,
+                'Password' : password,
                 'Interests': interests,
                 'WishList': wishlist,
                 'FriendList': friendlist
             }
+            print(account_dict)
+            
             index = self.data[self.data['ID']==ID].index[0]
+            print(index)
             #self.data.at[index, 'WishList'] = account_dict
             self.data.loc[index,'ID'] = ID
-            self.data.loc[index,'Name'] = name
-            self.data.loc[index, 'Surname'] = surname
+            self.data.loc[index,'First Name'] = name
+            self.data.loc[index, 'Last Name'] = surname
             self.data.loc[index, 'Birthday'] = birthday
+            self.data.loc[index, 'UserName'] = birthday
+            self.data.loc[index, 'Password'] = password
             self.data.loc[index, 'Interests'] = interests
             self.data.loc[index, 'WishList'] = wishlist
             print(type(wishlist))
@@ -96,7 +133,20 @@ class AccountInfo:
             return -1
         else:
             return self.data[self.data['ID']==ID]
-        
+    
+    def get_account(self, username,password):
+        uname_list = self.data.UserName.tolist()
+        if username not in uname_list:
+            print('Invalid ID, please enter valid ID.')
+            return -1
+        else:
+            info = self.data[self.data['UserName']==username]
+            print("information of user")
+            print(info.Password.values[0])
+            if info.Password.values[0] == password:
+                return self.data[self.data['UserName']==username]
+            return -2 
+                   
     def search_ID(self, ID):
         if ID == None:
             print("ID cannot be empty!!!")
