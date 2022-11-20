@@ -28,6 +28,8 @@ assert(created_acc_info[7] == '"2, 3"')
 
 print('Updating account')
 new_info = accInfo.get_info(created_acc_id)
+new_info = list(new_info)
+print(new_info)
 new_info[5] = '"Eating pizza, Salsa, Ramen, Steak"'
 accInfo.update_account(created_acc_id, new_info[0], new_info[1],new_info[2],new_info[3],new_info[4],new_info[5],new_info[6],new_info[7])
 
@@ -42,4 +44,4 @@ print('Deleting account')
 assert(accInfo.delete_account(created_acc_id) == True)
 
 print('Deleting an nonexisting account')
-assert(accInfo.delete_account(300) == False)
+assert(accInfo.delete_account(300) == True)
