@@ -1,9 +1,10 @@
 try:
     from account_info import AccountInfo, Friends
-except ModuleNotFoundError as e:
+except ImportError as e:
     import sys
     sys.path.append("./src")
-    from account_info import AccountInfo, Friends
+    
+from account_info import AccountInfo, Friends
 
 
 accInfo = AccountInfo()
