@@ -78,19 +78,6 @@ def account_page():
     st.markdown(st.session_state.response.json()[0]["h"].replace('&mdash;', ''), unsafe_allow_html=True)
 
 
-    # if st.button('Profile'):
-    #     st.session_state.runpage = 'profile'
-    #     st.experimental_rerun()         
-    # if st.button('Wishlist'): 
-    #     st.session_state.runpage = 'wishlist'
-    #     st.experimental_rerun()
-    # if st.button('Friendlist'):
-    #     st.session_state.runpage = 'friendlist'
-    #     st.experimental_rerun()
-    # if st.button('Logout'):
-    #     st.session_state.runpage = 'initial'
-    #     st.experimental_rerun()
-
 
 def profile_page():
     st.header('Profile')
