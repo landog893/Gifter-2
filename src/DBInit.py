@@ -24,11 +24,13 @@ def connect():
         (
             "ID" serial NOT NULL,
             "Name" character varying COLLATE pg_catalog."default",
+            "Surname" character varying COLLATE pg_catalog."default",
+            "Birthday" character varying COLLATE pg_catalog."default",
             "UserName" character varying COLLATE pg_catalog."default",
+            "Password" character varying COLLATE pg_catalog."default",
             "Interests" character varying COLLATE pg_catalog."default",
             "WishList" character varying COLLATE pg_catalog."default",
             "FriendList" character varying COLLATE pg_catalog."default",
-            "Birthday" date,
             CONSTRAINT "Account_pkey" PRIMARY KEY ("ID")
         )
         """
