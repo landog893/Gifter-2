@@ -1,4 +1,3 @@
-from pandas import *
 import psycopg2
 from config import config
 
