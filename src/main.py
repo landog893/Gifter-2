@@ -9,6 +9,8 @@ from item import item
 from datetime import datetime
 import re
 
+email_sent = False
+
 def initial_page():
     st.header("Gift Finder!")
     create = st.button('Create Account') 
@@ -103,7 +105,33 @@ def account_page():
     if st.button('Logout'):
         st.session_state.runpage = 'initial'
         st.experimental_rerun()
+    # check if whether a notification email needs to be sent today (is it 1 week before the account's birthday)
+    global email_sent
 
+    birthday = acc.birthday.item()
+    b = birthday.rpartition('/')[0] + birthday.rpartition('/')[1]
+    b = b[:-1]
+    month = b.rpartition('/')[0]
+    day = b.rpartition('/')[2]
+    currDate = datetime.now().date()
+
+    if (int(currDate.month) > int(month)):
+        if (int(currDate.day) > int(day)):
+            birthdayDate = b + "/" + str(currDate.year + 1)
+    else:
+        birthdayDate = b + "/" + str(currDate.year)
+
+    birthdayDate = datetime.strptime(birthdayDate, "%m/%d/%Y").date()
+
+    if (birthdayDate - currDate).days == 7 and email_sent == False:
+            email_sent = True
+            acc.send_reminder_email()
+            acc = Account(ID = int(acc.ID))
+            st.session_state.account = acc
+            st.session_state.runpage = 'profile'
+            st.experimental_rerun()
+    else:
+        email_sent = False
 
 def profile_page():
     st.header('Profile')
