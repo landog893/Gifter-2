@@ -4,38 +4,50 @@ import smtplib, ssl
 from item import item
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import streamlit as st
 
 # This class represents an account object that a user creates to interact with the code.
 class Account():
-    # Initialization of an account object.
-    def __init__(self, name='', surname='', birthday='', email='', notifications='', interests='', wishlist='', friendlist='', ID = None):
+    def __init__(self, name='', surname='', birthday='', email='', notifications='', username='',password = '', interests='', wishlist='', friendlist='', ID = None):
         if ID != None:
             accountMan = AccountInfo()
             info = accountMan.get_info(ID)
-            self.name = info['Name']
-            self.surname = info['Surname']
-            self.birthday = info['Birthday']
-            self.email = info['Email']
-            self.notifications = info['Notifications']
-            self.interests = info['Interests']
-            self.wishlist = info['WishList']
-            self.friendlist = info['FriendList']
-            self.ID = ID
+            if info:
+                self.name = info[0]
+                self.surname = info[1]
+                self.birthday = info[2]
+                self.email = info[3]
+                self.notifications = info[4]
+                self.username = info[5]
+                self.password = info[6]
+                self.interests = info[7]
+                self.wishlist = info[8]
+                self.friendlist = info[9]
+                self.ID = ID
+            else: 
+                raise ValueError
         else: 
             self.name = name
             self.surname = surname
             self.birthday = birthday
             self.email = email
             self.notifications = notifications
+            self.username = username
+            self.password = password
             self.interests = interests
             self.wishlist = wishlist
             self.friendlist = friendlist
-            self.ID = self.create_account()['ID']
+            ID = self.create_account()
+            if ID == None:
+                st.error("Can not create account, please check the format of information")
+            else:
+                self.ID = ID
+        
 
-    # This method creates an account. 
+        
     def create_account(self):
         accountMan = AccountInfo()
-        acc = accountMan.create_account(self.name, self.surname, self.birthday, self.email, self.notifications, self.interests, self.wishlist, self.friendlist)
+        acc = accountMan.create_account(self.name, self.surname, self.birthday, self.email, self.notifications, self.username, self.password,self.interests, self.wishlist, self.friendlist)
         return acc
     
     # This method pulls the account to allow the user the view information. 
@@ -43,20 +55,20 @@ class Account():
         accountMan = AccountInfo()
         return accountMan.get_info(self.ID)
 
-    # This method is used to update the account based on the supplied information. Input validation
-    # occurs on the frontend. 
-    def update_account(self, name='', surname='', birthday='', email='', notifications='', interests='', wishlist='', friendlist=''):
+    def update_account(self, name='', surname='', birthday='', email='', notifications='', username='',password = '', interests='',wishlist = '', friendlist= ''):
             self.name = name
             self.surname = surname
             self.birthday = birthday
             self.email = email
             self.notifications = notifications
+            self.username = username
+            self.password = password
             self.interests = interests
             self.wishlist = wishlist
             self.friendlist = friendlist
             accountMan = AccountInfo()
-            accountMan.update_account(self.ID, name, surname, birthday, email, notifications, interests, wishlist, friendlist)
-    
+            accountMan.update_account(self.ID, name, surname, birthday, email, notifications, username, password,interests, wishlist, friendlist)
+
     # This method is used to send birthday reminder emails if a user has their email notification
     # preferences on. The method loops through the friends list, and if the friend has their email
     # preferences on as well, an email is sent using SMTP. The method runs every time the program is
@@ -99,7 +111,6 @@ class Account():
                 for friend in friendobj:
                     if (friend.notifications.item() == "On"):
                         receiver_email = friend.email.item()
-
                         msg = MIMEMultipart()
                         msg['Subject'] = "Gifter-2: " + name.item() + "'s Birthday is Coming Up"
                         msg['From'] = sender_email

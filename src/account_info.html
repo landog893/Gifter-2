@@ -121,7 +121,6 @@ class AccountInfo:
     def get_info(self, ID):
         id_list = self.data.ID.tolist()
         if ID not in id_list:
-            print(&#39;Invalid ID, please enter valid ID.&#39;)
             return -1
         else:
             return self.data[self.data[&#39;ID&#39;]==ID]
@@ -396,7 +395,6 @@ class Friends(AccountInfo):
     def get_info(self, ID):
         id_list = self.data.ID.tolist()
         if ID not in id_list:
-            print(&#39;Invalid ID, please enter valid ID.&#39;)
             return -1
         else:
             return self.data[self.data[&#39;ID&#39;]==ID]
@@ -693,7 +691,6 @@ class Friends(AccountInfo):
 <pre><code class="python">def get_info(self, ID):
     id_list = self.data.ID.tolist()
     if ID not in id_list:
-        print(&#39;Invalid ID, please enter valid ID.&#39;)
         return -1
     else:
         return self.data[self.data[&#39;ID&#39;]==ID]</code></pre>

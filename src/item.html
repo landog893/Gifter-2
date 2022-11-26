@@ -32,17 +32,22 @@ class item():
         if ID != None:
             itemMan = ItemManager()
             info = itemMan.get_item(ID)
-            self.title = info[&#39;Title&#39;]
-            self.desc = info[&#39;Description&#39;]
-            self.link = info[&#39;Link&#39;]
-            self.cost = info[&#39;Cost&#39;]
-            self.itemID = ID
+            if isinstance(info, int):
+                raise ValueError
+            else:  
+                self.title = info[&#39;Title&#39;]
+                self.desc = info[&#39;Description&#39;]
+                self.link = info[&#39;Link&#39;]
+                self.cost = info[&#39;Cost&#39;]
+                self.itemID = ID
+    
         else:
             self.title = title
             self.desc = desc
             self.link = link
             self.cost = cost
             self.itemID = int(self.create_item()[&#39;ItemID&#39;])
+
 
     
     def create_item(self):
@@ -99,17 +104,22 @@ class item():
         if ID != None:
             itemMan = ItemManager()
             info = itemMan.get_item(ID)
-            self.title = info[&#39;Title&#39;]
-            self.desc = info[&#39;Description&#39;]
-            self.link = info[&#39;Link&#39;]
-            self.cost = info[&#39;Cost&#39;]
-            self.itemID = ID
+            if isinstance(info, int):
+                raise ValueError
+            else:  
+                self.title = info[&#39;Title&#39;]
+                self.desc = info[&#39;Description&#39;]
+                self.link = info[&#39;Link&#39;]
+                self.cost = info[&#39;Cost&#39;]
+                self.itemID = ID
+    
         else:
             self.title = title
             self.desc = desc
             self.link = link
             self.cost = cost
             self.itemID = int(self.create_item()[&#39;ItemID&#39;])
+
 
     
     def create_item(self):

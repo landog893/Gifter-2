@@ -1,108 +1,151 @@
-import numpy as np
-import pandas as pd
-import sys
+import psycopg2
+from config import config
+import streamlit as st
 
 class AccountInfo:
-    def __init__(self):
-        try:
-            self.database = 'data/people_data-copy.csv'
-            self.data = pd.read_csv(self.database)
-        except FileNotFoundError:
-            self.database = '../data/people_data-copy.csv'
-            self.data = pd.read_csv(self.database)
         
-    def create_account(self, name, surname='', birthday='', email='', notifications='', interests='', wishlist='', friendlist=''):
-        id_list = sorted(self.data.ID.tolist(), reverse=True)
-        lastID = id_list[0]
-        if name == '':
-            print('Name cannot be empty')
-            return -1
-        else:
-            account_dict = {
-                'ID': lastID+1,
-                'Name': name,
-                'Surname': surname,
-                'Birthday': birthday,
-                'Email': email,
-                'Notifications': notifications,
-                'Interests': interests,
-                'WishList': wishlist,
-                'FriendList': friendlist
-            }
-            self.data = self.data.append(account_dict, ignore_index=True)
-            self.data.to_csv(self.database, index=False)
-            print('Account created successfully!')
-        return self.data[self.data['ID']==lastID+1]
+    def create_account(self, name, surname='', birthday='', email='', notifications='', username='', password = '',interests='', wishlist='', friendlist=''):
+        
+        query = """Insert Into public."Account" ("Name","Surname","Birthday","Email","Notifications","UserName","Password","Interests","WishList","FriendList") 
+                values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) returning "ID" """
+        conn = None
+        ID = None
+        try:
+        # initializing connection
+            params = config()
+            print('Connecting to the PostgreSQL database...')
+            conn = psycopg2.connect(**params)
+            cur = conn.cursor()
+        # execute a statement
+            cur.execute(query, (name, surname, birthday,email,notifications,username,password,interests,wishlist,friendlist))
+            ID = cur.fetchone()[0]
+            cur.close()
+            conn.commit()
+            cur.close()
+            
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection closed.')
+                
+        return ID
     
-    def update_account(self, ID, name='', surname='', birthday='', email='', notifications='', interests='', wishlist='', friendlist=''):
-        id_list = self.data.ID.tolist()
-        if ID not in id_list:
-            print('User ID:', ID, 'is not in the database!!!')
-            return -1
-        else:
-            data = self.data[self.data['ID']==ID]
-            # if name=='':
-            #     name = data.Name.values[0]
-            # if surname=='':
-            #     surname = data.Surname.values[0]
-            # if birthday=='':
-            #     birthday = data.Birthday.values[0]
-            # if interests=='':
-            #     interests = data.Interests.values[0]
-            # if wishlist=='':
-            #     wishlist = data.WishList.values[0]
-            #     print(wishlist)
-            # if friendlist=='':
-            #     friendlist = data.FriendList.values[0]
-            account_dict = {
-                'ID': ID,
-                'Name': name,
-                'Surname': surname,
-                'Birthday': birthday,
-                'Email': email,
-                'Notifications': notifications,
-                'Interests': interests,
-                'WishList': wishlist,
-                'FriendList': friendlist
-            }
-            index = self.data[self.data['ID']==ID].index[0]
-            #self.data.at[index, 'WishList'] = account_dict
-            self.data.loc[index,'ID'] = ID
-            self.data.loc[index,'Name'] = name
-            self.data.loc[index, 'Surname'] = surname
-            self.data.loc[index, 'Birthday'] = birthday
-            self.data.loc[index, 'Email'] = email
-            self.data.loc[index, 'Notifications'] = notifications
-            self.data.loc[index, 'Interests'] = interests
-            self.data.loc[index, 'WishList'] = wishlist
-            print(type(wishlist))
-            self.data.loc[index, 'FriendList'] = friendlist
-            self.data.to_csv(self.database, index=False)
-            print('Account updated successfully!')
-        return self.data[self.data['ID']==ID]
-    
-    def get_database(self):
-        return self.data
+    def update_account(self, ID, name='', surname='', birthday='', email='', notifications='', username='',password = '', interests='', wishlist = '', friendlist= ''):
+        query = """UPDATE "Account" Set "Name" = %s, "Surname" = %s, "Birthday" = %s, "Email" = %s, "Notifications" = %s, "UserName" = %s, "Password" = %s, "Interests" = %s, "WishList" = %s, "FriendList" = %s
+                Where "ID" = %s"""
+        conn = None
+        success = True
+        try:
+        # initializing connection
+            params = config()
+            print('Connecting to the PostgreSQL database...')
+            conn = psycopg2.connect(**params)
+            cur = conn.cursor()
+        # execute a statement
+            cur.execute(query, (name,surname,birthday,email,notifications,username,password,interests, wishlist, friendlist,ID))
+            cur.close()
+            conn.commit()
+            cur.close()
+            print("Item Updated.")
+            
+        except (Exception, psycopg2.DatabaseError) as error:
+            success = False
+            raise Exception(error)
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection closed.')
+            return success
     
     def delete_account(self, ID):
-        id_list = self.data.ID.tolist()
-        if ID not in id_list:
-            print('Invalid ID, please enter valid ID.')
-            return -1
-        else:
-            matched_data = self.data[self.data['ID']==ID]
-            self.data = self.data.drop(matched_data.index)
-            print('Account deleted successfully!')
-            self.data.to_csv(self.database, index=False)
-        return matched_data
+        query = """Delete From "Account" Where "ID" = %s;"""
+        conn = None
+        success = True
+        try:
+        # initializing connection
+            params = config()
+            print('Connecting to the PostgreSQL database...')
+            conn = psycopg2.connect(**params)
+            cur = conn.cursor()
+        # execute a statement
+            cur.execute(query, (ID,))
+            cur.close()
+            conn.commit()
+            cur.close()        
+            print("Item deleted.")
+        except (Exception, psycopg2.DatabaseError) as error:
+            st.error(error)
+            success = False
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection closed.')
+            return success
+                
+        
     
     def get_info(self, ID):
-        id_list = self.data.ID.tolist()
-        if ID not in id_list:
-            print('Invalid ID, please enter valid ID.')
-            return -1
+        query = """Select "Name","Surname","Birthday","Email","Notifications","UserName","Password","Interests","WishList","FriendList" 
+                    From "Account" WHERE "ID" = %s;"""
+        conn = None
+        user_info = None
+        try:
+        # initializing connection
+            params = config()
+            print('Connecting to the PostgreSQL database...')
+            conn = psycopg2.connect(**params)
+            cur = conn.cursor()
+        # execute a statement
+            cur.execute(query, (ID,))
+            user_info = cur.fetchall()
+            cur.close()
+            conn.commit()
+            cur.close()
+            
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection closed.')
+        
+        return user_info[0] if user_info else None
+    
+    def get_account(self, username,password):
+        query = """Select "ID", "Name","Surname","Birthday","Email","Notifications","UserName","Password","Interests","WishList","FriendList" 
+                    From "Account" WHERE "UserName" = %s;"""
+        conn = None
+        user_info = None
+        try:
+        # initializing connection
+            params = config()
+            print('Connecting to the PostgreSQL database...')
+            conn = psycopg2.connect(**params)
+            cur = conn.cursor()
+        # execute a statement
+            cur.execute(query, (username,))
+            user_info = cur.fetchall()
+            cur.close()
+            conn.commit()
+            cur.close()
+            
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection closed.')
+        
+        if user_info:
+            user_info = user_info[0]
+            if user_info[6] == password:
+                return user_info
+            else:
+                return -2
         else:
-            return self.data[self.data['ID']==ID]
+            return -1
         
     def search_ID(self, ID):
         if ID == None:
