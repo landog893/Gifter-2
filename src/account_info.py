@@ -1,5 +1,8 @@
 import psycopg2
 from config import config
+import numpy as np
+import pandas as pd
+import sys
 import streamlit as st
 
 class AccountInfo:
@@ -147,6 +150,14 @@ class AccountInfo:
         else:
             return -1
         
+
+            info = self.data[self.data['UserName']==username]
+            print("information of user")
+            print(info.Password.values[0])
+            if info.Password.values[0] == password:
+                return self.data[self.data['UserName']==username]
+            return -2 
+
     def search_ID(self, ID):
         if ID == None:
             print("ID cannot be empty!!!")
