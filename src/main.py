@@ -208,7 +208,7 @@ def wishlist_page():
             element.parentElement.classList.add("horizontalDiv");
             
         }
-        
+        forms[forms.length - 1].parentElement.classList.add("back");
         })
     '''
 
@@ -378,6 +378,19 @@ def friendlist_page():
     if st.button('Back'):
         st.session_state.runpage = 'account'
         st.experimental_rerun() 
+    global extrajs
+    extrajs += '''
+        document.addEventListener('DOMContentLoaded', function(event) {
+    //the event occurred
+        forms = window.parent.document.querySelectorAll('.stButton');
+        for (const element of forms) {
+            element.classList.add("horizontalDiv");
+            element.parentElement.classList.add("horizontalDiv");
+            
+        }
+        forms[forms.length - 1].parentElement.classList.add("back");
+        })
+    '''
 
 
 def viewwishlist_page():
@@ -425,21 +438,15 @@ def addfriend_page():
     acc = st.session_state.account
     friendlist = acc.friendlist
     form = st.form(key='addfriend')
-    id =form.text_input('Please enter ID of the friend')
-    case = -1
+    username =form.text_input('Please enter the username of the friend')
+    id = -1
     
     if form.form_submit_button('Add friend', type="primary"):
-        try: 
-            friend = Account(ID=int(id))
-        except ValueError:
-            case = 0
+
+        accountMan = AccountInfo()
+        id = accountMan.find_id(username)
         
-        try: int(id)
-        except ValueError: 
-            case = 1
-        
-        if case == 0: st.error("Friend ID does not exist")
-        elif case == 1: st.error("Friend ID must be an integer")
+        if id == 0: st.error("Friend Username does not exist")
         else:
             if friendlist:
                 friendlist += ',' + str(id)

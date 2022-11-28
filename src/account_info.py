@@ -252,6 +252,33 @@ class AccountInfo:
             result_dict = result.values
             return result_dict[0][6]
 
+    def find_id(self, ID) :
+        query = """Select "Name","Surname","Birthday","UserName","Password","Interests","WishList","FriendList" 
+                    From "Account" WHERE "ID" = %s;"""
+        conn = None
+        user_info = None
+        try:
+        # initializing connection
+            params = config()
+            print('Connecting to the PostgreSQL database...')
+            conn = psycopg2.connect(**params)
+            cur = conn.cursor()
+        # execute a statement
+            cur.execute(query, (ID,))
+            user_info = cur.fetchall()
+            cur.close()
+            conn.commit()
+            cur.close()
+            
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection closed.')
+        
+        return user_info[0].ID if user_info else 0
+        
 
 class Friends(AccountInfo):
     def __init__(self):

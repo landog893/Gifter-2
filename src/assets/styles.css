@@ -279,3 +279,11 @@ button[kind="primary"]:active, button[kind="formSubmit"]:active {
 .wishlist [data-testid="stVerticalBlock"] {
     display: block;
 }
+
+.wishlist .horizontalDiv {
+    margin-right: 25px;
+}
+
+.friendlist .horizontalDiv {
+    margin-right: 25px;
+}
