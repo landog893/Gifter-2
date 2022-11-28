@@ -95,20 +95,6 @@ def create_account():
 def account_page():
     acc = st.session_state.account
     st.header('Welcome ' + acc.name + '!')
-    st.write("What a beautiful day to gift!")
-    if st.button('Profile'):
-        st.session_state.runpage = 'profile'
-        st.experimental_rerun()
-    if st.button('Wishlist'): 
-        st.session_state.runpage = 'wishlist'
-        st.experimental_rerun()
-    if st.button('Friendlist'):
-        st.session_state.runpage = 'friendlist'
-        st.experimental_rerun()
-    if st.button('Logout'):
-        st.session_state.runpage = 'initial'
-        st.experimental_rerun()
-    st.header('Welcome ' + acc.name.to_string(index=False) + '!')
     st.write("Quote of the day:")
     if 'response' not in st.session_state:
         st.session_state.response = requests.get('https://zenquotes.io/api/today')
@@ -220,6 +206,7 @@ def wishlist_page():
         for (const element of forms) {
             element.classList.add("horizontalDiv");
             element.parentElement.classList.add("horizontalDiv");
+            
         }
         
         })

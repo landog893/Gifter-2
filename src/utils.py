@@ -6,12 +6,12 @@ from PATHS import NAVBAR_PATHS, FOOTER_PATHS, SETTINGS
 
 
 def inject_custom_css():
-    with open('assets/styles.css') as f:
+    with open('src/assets/styles.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 
 def navbar_component(name):
-    with open("assets/images/profile.png", "rb") as image_file:
+    with open("src/assets/images/profile.png", "rb") as image_file:
         image_as_base64 = base64.b64encode(image_file.read())
 
     navbar_items = ''
@@ -36,7 +36,7 @@ def navbar_component(name):
         # nameTag = f'<p class="navName">' + name.name.to_string(index=False) + '</p>'
         nameTag = rf'''
             <div class="dropdown" id="settingsDropDown">
-                    <p class="navName">{name.name.to_string(index=False)}</p>
+                    <p class="navName">{name.name}</p>
                     <img class="dropbtn" src="data:image/png;base64, {image_as_base64.decode("utf-8")}"/>
                     <div id="myDropdown" class="dropdown-content">
                         {settings_items}
@@ -105,7 +105,7 @@ def navbar_component(name):
 
 
 def footer_component():
-    with open("assets/images/github-logo.png", "rb") as image_file:
+    with open("src/assets/images/github-logo.png", "rb") as image_file:
         image_as_base64 = base64.b64encode(image_file.read())
 
     footer_items = ''
