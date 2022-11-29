@@ -1,6 +1,3 @@
-
-from msilib.schema import ProgId
-from multiprocessing.sharedctypes import Value
 import streamlit as st
 import pandas as pd
 from account import Account
@@ -241,8 +238,9 @@ def modifyitem_page():
     items = (acc.wishlist).replace("\"", "").split(",")
     items = [int(item) for item in items]
     id =st.text_input('Please enter ID of the item you want to modify')
-    if st.button('Confirm'):
-        case = -1        
+    if id:
+        case = -1 
+        i = None
         try: 
             i = item(ID=int(id))
         except ValueError:
@@ -254,8 +252,9 @@ def modifyitem_page():
         
         if case == 0: st.error("Item ID does not exist")
         elif case == 1: st.error("Item ID must be an integer")
-        else:
+        else: 
             form = st.form(key='ModifyItemForm')
+            print("inside the form")
             title = form.text_input('Title:', value= i.title, placeholder= i.title)
             desc = form.text_input('Description', value= i.desc, placeholder= i.desc)
             link = form.text_input('Link', value= i.link, placeholder= i.link)
@@ -273,7 +272,7 @@ def modifyitem_page():
                         i.modify_item(title, desc, link, cost)
                         st.session_state.runpage = 'wishlist'
                         st.experimental_rerun()    
-                    except ValueError: st.error("Cost must be a number") 
+                    except ValueError: st.error("Cost must be a number")  
                     
     if st.button('Back'):
         st.session_state.runpage = 'wishlist'

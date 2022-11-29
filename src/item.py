@@ -4,7 +4,7 @@ class item():
         if ID != None:
             itemMan = ItemManager()
             info = itemMan.get_item(ID)
-            if isinstance(info, int):
+            if not info :
                 raise ValueError
             else:  
                 self.title = info[0]
