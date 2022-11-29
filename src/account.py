@@ -33,7 +33,7 @@ class Account():
                 print("Can not create account with same user name")
                 self.ID = -2
             else:
-                self.ID = acc['ID']
+                self.ID = acc[0]
                 print(self.ID)
         
 
