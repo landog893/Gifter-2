@@ -1,5 +1,8 @@
 import psycopg2
 from config import config
+import numpy as np
+import pandas as pd
+import sys
 import streamlit as st
 
 class AccountInfo:
@@ -9,6 +12,7 @@ class AccountInfo:
         query = """Insert Into public."Account" ("Name","Surname","Birthday","UserName","Password","Interests","WishList","FriendList") 
                 values(%s,%s,%s,%s,%s,%s,%s,%s) returning "ID" """
         conn = None
+        Checkquery =  """Select * From "Account" WHERE "UserName" = %s;"""
         ID = None
         try:
         # initializing connection
@@ -16,9 +20,24 @@ class AccountInfo:
             print('Connecting to the PostgreSQL database...')
             conn = psycopg2.connect(**params)
             cur = conn.cursor()
+        # check name field
+            if name == '':
+                return -1
+        #execute userName check
+            cur.execute(Checkquery,(username,))
+            rows = cur.fetchall()
+            print(len(rows))
+            if len(rows) > 0:
+                print('User Name already in use. Please use another one!')
+                st.error("User Name already in use. Please use another one!")
+                return -2
+            cur.close()
         # execute a statement
+            cur = conn.cursor()
             cur.execute(query, (name, surname, birthday, username,password,interests,wishlist,friendlist))
-            ID = cur.fetchone()[0]
+            acc = cur.fetchone()
+            print("create ID")
+            print(acc)
             cur.close()
             conn.commit()
             cur.close()
@@ -30,7 +49,7 @@ class AccountInfo:
                 conn.close()
                 print('Database connection closed.')
                 
-        return ID
+        return acc
     
     def update_account(self, ID, name='', surname='', birthday='',username='',password = '', interests='', wishlist = '', friendlist= ''):
         query = """UPDATE "Account" Set "Name" = %s, "Surname" = %s, "Birthday" = %s, "UserName" = %s, "Password" = %s, "Interests" = %s, "WishList" = %s, "FriendList" = %s
@@ -147,6 +166,14 @@ class AccountInfo:
         else:
             return -1
         
+
+            info = self.data[self.data['UserName']==username]
+            print("information of user")
+            print(info.Password.values[0])
+            if info.Password.values[0] == password:
+                return self.data[self.data['UserName']==username]
+            return -2 
+
     def search_ID(self, ID):
         if ID == None:
             print("ID cannot be empty!!!")
