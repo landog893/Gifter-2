@@ -311,7 +311,7 @@ def deleteitem_page():
     
             a_wishlist = a_wishlist.split(",")
             a_wishlist.remove(str(i.itemID))
-            a_wishlist.remove('')
+            if '' in a_wishlist: a_wishlist.remove('')
             a_wishlist = ','.join(a_wishlist)
 
             i.delete_item()
@@ -464,7 +464,7 @@ def deletefriend_page():
             a_wishlist = acc.wishlist
     
             friends.remove(id)
-            friends.remove('')
+            if '' in friends: friends.remove('')
             friends = ','.join(friends)
     
             acc.update_account(a_name, a_surname, a_birthday, a_username, a_password, a_interests, a_wishlist, friends)
