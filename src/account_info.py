@@ -13,7 +13,7 @@ class AccountInfo:
                 values(%s,%s,%s,%s,%s,%s,%s,%s) returning "ID" """
         conn = None
         Checkquery =  """Select * From "Account" WHERE "UserName" = %s;"""
-        ID = None
+        acc = None
         try:
         # initializing connection
             params = config()
