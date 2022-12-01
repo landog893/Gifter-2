@@ -24,12 +24,9 @@
 <br>
 <p align="center"><img width="400" src="https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/15883/christmas-gifts-clipart-xl.png"></p>
 
-
-Gifter-2 is a social platform built on the idea of gift giving and receiving! This application is deployed on the web and is available for individuals of all ages to use! 
-
 ## Description
 
-Gifter-2 is a social platform built on the idea of gift giving and receiving! The goal of this application is to aid in the process of picking out a gift for friends. Users can create wishlists for themselves and add items/gifts that they would like to receive for their birthday. Users can proceed to add friends and view their wishlists as well. Gifter-2 also allows users to opt-in to email notifications which send a user's friends a reminder email regarding their upcoming birthday (if their email notifications are on as well). Items in the wishlists contain the cost of the item as well as the website where it can be purchased.
+Gifter-2 is a social platform built on the idea of gift giving and receiving! The goal of this application is to aid in the process of picking out a gift for friends. Users can create wishlists for themselves and add items/gifts that they would like to receive for their birthday. Users can proceed to add friends and view their wishlists as well. Gifter-2 also allows users to opt-in to email notifications which send a user's friends a reminder email regarding their upcoming birthday (if their email notifications are on as well). Items in the wishlists contain the cost of the item as well as the website where it can be purchased. This application is deployed on the web and is available for individuals of all ages to use! 
 
 To start using Gifter-2, a user must first register by creating an account. The system collects information about a user's name, birthday, email, and interests. All of this information is stored in Gifter-2's database, and is not used by Gifter-2 in any other way. 
 
@@ -57,9 +54,10 @@ All new features are in bold.
 
 * Register as a user.
 * Add, edit, and delete items from a wishlist.
+* Add and remove friends from friendslist.
 * Dashboard displaying friendlist with their associated wishlists.
 * **Significantly improved UI experience.**
-* **Login using username.**
+* **Login using a username and password.**
 * **Search for friends using usernames.**
 * **Search for items using keywords.**
 * **Send reminder emails for upcoming birthdays (if email notifications are on).**
