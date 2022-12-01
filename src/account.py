@@ -37,11 +37,14 @@ class Account():
             self.interests = interests
             self.wishlist = wishlist
             self.friendlist = friendlist
-            ID = self.create_account()
-            if ID == None:
-                st.error("Can not create account, please check the format of information")
+            acc = self.create_account()
+            print(acc)
+            if isinstance(acc, int) == True and acc == -2:
+                print("Can not create account with same user name")
+                self.ID = -2
             else:
-                self.ID = ID
+                self.ID = acc[0]
+                print(self.ID)
         
 
         
