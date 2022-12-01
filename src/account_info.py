@@ -1,24 +1,38 @@
 import psycopg2
 from config import config
+import numpy as np
+import pandas as pd
+import sys
 import streamlit as st
 
 class AccountInfo:
         
-    def create_account(self, name, surname='', birthday='',username='', password = '',interests='', wishlist='', friendlist=''):
+    def create_account(self, name, surname='', birthday='', email='', notifications='', username='', password = '',interests='', wishlist='', friendlist=''):
         
-        query = """Insert Into public."Account" ("Name","Surname","Birthday","UserName","Password","Interests","WishList","FriendList") 
-                values(%s,%s,%s,%s,%s,%s,%s,%s) returning "ID" """
+        query = """Insert Into public."Account" ("Name","Surname","Birthday","Email","Notifications","UserName","Password","Interests","WishList","FriendList") 
+                values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) returning "ID" """
         conn = None
-        ID = None
+        Checkquery =  """Select * From "Account" WHERE "UserName" = %s;"""
+        acc = None
         try:
         # initializing connection
             params = config()
             print('Connecting to the PostgreSQL database...')
             conn = psycopg2.connect(**params)
             cur = conn.cursor()
+        # check name field
+            if name == '':
+                return -1
+        #execute userName check
+            cur.execute(Checkquery,(username,))
+            rows = cur.fetchall()
+            print(len(rows))
+            if len(rows) > 0:
+                print('User Name already in use. Please use another one!')
+                st.error("User Name already in use. Please use another one!")
+                return -2
+            cur.close()
         # execute a statement
-            cur.execute(query, (name, surname, birthday, username,password,interests,wishlist,friendlist))
-            ID = cur.fetchone()[0]
             cur.close()
             conn.commit()
             cur.close()
@@ -30,10 +44,10 @@ class AccountInfo:
                 conn.close()
                 print('Database connection closed.')
                 
-        return ID
+        return acc
     
-    def update_account(self, ID, name='', surname='', birthday='',username='',password = '', interests='', wishlist = '', friendlist= ''):
-        query = """UPDATE "Account" Set "Name" = %s, "Surname" = %s, "Birthday" = %s, "UserName" = %s, "Password" = %s, "Interests" = %s, "WishList" = %s, "FriendList" = %s
+    def update_account(self, ID, name='', surname='', birthday='', email='', notifications='', username='',password = '', interests='', wishlist = '', friendlist= ''):
+        query = """UPDATE "Account" Set "Name" = %s, "Surname" = %s, "Birthday" = %s, "Email" = %s, "Notifications" = %s, "UserName" = %s, "Password" = %s, "Interests" = %s, "WishList" = %s, "FriendList" = %s
                 Where "ID" = %s"""
         conn = None
         success = True
@@ -44,7 +58,7 @@ class AccountInfo:
             conn = psycopg2.connect(**params)
             cur = conn.cursor()
         # execute a statement
-            cur.execute(query, (name,surname,birthday,username,password,interests, wishlist, friendlist,ID))
+            cur.execute(query, (name,surname,birthday,email,notifications,username,password,interests, wishlist, friendlist,ID))
             cur.close()
             conn.commit()
             cur.close()
@@ -87,7 +101,7 @@ class AccountInfo:
         
     
     def get_info(self, ID):
-        query = """Select "Name","Surname","Birthday","UserName","Password","Interests","WishList","FriendList" 
+        query = """Select "Name","Surname","Birthday","Email","Notifications","UserName","Password","Interests","WishList","FriendList" 
                     From "Account" WHERE "ID" = %s;"""
         conn = None
         user_info = None
@@ -114,7 +128,7 @@ class AccountInfo:
         return user_info[0] if user_info else None
     
     def get_account(self, username,password):
-        query = """Select "ID", "Name","Surname","Birthday","UserName","Password","Interests","WishList","FriendList" 
+        query = """Select "ID", "Name","Surname","Birthday","Email","Notifications","UserName","Password","Interests","WishList","FriendList" 
                     From "Account" WHERE "UserName" = %s;"""
         conn = None
         user_info = None
@@ -140,13 +154,21 @@ class AccountInfo:
         
         if user_info:
             user_info = user_info[0]
-            if user_info[4] == password:
+            if user_info[7] == password:
                 return user_info
             else:
                 return -2
         else:
             return -1
         
+
+            info = self.data[self.data['UserName']==username]
+            print("information of user")
+            print(info.Password.values[0])
+            if info.Password.values[0] == password:
+                return self.data[self.data['UserName']==username]
+            return -2 
+
     def search_ID(self, ID):
         if ID == None:
             print("ID cannot be empty!!!")
@@ -180,6 +202,14 @@ class AccountInfo:
         else:
             result_dict = result.values
             return result_dict[0][3]
+
+    # def get_email(self, ID):
+    #     result, flag = self.search_ID(ID)
+    #     if flag == -1:
+    #         return -1
+    #     else:
+    #         result_dict = result.values
+    #         return result_dict[0][4]
     
     def get_interests(self, ID):
         result, flag = self.search_ID(ID)
@@ -195,8 +225,8 @@ class AccountInfo:
             return -1
         else:
             result_dict = result.values
-            return result_dict[0][5]
-        
+            return result_dict[0][6]
+    
     def add_wishlist(self, ID, items):
         flag = 1
         wl_str = self.get_wishlist(ID)
