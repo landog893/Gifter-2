@@ -75,44 +75,44 @@ class Account():
     # loaded (checks if the birthday is in 1 week) or when the user clicks the "Send Notification" button
     # in the profile.
     def send_reminder_email(self):
-            accountMan = AccountInfo()
-            info = accountMan.get_info(self.ID)
-
-            name = info['Name']
-            birthday = info['Birthday'].item()
+            name = self.name
+            birthday = self.birthday
+            print(birthday)
             b = birthday.rpartition('/')[0] + birthday.rpartition('/')[1]
             b = b[:-1]
-            friendlist = info['FriendList'].to_string(index=False)
-            friendl = friendlist.split(',')
-            friendobj = [Account(ID=int(f)) for f in friendl]
 
-            wishlist = info['WishList'].to_string(index=False)
-            items = wishlist.replace("\"", "").split(",")
-            items = [int(item) for item in items]
-            item_objs = [item(ID=int(id)) for id in items]
-    
-            notifications = info['Notifications'].item()               
+            friendlist = self.friendlist         
+            friendl = friendlist.split(',')
+            friendobj = [Account(ID=int(f)) for f in friendl if f.isnumeric()]
+
+
+            items = (self.wishlist).replace("\"", "").split(",")
+            items = [int(item) for item in items if item.isnumeric()]
+            item_objs = [item(ID=id) for id in items] 
+
+            notifications = self.notifications             
+            port = 587 
+            smtp_server = "smtp.office365.com"
+            sender_email = "gifter-2@outlook.com"
+            password = "G1ft3r#212!"
 
             if (notifications == "Off"):
                 print("Please turn email notifications on.")
+            elif (password == "REPLACE"):
+                print("Please replace the password field with your Outlook account's password.")
             else:
-                port = 587 
-                smtp_server = "smtp.office365.com"
-                sender_email = "gifter-2@outlook.com"
-                password = "G1ft3r#212!"
-
                 # construct wishlist string
                 wishlistString = "\n"
                 for i in item_objs:
-                    wishlistString += " - " + i.title.item() + " ($" + i.cost.item() + "): " + i.link.item() + "\n"
+                    wishlistString += " - " + i.title + " ($" + str(i.cost) + "): " + i.link + "\n"
                 
-                message = """Buy """ + name.item() + """ the perfect gift for their birthday on """ + b + """.\nHere are some items on their wishlist:\n """ + wishlistString
+                message = """Buy """ + name + """ the perfect gift for their birthday on """ + b + """.\nHere are some items on their wishlist:\n """ + wishlistString
 
                 for friend in friendobj:
-                    if (friend.notifications.item() == "On"):
-                        receiver_email = friend.email.item()
+                    if (friend.notifications == "On"):
+                        receiver_email = friend.email
                         msg = MIMEMultipart()
-                        msg['Subject'] = "Gifter-2: " + name.item() + "'s Birthday is Coming Up"
+                        msg['Subject'] = "Gifter-2: " + name + "'s Birthday is Coming Up"
                         msg['From'] = sender_email
                         msg['To'] = receiver_email
 
@@ -130,14 +130,3 @@ class Account():
                             server.sendmail(sender_email, receiver_email, msg.as_string())
                             print("message sent")
                             server.quit()
-
-# #acc = Account('Hannah', 'Montana', '05/05/1995', 'Singing, Dancing')
-# #acc.view_account()
-# acc = Account(ID=1)
-# ints = (acc.interests.to_string(index=False)).replace("\"", "")
-# ints += ", Ballet"
-# # print(ints)
-# wishes = (acc.wishlist.to_string(index=False))
-# acc.update_account(acc.name.to_string(index=False), acc.surname.to_string(index=False), acc.birthday.to_string(index=False), ints, acc.wishlist.to_string(index=False), acc.friendlist.to_string(index=False))
-
-        

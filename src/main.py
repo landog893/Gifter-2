@@ -132,27 +132,31 @@ def account_page():
     # check if whether a notification email needs to be sent today (is it 1 week before the account's birthday)
     global email_sent
 
-    birthday = acc.birthday.item()
+    birthday = acc.birthday
     b = birthday.rpartition('/')[0] + birthday.rpartition('/')[1]
     b = b[:-1]
     month = b.rpartition('/')[0]
     day = b.rpartition('/')[2]
     currDate = datetime.now().date()
 
-    if (int(currDate.month) > int(month)):
-        if (int(currDate.day) > int(day)):
-            birthdayDate = b + "/" + str(currDate.year + 1)
-    else:
-        birthdayDate = b + "/" + str(currDate.year)
+    birthdayDate = str(month) + "/" + str(day)
 
+    if (int(currDate.month) > int(month) and int(currDate.day) > int(day)):
+        birthdayDate += "/" + str(currDate.year + 1)
+    else:
+        birthdayDate += "/" + str(currDate.year)
+        
     birthdayDate = datetime.strptime(birthdayDate, "%m/%d/%Y").date()
 
     if (birthdayDate - currDate).days == 7 and email_sent == False:
             email_sent = True
-            acc.send_reminder_email()
-            acc = Account(ID = int(acc.ID))
-            st.session_state.account = acc
-            st.session_state.runpage = 'profile'
+            if (acc.friendlist != 'NaN' and acc.wishlist != 'NaN'):
+                acc.send_reminder_email()
+                acc = Account(ID = int(acc.ID))
+                st.session_state.account = acc
+                st.session_state.runpage = 'profile'
+            else:
+                st.error("Please ensure you have added items to your wishlist and friends to your friendlist before attempting to send email notifications.")
             st.experimental_rerun()
     else:
         email_sent = False
@@ -176,7 +180,10 @@ def profile_page():
         st.session_state.runpage = 'account'
         st.experimental_rerun()
     if st.button("Send Notifications"):
-        acc.send_reminder_email()
+        if (acc.friendlist != 'NaN' and acc.wishlist != 'NaN'):
+            acc.send_reminder_email()
+        else:
+            st.error("Please ensure you have added items to your wishlist and friends to your friendlist before attempting to send email notifications.")
         st.experimental_rerun()
 
 def editprofile_page():

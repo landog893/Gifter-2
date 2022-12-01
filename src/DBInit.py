@@ -26,6 +26,8 @@ def connect():
             "Name" character varying COLLATE pg_catalog."default",
             "Surname" character varying COLLATE pg_catalog."default",
             "Birthday" character varying COLLATE pg_catalog."default",
+            "Email" character varying COLLATE pg_catalog."default",
+            "Notifications" character varying COLLATE pg_catalog."default",
             "UserName" character varying COLLATE pg_catalog."default",
             "Password" character varying COLLATE pg_catalog."default",
             "Interests" character varying COLLATE pg_catalog."default",

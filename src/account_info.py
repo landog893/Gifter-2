@@ -140,7 +140,7 @@ class AccountInfo:
         
         if user_info:
             user_info = user_info[0]
-            if user_info[6] == password:
+            if user_info[7] == password:
                 return user_info
             else:
                 return -2
