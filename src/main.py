@@ -38,13 +38,54 @@ def create_account():
     birthday = form.text_input('Birthday (MM/DD/YYYY):')
     interest = form.text_input('Interests (please enter them comma seperated):')
     but1 = form.form_submit_button('Submit')
+    case = -1
+    chars = set("~!@#$%^&*()_+=")
+    
+    
     if but1:
-        acc = Account(name, surname, birthday, interest)
-        acc = Account(ID = int(acc.ID))
-        st.session_state.runpage = 'account'
-        st.session_state.account = acc
-        st.experimental_rerun()
-    #return account
+        if f_name == "":
+            case = 0
+        else:
+            if any((c in chars) for c in f_name):
+                case = 1
+                
+        if any((c in chars) for c in surname):
+            case = 2
+        
+        if birthday != "":
+            try: datetime.strptime(birthday, "%m/%d/%Y")
+            except ValueError: case = 3
+        
+        if username == "":
+            case = 4
+        
+        if password == "":
+            case = 5
+        
+        if case == 0: st.error("First Name is not nullable")
+        elif case == 1: st.error("First Name can not contain symbols")
+        elif case == 2: st.error("Surname can not contain symbols")
+        elif case == 3: st.error("Birthday date is not valid (MM/DD/YYYY)") 
+        elif case == 4: st.error("User Name is not nullable") 
+        elif case == 5: st.error("Password is not nullable") 
+        else:
+            try:        
+                acc = Account(f_name, surname, birthday,username,password, interest)
+                if int(acc.ID)==-2:
+                    st.session_state.runpage = 'createaccount'
+                    # st.write('Please fill out the form with unique user name')
+                    # st.experimental_rerun()
+                else:
+                    Account(ID = int(acc.ID))
+                    st.session_state.runpage = 'account'
+                    st.session_state.account = acc
+                    st.experimental_rerun()
+            except Exception as errorMsg:
+                st.error(errorMsg)
+            
+    if st.button('Back'):
+        st.session_state.runpage = 'initial'
+        st.experimental_rerun() 
 
 def account_page():
     acc = st.session_state.account
@@ -83,12 +124,14 @@ def editprofile_page():
     st.header('Edit Profile')
     form = st.form(key='EditProfileForm')
     acc = st.session_state.account
-    name = form.text_input('Name:', value= acc.name.to_string(index=False), placeholder= acc.name.to_string(index=False))
-    surname = form.text_input('Surname:', value= acc.surname.to_string(index=False), placeholder= acc.surname.to_string(index=False))
-    birthday = form.text_input('Birthday:', value= acc.birthday.to_string(index=False), placeholder= acc.birthday.to_string(index=False))
-    ints = (acc.interests.to_string(index=False)).replace("\"", "")
+    name = form.text_input('First Name:', value= acc.name, placeholder= acc.name)
+    surname = form.text_input('Last Name:', value= acc.surname, placeholder= acc.surname)
+    birthday = form.text_input('Birthday:', value= acc.birthday, placeholder= acc.birthday)
+    username = form.text_input('User Name:', value= acc.username, placeholder= acc.username)
+    password = form.text_input('Password:', value= acc.password, placeholder= acc.password, type="password")
+    ints = (acc.interests).replace("\"", "")
     interests = form.text_input('Interest:', value=ints, placeholder=ints)
-    
+
     case = -1
     chars = set("~!@#$%^&*()_+=")
     if form.form_submit_button('Update'):
@@ -105,16 +148,28 @@ def editprofile_page():
             try: datetime.strptime(birthday, "%m/%d/%Y")
             except ValueError: case = 3
         
-        if case == 0: st.error("Name is not nullable")
-        elif case == 1: st.error("Name can not contain symbols")
+        if username == "":
+            case = 4
+        
+        if password == "":
+            case = 5
+        
+        if case == 0: st.error("First Name is not nullable")
+        elif case == 1: st.error("First Name can not contain symbols")
         elif case == 2: st.error("Surname can not contain symbols")
         elif case == 3: st.error("Birthday date is not valid (MM/DD/YYYY)") 
+        elif case == 4: st.error("User Name is not nullable") 
+        elif case == 5: st.error("Password is not nullable") 
         else:   
-           acc.update_account(name, surname, birthday, interests, acc.wishlist.to_string(index=False), acc.friendlist.to_string(index=False))
-           acc = Account(ID = int(acc.ID))
-           st.session_state.account = acc
-           st.session_state.runpage = 'profile'
-           st.experimental_rerun()
+            try:
+                acc.update_account(name, surname, birthday, username, password,interests)
+                acc = Account(ID = int(acc.ID))
+                st.session_state.account = acc
+                st.session_state.runpage = 'profile'
+                st.experimental_rerun()
+            except Exception as errorMsg:
+                st.error(errorMsg)           
+
             
     if st.button("Back"):
         st.session_state.runpage = 'profile'
@@ -203,48 +258,34 @@ def modifyitem_page():
     acc = st.session_state.account
     items = (acc.wishlist.to_string(index=False)).replace("\"", "").split(",")
     items = [int(item) for item in items]
-    id =st.text_input('Please enter ID of the item you want to modify')
+    id = st.session_state['edit_key']
+    i = item(ID=int(id))
+    form = st.form(key='ModifyItemForm')
+    title = form.text_input('Title:', value= i.title, placeholder= i.title)
+    desc = form.text_input('Description', value= i.desc, placeholder= i.desc)
+    link = form.text_input('Link', value= i.link, placeholder= i.link)
+    cost = form.text_input('Cost', value= i.cost, placeholder= i.cost)
+    chars = set("~!@#$%^&*()_+=")
     case = -1
-    if st.button('Confirm'):        
-        try: 
-            i = item(ID=int(id))
-        except ValueError:
+    
+    if form.form_submit_button('Modify item'):
+        if title == "":
             case = 0
+
+        if cost != "":
+            try:
+                float(cost)
+            except ValueError:
+                case = 1
+                
+        if case == 0: st.error("Item does not exist")
+        elif case == 1:  st.error("Cost must be a number")
         
-        try: int(id)
-        except ValueError: 
-            case = 1
-        
-        if case == 0: st.error("Item ID does not exist")
-        elif case == 1: st.error("Item ID must be an integer")
         else:
-            form = st.form(key='ModifyItemForm')
-            title = form.text_input('Title:', value= i.title.to_string(index=False), placeholder= i.title.to_string(index=False))
-            desc = form.text_input('Description', value= i.desc.to_string(index=False), placeholder= i.desc.to_string(index=False))
-            link = form.text_input('Link', value= i.link.to_string(index=False), placeholder= i.link.to_string(index=False))
-            cost = form.text_input('Cost', value= i.cost.to_string(index=False), placeholder= i.cost.to_string(index=False))
+            i.modify_item(title, desc, link, cost)
+            st.session_state.runpage = 'wishlist'
+            st.experimental_rerun()    
             
-            chars = set("~!@#$%^&*()_+=")
-            if form.form_submit_button('Modify item'):
-                
-                if title == "":
-                    case = 0
-                else:    
-                    if any((c in chars) for c in title):
-                        case = 1
-                
-                if cost != "":
-                    try: float(cost)    
-                    except ValueError: case = 2
-                
-                if case == 0: st.error("Title is not nullable")
-                elif case == 1: st.error("Title can not contain symbols")
-                elif case == 2: st.error("Cost must be a number")
-         
-                else:  
-                    i.modify_item(title, desc, link, cost)
-                    st.session_state.runpage = 'wishlist'
-                    st.experimental_rerun()
     if st.button('Back'):
         st.session_state.runpage = 'wishlist'
         st.experimental_rerun() 
@@ -323,38 +364,29 @@ def viewwishlist_page():
     friendlist = acc.friendlist.to_string(index=False)
     friendlist = friendlist.split(',')
     form = st.form(key='Viewwishlistform')
-    id =form.text_input('Please enter ID of the friend', value=friendlist[0])
-    case = -1
+    id =st.session_state['freindId']
+    item_objs = None
     
-    if form.form_submit_button('See wishlist'):
-        try:
-            friend = Account(ID=int(id))
-            items = (friend.wishlist.to_string(index=False)).replace("\"", "").split(",")
-            items = [int(item) for item in items]
-            item_objs = [item(ID=id) for id in items] 
-        except ValueError: case = 0
+    try:
+        friend = Account(ID=int(id))
+        items = (friend.wishlist).replace("\"", "").split(",")
+        items = [int(item) for item in items]
+        item_objs = [item(ID=id) for id in items] 
+        item_titles = [(i.title).replace("\"", "") for i in item_objs]
+        item_descs = [(i.desc).replace("\"", "") for i in item_objs]
+        item_links = [(i.link.replace("\"", "")) for i in item_objs]
+        item_costs = [i.cost for i in item_objs]
         
-        try: 
-            Account(ID=int(id))
-        except ValueError:
-            case = 1
+        df = pd.DataFrame(list(zip(items, item_titles, item_descs, item_links, item_costs)), columns=('#Wish', 'Title', 'Description', 'Link', 'Cost'))
+        df.set_index('#Wish', inplace=True)
+        st.dataframe(df)
         
-        try: int(id)
-        except ValueError: 
-            case = 2
-        
-        if case == 0: st.error("This ID doesn't have any wishlist")
-        elif case == 1: st.error("Friend ID does not exist")
-        elif case == 2: st.error("Friend ID must be an integer")
-        else:
-            item_titles = [(i.title.to_string(index=False)).replace("\"", "") for i in item_objs]
-            item_descs = [(i.desc.to_string(index=False)).replace("\"", "") for i in item_objs]
-            item_links = [(i.link.to_string(index=False).replace("\"", "")) for i in item_objs]
-            item_costs = [(i.cost.to_string(index=False).replace("\"", "")) for i in item_objs]
+    except TypeError:
+        st.error("This ID doesn't have any wishlist")
+    except ValueError:
+        st.error("This ID doesn't have any wishlist")
     
-            df = pd.DataFrame(list(zip(items, item_titles, item_descs, item_links, item_costs)), columns=('ID', 'Title', 'Description', 'Link', 'Cost'))
-            df.set_index('ID', inplace=True)
-            st.dataframe(df)
+
     if st.button('Back'):
         st.session_state.runpage = 'friendlist'
         st.experimental_rerun() 
