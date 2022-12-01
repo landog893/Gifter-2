@@ -1,0 +1,289 @@
+.navbar{
+    font-family: 'Trebuchet MS', sans-serif;
+    position: fixed;
+    width: 100%;
+    background: #C00000;
+    z-index: 99999999999999999999;
+    left: 0rem;
+    top: 0rem;
+    height: 55px;
+    padding-left: 4rem;
+}
+
+
+.navitem{
+    float: left;
+    display: block;
+    color: #f2f2f2 !important;
+    text-align: center;
+    padding: 17px 20px;
+    text-decoration: none !important;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+.navitem:hover{
+    background-color: rgba(221, 221, 221, 0.233);
+    height: 55px !important;
+
+}
+
+
+.settings{
+    height:1rem;
+}
+
+.version-span{
+    color: white;
+    position: absolute;
+    right: 1rem;
+    bottom: 1.75rem;
+    opacity: 0.5;
+    z-index: 9999;
+    border: 2px solid #333;
+    border-radius: 25px;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    background: #333;
+}
+
+.dropbtn {
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    height: 55px;
+    opacity: 0.5;
+    filter: invert(1);
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-block;
+    margin: 0;
+}
+
+.dropbtn:hover, .dropbtn:focus, .dropdown:hover .dropbtn {
+    opacity:1;
+}
+
+.dropdown {
+    position: fixed;
+    display: block;
+    right: 0rem;
+    top: 0rem;
+    padding-left: 0.7rem;
+    user-select: none;
+    padding-right: 10px;
+}
+
+.dropdown-content {
+    visibility: hidden;
+    position: fixed;
+    border-radius: 9px;
+    background-color: #C00000;
+    min-width: 160px;
+    overflow: auto;
+    right:0.3rem;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover{
+    background-color: rgba(221, 221, 221, 0.233);
+    background: rgba(221, 221, 221, 0.233);
+}
+
+.dropdown a:hover {background-color: rgba(221, 221, 221, 0.233);}
+
+iframe{
+    height: 0rem;
+}
+
+.stTabs {
+    display: none;
+}
+
+.navName {
+    display: inline-block;
+    color: #f2f2f2 !important;
+    text-align: center;
+    text-decoration: none !important;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    font-family: 'Trebuchet MS', sans-serif;
+    position: static;
+    right: 4rem;
+    margin: 0;
+
+}
+
+.hide {
+    display: none !important;
+}
+
+.footer{
+    font-family: 'Trebuchet MS', sans-serif;
+    position: relative;
+    width: 100%;
+    background: #ededed;
+    z-index: 99999999999999999999;
+    left: 0rem;
+    bottom: 0rem;
+    height: 70px;
+    /* padding-left: 4rem; */
+
+}
+
+.footerlist {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    background-color: #ededed;
+}
+
+.footeritem{
+    /* float: left; */
+    /* display: block; */
+    display: inline-block;
+    color: #000 !important;
+    text-align: center;
+    margin: 17px 20px;
+    text-decoration: none !important;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    font-family: 'Trebuchet MS', sans-serif;
+    filter: invert(.2);
+}
+
+.footeritem:hover{
+    filter: invert(.4);
+}
+
+footer:last-child {
+    display: none;
+}
+
+.gitHub {
+    display: inline-block;
+    width: 30px;
+    margin-top: -4px;
+    filter: invert(.2);
+
+}
+
+.block-container {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+[data-testid="stHeader"] {
+    display: none;
+}
+
+[data-testid="stVerticalBlock"] > :nth-child(7) iframe {
+    height: unset;
+}
+
+blockquote {
+    color: rgb(49, 51, 63);
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 0;
+    border: none;
+}
+
+blockquote footer {
+    display: block !important;
+    text-align: right;
+    margin-top: 1rem;
+}
+
+blockquote footer:before {
+    content: "-";
+}
+
+.buttonDiv {
+    margin: 20px 0;
+}
+
+.block-container > div > [data-testid="stVerticalBlock"] {
+    display: block;
+}
+
+.block-container {
+    margin-top: 55px;
+}
+
+.show {
+    display: block !important;
+    background: pink !important;
+}
+
+button[kind="primary"], button[kind="formSubmit"]{
+    background-color: #C00000;
+    color: white;
+}
+
+button[kind="primary"]:hover, button[kind="formSubmit"]:hover{
+    background-color: #c00000a3;
+    color: white;
+}
+
+button[kind="primary"]:active, button[kind="formSubmit"]:active {
+    background-color: #c00000a3;
+    color: white;
+}
+
+.horizontalDiv {
+    width: unset !important;
+    display: inline-block;
+}
+
+.initial h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 3rem;
+}
+
+.initial .buttonDiv {
+    text-align: center;
+}
+
+.createaccount [data-testid="stVerticalBlock"] {
+    display: block;
+}
+
+.createaccount [data-testid="stVerticalBlock"] > div {
+    margin: 10px 0;
+}
+
+.createaccount [data-testid="stVerticalBlock"] > .horizontalDiv:last-child {
+    float: right;
+    margin-right: 10px;
+}
+
+.account .stMarkdown [data-testid="stMarkdownContainer"] > p {
+    margin-bottom: 3rem;
+    font-size: 20px;
+    margin-top: 1rem;
+}
+
+.wishlist [data-testid="stVerticalBlock"] {
+    display: block;
+}
+
+.wishlist .horizontalDiv {
+    margin-right: 25px;
+}
+
+.friendlist .horizontalDiv {
+    margin-right: 25px;
+}

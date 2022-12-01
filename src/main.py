@@ -7,26 +7,44 @@ from account import Account
 from account_info import AccountInfo
 from item import item
 from datetime import datetime
+import streamlit.components.v1 as components
+import utils as utl
+import requests
 import re
+from streamlit.components.v1 import html
 
+extrajs = ''''''
+
+def horizontalButtons():
+    global extrajs
+    extrajs += '''
+        forms = window.parent.document.querySelectorAll('[data-testid="stFormSubmitButton"]');
+        for (const element of forms) {
+            element.classList.add("horizontalDiv");
+            element.parentElement.classList.add("horizontalDiv");
+            element.parentElement.parentElement.classList.add("horizontalDiv");
+        }
+    '''
 email_sent = False
 
 def initial_page():
     st.header("Gift Finder!")
-    create = st.button('Create Account') 
-    login = st.button('Log In')
+    create = st.button('Create Account', type="primary") 
+    login = st.button('Log In', type="primary")
     if create:
         st.session_state.runpage = 'createaccount'
         st.experimental_rerun()
     if login:
         st.session_state.runpage = 'login'
         st.experimental_rerun()
+    
 
 def login_page():
+    st.header("Login")
     form1 = st.form(key='Login form')
     f_name = form1.text_input('User Name')
     password = form1.text_input('Enter a password', type='password')
-    but = form1.form_submit_button('Log in')
+    but = form1.form_submit_button('Log in', type="primary")
     if but:
         accountMan = AccountInfo()
         info = accountMan.get_account(f_name,password)
@@ -47,7 +65,7 @@ def login_page():
         st.experimental_rerun() 
     
 def create_account():
-    st.write('Please fill out the form')
+    # st.write('Please fill out the form')
     form = st.form(key='Create_form')
     f_name = form.text_input('First Name:')
     surname = form.text_input('Last Name:')
@@ -57,8 +75,9 @@ def create_account():
     username = form.text_input('User Name:')
     password = form.text_input('Enter a password:', type='password')
     interest = form.text_input('Interests (please enter them comma seperated):')
-    but1 = form.form_submit_button('Submit')
-
+    
+    but1 = form.form_submit_button('Submit', type="primary")
+    but2 = form.form_submit_button("Back")
     # check if birthday is valid format
     format = "%m/%d/%Y"
     validB = True
@@ -109,26 +128,22 @@ def create_account():
             st.experimental_rerun()
     #return account
     
-    if st.button('Back'):
+    if but2:
         st.session_state.runpage = 'initial'
-        st.experimental_rerun() 
+        st.experimental_rerun()
+    horizontalButtons()
+    
 
 def account_page():
     acc = st.session_state.account
     st.header('Welcome ' + acc.name + '!')
-    st.write("What a beautiful day to gift!")
-    if st.button('Profile'):
-        st.session_state.runpage = 'profile'
-        st.experimental_rerun()
-    if st.button('Wishlist'): 
-        st.session_state.runpage = 'wishlist'
-        st.experimental_rerun()
-    if st.button('Friendlist'):
-        st.session_state.runpage = 'friendlist'
-        st.experimental_rerun()
-    if st.button('Logout'):
-        st.session_state.runpage = 'initial'
-        st.experimental_rerun()
+
+    st.write("Quote of the day:")
+    if 'response' not in st.session_state:
+        st.session_state.response = requests.get('https://zenquotes.io/api/today')
+    st.markdown(st.session_state.response.json()[0]["h"].replace('&mdash;', ''), unsafe_allow_html=True)
+
+
     # check if whether a notification email needs to be sent today (is it 1 week before the account's birthday)
     global email_sent
 
@@ -171,7 +186,7 @@ def profile_page():
     st.write('Email: ' + acc.email)
     st.write('Email Notifications: ' + acc.notifications)
     st.write('Interests: ' + (acc.interests).replace("\"", ""))
-    if st.button("Edit Profile"):
+    if st.button("Edit Profile", type="primary"):
         st.session_state.runpage = 'editprofile'
         st.experimental_rerun()
     if st.button("Back"):
@@ -200,7 +215,7 @@ def editprofile_page():
     
     case = -1
     chars = set("~!@#$%^&*()_+=")
-    if form.form_submit_button('Update'):
+    if form.form_submit_button('Update', type="primary"):
         # check if birthday is valid format
         format = "%m/%d/%Y"
         validB = True
@@ -293,18 +308,32 @@ def wishlist_page():
             j = j + 1
         # st.table(df)
 
-    if st.button('Add item'):
+    if st.button('Add item', type="primary"):
         st.session_state.runpage = 'additem'
         st.experimental_rerun()
-    # if st.button('Modify item'):
-    #     st.session_state.runpage = 'modifyitem'
-    #     st.experimental_rerun()
-    # if st.button('Remove item'):
-    #     st.session_state.runpage = 'deleteitem'
-    #     st.experimental_rerun()
+    if st.button('Modify item', type="primary"):
+        st.session_state.runpage = 'modifyitem'
+        st.experimental_rerun()
+    if st.button('Remove item', type="primary"):
+        st.session_state.runpage = 'deleteitem'
+        st.experimental_rerun()
+
     if st.button('Back'):
         st.session_state.runpage = 'account'
-        st.experimental_rerun()        
+        st.experimental_rerun()      
+    global extrajs
+    extrajs += '''
+        document.addEventListener('DOMContentLoaded', function(event) {
+    //the event occurred
+        forms = window.parent.document.querySelectorAll('.stButton');
+        for (const element of forms) {
+            element.classList.add("horizontalDiv");
+            element.parentElement.classList.add("horizontalDiv");
+            
+        }
+        forms[forms.length - 1].parentElement.classList.add("back");
+        })
+    '''
 
 def additem_page():
     form = st.form(key='AddItemForm')
@@ -315,7 +344,7 @@ def additem_page():
     
     case = -1
     chars = set("~!@#$%^&*()_+=")
-    if form.form_submit_button('Add item'):
+    if form.form_submit_button('Add item', type="primary"):
         if title == "":
             case = 0
         else:    
@@ -375,16 +404,17 @@ def modifyitem_page():
     #     except ValueError: 
     #         case = 1
         
-    #     if case == 0: st.error("Item ID does not exist")
-    #     elif case == 1: st.error("Item ID must be an integer")
-    #     else:
+
+    if case == 0: st.error("Item ID does not exist")
+    elif case == 1: st.error("Item ID must be an integer")
+    else:
     form = st.form(key='ModifyItemForm')
     title = form.text_input('Title:', value= i.title, placeholder= i.title)
     desc = form.text_input('Description', value= i.desc, placeholder= i.desc)
     link = form.text_input('Link', value= i.link, placeholder= i.link)
     cost = form.text_input('Cost', value= i.cost, placeholder= i.cost)
     chars = set("~!@#$%^&*()_+=")
-    if form.form_submit_button('Modify item'):
+    if form.form_submit_button('Modify item', type="primary"):
         if title == "":
             st.error("Title is not nullable")
         elif any((c in chars) for c in title):
@@ -398,7 +428,7 @@ def modifyitem_page():
                 st.experimental_rerun()    
             except ValueError: st.error("Cost must be a number") 
                     
-    if st.button('Back'):
+    if st.button('Back', type="primary"):
         st.session_state.runpage = 'wishlist'
         st.experimental_rerun() 
 
@@ -412,7 +442,7 @@ def deleteitem_page():
     # id =form.text_input('Please enter ID of the item you want to delete', value=items[0])
     # case = -1
     
-    # if form.form_submit_button('Delete item'):
+    # if form.form_submit_button('Delete item', type="primary"):
     #     try: 
     #         i = item(ID=int(id))
     #     except ValueError:
@@ -461,6 +491,7 @@ def friendlist_page():
     if friendlist != 'NaN':        
         friendlist = friendlist.split(',')
         friendobj = [Account(ID=int(f)) for f in friendlist if f.isnumeric()]
+
         # friendName = [f.name for f in friendobj]
         # friendSur = [f.surname for f in friendobj]
         # df = pd.DataFrame(list(zip(friendlist,friendName,friendSur)), columns=('ID', 'First Name', 'Last Name'))
@@ -493,18 +524,31 @@ def friendlist_page():
             j = j + 1
 
 
-    # if st.button('View Wishlist of friend'):
+    # if st.button('View Wishlist of friend', type="primary"):
     #     st.session_state.runpage = 'friendwishlist'
     #     st.experimental_rerun() 
-    if st.button('Add friend'):
+    if st.button('Add friend', type="primary"):
         st.session_state.runpage = 'addfriend'
         st.experimental_rerun() 
-    # if st.button('Delete friend'):
+    # if st.button('Delete friend', type="primary"):
     #     st.session_state.runpage = 'deletefriend'
     #     st.experimental_rerun() 
-    if st.button('Back'):
+    if st.button('Back', type="primary"):
         st.session_state.runpage = 'account'
         st.experimental_rerun()
+    global extrajs
+    extrajs += '''
+        document.addEventListener('DOMContentLoaded', function(event) {
+    //the event occurred
+        forms = window.parent.document.querySelectorAll('.stButton');
+        for (const element of forms) {
+            element.classList.add("horizontalDiv");
+            element.parentElement.classList.add("horizontalDiv");
+            
+        }
+        forms[forms.length - 1].parentElement.classList.add("back");
+        })
+    '''
 
 def viewwishlist_page():
     acc = st.session_state.account
@@ -520,6 +564,7 @@ def viewwishlist_page():
         item_objs = [item(ID=id) for id in items] 
     except ValueError:
         st.error("This ID doesn't have any wishlist")
+
         
 
     item_titles = [(i.title).replace("\"", "") for i in item_objs]
@@ -539,21 +584,15 @@ def addfriend_page():
     acc = st.session_state.account
     friendlist = acc.friendlist
     form = st.form(key='addfriend')
-    id =form.text_input('Please enter ID of the friend')
-    case = -1
+    username =form.text_input('Please enter the username of the friend')
+    id = -1
     
-    if form.form_submit_button('Add friend'):
-        try: 
-            friend = Account(ID=int(id))
-        except ValueError:
-            case = 0
+    if form.form_submit_button('Add friend', type="primary"):
+
+        accountMan = AccountInfo()
+        id = accountMan.find_id(username)
         
-        try: int(id)
-        except ValueError: 
-            case = 1
-        
-        if case == 0: st.error("Friend ID does not exist")
-        elif case == 1: st.error("Friend ID must be an integer")
+        if id == 0: st.error("Friend Username does not exist")
         else:
             if friendlist:
                 friendlist += ',' + str(id)
@@ -588,11 +627,12 @@ def deletefriend_page():
     print(id)
     # case = -1
     
-    # if form.form_submit_button('Delete friend'):
+    # if form.form_submit_button('Delete friend', type="primary"):
     #     try: 
     #         Account(ID=int(id))
     #     except ValueError:
     #         case = 0
+
         
     #     try: int(id)
     #     except ValueError: 
@@ -623,12 +663,54 @@ def deletefriend_page():
         st.session_state.runpage = 'friendlist'
         st.experimental_rerun() 
 
+if 'account' not in st.session_state or st.session_state.runpage == 'initial':
+    st.session_state.account = 'None'
 
-if 'runpage' not in st.session_state:
+if 'runpage' not in st.session_state or (st.session_state.account == 'None' and not st.session_state.runpage == 'login' and not st.session_state.runpage == 'createaccount'):
     st.session_state.runpage = 'initial'
 
-if 'account' not in st.session_state:
-    st.session_state.account = 'None'
+# st.set_page_config(layout="wide", page_title='Navbar sample')
+st.set_page_config(page_title='Gifter 2', page_icon='assets/images/gift-flat.ico')
+st.set_option('deprecation.showPyplotGlobalUse', False)
+utl.inject_custom_css()
+utl.navbar_component(st.session_state.account)
+
+
+navtab, tab2= st.tabs(["Navtab", "test"])
+
+with navtab:    
+    if st.button('home'):
+        st.session_state.runpage = 'account'
+        st.experimental_rerun() 
+    if st.button('wishlist'):
+        st.session_state.runpage = 'wishlist'
+        st.experimental_rerun()
+    if st.button('friendlist'):
+        st.session_state.runpage = 'friendlist'
+        st.experimental_rerun() 
+    if st.button('acount'):
+        st.session_state.runpage = 'profile'
+        st.experimental_rerun() 
+    if st.button('logout'):
+        st.session_state.runpage = 'initial'
+        del st.session_state["account"]
+        st.experimental_rerun() 
+with tab2:
+    st.header("Placeholder")
+
+
+
+extrajs = '''
+        buttonDivs = window.parent.document.querySelectorAll('[data-testid="stVerticalBlock"] > [data-stale="false"] > .stButton');
+        while (!buttonDivs) {
+            buttonDivs = window.parent.document.querySelectorAll('[data-testid="stVerticalBlock"] > [data-stale="false"] > .stButton');
+        }
+        for (const element of buttonDivs) {
+            element.parentElement.classList.add("but");
+        }
+    '''
+
+# navigation()
 
 if st.session_state.runpage == 'initial':
     initial_page()
@@ -658,3 +740,19 @@ elif st.session_state.runpage == 'addfriend':
     addfriend_page()
 elif st.session_state.runpage == 'deletefriend':
     deletefriend_page()
+
+extrajs += '''
+    </script>
+'''
+js = '''
+    <script>
+        body = window.parent.document.querySelectorAll("body")[0]
+        body.className = "''' + st.session_state.runpage + '''";
+        buttonDivs = window.parent.document.querySelectorAll('[data-testid="stVerticalBlock"] > [data-stale="false"] > .stButton');
+        for (const element of buttonDivs) {
+            element.parentElement.classList.add("buttonDiv");
+        }
+        ''' + extrajs + '''
+    '''
+html(js)
+utl.footer_component()
