@@ -155,8 +155,6 @@ def account_page():
                 acc = Account(ID = int(acc.ID))
                 st.session_state.account = acc
                 st.session_state.runpage = 'profile'
-            else:
-                st.error("Please ensure you have added items to your wishlist and friends to your friendlist before attempting to send email notifications.")
             st.experimental_rerun()
     else:
         email_sent = False
