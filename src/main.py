@@ -463,7 +463,6 @@ def deleteitem_page():
     a_interests = acc.interests
     a_wishlist = acc.wishlist
     a_friendlist = acc.friendlist
-
     a_wishlist = a_wishlist.split(",")
     a_wishlist.remove(str(i.itemID))
             # a_wishlist.remove('')
