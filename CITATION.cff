@@ -1,0 +1,31 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.1.0
+title: Gifter-2
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Shruti
+    family-names: Marota
+    email: smarota@ncsu.edu
+    affiliation: North Carolina State University
+  - given-names: Landon
+    family-names: Gaddy
+    email: rlgaddy@ncsu.edu
+    affiliation: North Carolina State University
+  - given-names: Huangxing
+    family-names: Chen
+    affiliation: North Carolina State University
+  - given-names: Saminur
+    family-names: Islam
+    email: sislam8@ncsu.edu
+    affiliation: North Carolina State University
+  - given-names: ' Li-Chia'
+    family-names: Chang
+    affiliation: North Carolina State University
+version: 1.1.0
+date-released: 12-01-2022
+url: https://github.com/landog893/Gifter-2
