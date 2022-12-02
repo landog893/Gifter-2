@@ -7,13 +7,13 @@ import streamlit as st
 
 class AccountInfo:
         
-    def create_account(self, name, surname='', birthday='',username='', password = '',interests='', wishlist='', friendlist=''):
+    def create_account(self, name, surname='', birthday='', email='', notifications='', username='', password = '',interests='', wishlist='', friendlist=''):
         
-        query = """Insert Into public."Account" ("Name","Surname","Birthday","UserName","Password","Interests","WishList","FriendList") 
-                values(%s,%s,%s,%s,%s,%s,%s,%s) returning "ID" """
+        query = """Insert Into public."Account" ("Name","Surname","Birthday","Email","Notifications","UserName","Password","Interests","WishList","FriendList") 
+                values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) returning "ID" """
         conn = None
         Checkquery =  """Select * From "Account" WHERE "UserName" = %s;"""
-        ID = None
+        acc = None
         try:
         # initializing connection
             params = config()
@@ -33,11 +33,6 @@ class AccountInfo:
                 return -2
             cur.close()
         # execute a statement
-            cur = conn.cursor()
-            cur.execute(query, (name, surname, birthday, username,password,interests,wishlist,friendlist))
-            acc = cur.fetchone()
-            print("create ID")
-            print(acc)
             cur.close()
             conn.commit()
             cur.close()
@@ -51,8 +46,8 @@ class AccountInfo:
                 
         return acc
     
-    def update_account(self, ID, name='', surname='', birthday='',username='',password = '', interests='', wishlist = '', friendlist= ''):
-        query = """UPDATE "Account" Set "Name" = %s, "Surname" = %s, "Birthday" = %s, "UserName" = %s, "Password" = %s, "Interests" = %s, "WishList" = %s, "FriendList" = %s
+    def update_account(self, ID, name='', surname='', birthday='', email='', notifications='', username='',password = '', interests='', wishlist = '', friendlist= ''):
+        query = """UPDATE "Account" Set "Name" = %s, "Surname" = %s, "Birthday" = %s, "Email" = %s, "Notifications" = %s, "UserName" = %s, "Password" = %s, "Interests" = %s, "WishList" = %s, "FriendList" = %s
                 Where "ID" = %s"""
         conn = None
         success = True
@@ -63,7 +58,7 @@ class AccountInfo:
             conn = psycopg2.connect(**params)
             cur = conn.cursor()
         # execute a statement
-            cur.execute(query, (name,surname,birthday,username,password,interests, wishlist, friendlist,ID))
+            cur.execute(query, (name,surname,birthday,email,notifications,username,password,interests, wishlist, friendlist,ID))
             cur.close()
             conn.commit()
             cur.close()
@@ -106,7 +101,7 @@ class AccountInfo:
         
     
     def get_info(self, ID):
-        query = """Select "Name","Surname","Birthday","UserName","Password","Interests","WishList","FriendList" 
+        query = """Select "Name","Surname","Birthday","Email","Notifications","UserName","Password","Interests","WishList","FriendList" 
                     From "Account" WHERE "ID" = %s;"""
         conn = None
         user_info = None
@@ -133,7 +128,7 @@ class AccountInfo:
         return user_info[0] if user_info else None
     
     def get_account(self, username,password):
-        query = """Select "ID", "Name","Surname","Birthday","UserName","Password","Interests","WishList","FriendList" 
+        query = """Select "ID", "Name","Surname","Birthday","Email","Notifications","UserName","Password","Interests","WishList","FriendList" 
                     From "Account" WHERE "UserName" = %s;"""
         conn = None
         user_info = None
@@ -159,7 +154,7 @@ class AccountInfo:
         
         if user_info:
             user_info = user_info[0]
-            if user_info[5] == password:
+            if user_info[7] == password:
                 return user_info
             else:
                 return -2
@@ -207,6 +202,14 @@ class AccountInfo:
         else:
             result_dict = result.values
             return result_dict[0][3]
+
+    # def get_email(self, ID):
+    #     result, flag = self.search_ID(ID)
+    #     if flag == -1:
+    #         return -1
+    #     else:
+    #         result_dict = result.values
+    #         return result_dict[0][4]
     
     def get_interests(self, ID):
         result, flag = self.search_ID(ID)
@@ -222,8 +225,8 @@ class AccountInfo:
             return -1
         else:
             result_dict = result.values
-            return result_dict[0][5]
-        
+            return result_dict[0][6]
+    
     def add_wishlist(self, ID, items):
         flag = 1
         wl_str = self.get_wishlist(ID)
@@ -279,6 +282,33 @@ class AccountInfo:
             result_dict = result.values
             return result_dict[0][6]
 
+    def find_id(self, ID) :
+        query = """Select "Name","Surname","Birthday","UserName","Password","Interests","WishList","FriendList" 
+                    From "Account" WHERE "ID" = %s;"""
+        conn = None
+        user_info = None
+        try:
+        # initializing connection
+            params = config()
+            print('Connecting to the PostgreSQL database...')
+            conn = psycopg2.connect(**params)
+            cur = conn.cursor()
+        # execute a statement
+            cur.execute(query, (ID,))
+            user_info = cur.fetchall()
+            cur.close()
+            conn.commit()
+            cur.close()
+            
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection closed.')
+        
+        return user_info[0].ID if user_info else 0
+        
 
 class Friends(AccountInfo):
     def __init__(self):
