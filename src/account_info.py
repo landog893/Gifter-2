@@ -31,6 +31,9 @@ class AccountInfo:
                 print('User Name already in use. Please use another one!')
                 st.error("User Name already in use. Please use another one!")
                 return -2
+            else:
+                cur.execute(query,(name,surname,birthday,email,notifications,username,password,interests,wishlist,friendlist))
+                acc = cur.fetchall()[0]
             cur.close()
         # execute a statement
             cur.close()
