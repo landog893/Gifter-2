@@ -39,8 +39,8 @@ class Account():
             self.friendlist = friendlist
             acc = self.create_account()
             print(acc)
-            if isinstance(acc, int) == True and acc == -2:
-                print("Can not create account with same user name")
+            if not acc:
+                st.error("Registration failed, please try again!")
                 self.ID = -2
             else:
                 self.ID = acc[0]
