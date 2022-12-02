@@ -405,9 +405,9 @@ def modifyitem_page():
     #         case = 1
         
 
-    if case == 0: st.error("Item ID does not exist")
-    elif case == 1: st.error("Item ID must be an integer")
-    else:
+    # if case == 0: st.error("Item ID does not exist")
+    # elif case == 1: st.error("Item ID must be an integer")
+    # else:
     form = st.form(key='ModifyItemForm')
     title = form.text_input('Title:', value= i.title, placeholder= i.title)
     desc = form.text_input('Description', value= i.desc, placeholder= i.desc)
