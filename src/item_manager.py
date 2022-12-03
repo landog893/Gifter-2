@@ -66,12 +66,7 @@ class ItemManager:
         
         return item_info[0] if item_info else None
         
-        
-        # data = read_csv(self.database)
-        # if data.loc[data['ItemID']==ID].empty:
-        #     print("Item does not exist")
-        #     return -1
-        # return (data.loc[data['ItemID'] == ID])
+    
 
     def delete_item(self, ID: int):
         
