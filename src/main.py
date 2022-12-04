@@ -438,7 +438,7 @@ def friendlist_page():
     st.header('Friend List')
     acc = st.session_state.account
     friendlist = acc.friendlist
-    if friendlist != 'NaN':        
+    if friendlist != 'NaN' or friendlist!= None:        
         friendlist = friendlist.split(',')
         friendobj = [Account(ID=int(f)) for f in friendlist if f.isnumeric()]
 
@@ -455,13 +455,13 @@ def friendlist_page():
             col2.write((i.surname).replace("\"", ""))
             col5.write((i.birthday))
             button_phold = col3.empty()
-            do_action = button_phold.button("View Wishlist",key = friendlist[j])
+            do_action = button_phold.button("View Wishlist",key = j+1)
             if do_action:
                 st.session_state['freindId'] = friendlist[j]
                 st.session_state.runpage = 'friendwishlist'
                 st.experimental_rerun() 
             button_remove = col4.empty()
-            do_remove_action = button_remove.button("Delete friend",key = str(friendlist[j])+str(friendlist[j]))
+            do_remove_action = button_remove.button("Delete friend",key = str(j + 1)+str(j+1))
             if do_remove_action:
                 st.session_state['delete_friend'] = friendlist[j]
                 st.session_state.runpage = 'deletefriend'
@@ -522,9 +522,7 @@ def viewwishlist_page():
         st.experimental_rerun() 
 
 def addfriend_page():
-    if "Add_Friend" not in st.session_state:
-        st.session_state["Add_Friend"] = dict.fromkeys([1, 2, 3,4,5], False)
-    Add_Friend = st.session_state["Add_Friend"]
+
     acc = st.session_state.account
     friendlist = acc.friendlist
     print("Friend list for the account:")
@@ -533,79 +531,67 @@ def addfriend_page():
     user_list = None
     username =form.text_input('Search friend by Name')
     id = -1
-    
-    if form.form_submit_button('Search friend', type="primary"):
-
+    form_submit = form.form_submit_button('Search friend', type="primary")
+    if form_submit:
+        form_submit = False
         accountMan = AccountInfo()
         user_list = accountMan.find_friend(username)
         if len(user_list) == 0 or user_list==None:
             st.error("There no user with that Name! Please look for valid User.")
-    
-    if user_list != None:
-        colms = st.columns((5,5,5,5,5))
-        fields = ["#User","First Name","Last Name", "Birthday","Add Friend"]
-        for col, field_name in zip(colms, fields):
-            col.write(field_name) 
-        j = 0
-        for i in range(len(user_list)):
+        else:
+            st.session_state.account = acc
+            st.session_state['user_list'] = user_list
+            st.session_state.runpage = 'savefriend'
+            st.experimental_rerun() 
 
-            col0,col1,col2,col3,col4 = st.columns((5,5,5,5,5))
-            col0.write(j+1)
-            col1.write((user_list[i][1]))
-            col2.write((user_list[i][2]))
-            col3.write((user_list[i][3]))
-            with col4:
-                click = st.button("Add",key= j+1)
-                if click:
-                    print("inside the click")
-                    if friendlist:
-                        friendlist += ','+str(user_list[i][0])
-                    else:
-                        friendlist = str(user_list[i][0])
-                    
-                    a_name = acc.name
-                    a_surname = acc.surname
-                    a_birthday = acc.birthday
-                    a_email = acc.email
-                    a_notifications = acc.notifications
-                    a_username = acc.username
-                    a_password = acc.password
-                    a_interests = acc.interests
-                    a_wishlist = acc.wishlist
-                    acc.update_account(a_name, a_surname, a_birthday, a_email, a_notifications, a_username, a_password, a_interests, a_wishlist, friendlist)
-                    acc = Account(ID = int(acc.ID))
-
-                    st.session_state.account = acc
-                    st.session_state.runpage = 'friendlist'
-                    st.experimental_rerun() 
-            j = j + 1
-        #print(id)
-        
-        # if id == 0: st.error("Friend Username does not exist")
-        # else:
-        #     if friendlist:
-        #         friendlist += ',' + str(id)
-        #     else:
-        #         friendlist = str(id)
-        #     a_name = acc.name
-        #     a_surname = acc.surname
-        #     a_birthday = acc.birthday
-        #     a_email = acc.email
-        #     a_notifications = acc.notifications
-        #     a_username = acc.username
-        #     a_password = acc.password
-        #     a_interests = acc.interests
-        #     a_wishlist = acc.wishlist
-            
-        #     acc.update_account(a_name, a_surname, a_birthday, a_email, a_notifications, a_username, a_password, a_interests, a_wishlist, friendlist)
-        #     acc = Account(ID = int(acc.ID))
-        #     st.session_state.account = acc
-        #     st.session_state.runpage = 'friendlist'
-        #     st.experimental_rerun() 
     if st.button('Back'):
         st.session_state.runpage = 'friendlist'
         st.experimental_rerun() 
 
+def save_friendList():
+    acc = st.session_state.account
+    friendlist = acc.friendlist
+    user_list = st.session_state['user_list']
+    colms = st.columns((5,5,5,5,5))
+    fields = ["#User","First Name","Last Name", "Birthday","Add Friend"]
+    for col, field_name in zip(colms, fields):
+        col.write(field_name) 
+    j = 0
+    for i in range(len(user_list)):
+        col0,col1,col2,col3,col4 = st.columns((5,5,5,5,5))
+        col0.write(j+1)
+        col1.write((user_list[i][1]))
+        col2.write((user_list[i][2]))
+        col3.write((user_list[i][3]))
+        button_phold = col4.empty()
+        do_action = button_phold.button("ADD",key = j +1 )
+        if do_action:
+            if friendlist:
+                friendlist += ','+str(user_list[i][0])
+            else:
+                friendlist = str(user_list[i][0])
+                    
+            a_name = acc.name
+            a_surname = acc.surname
+            a_birthday = acc.birthday
+            a_email = acc.email
+            a_notifications = acc.notifications
+            a_username = acc.username
+            a_password = acc.password
+            a_interests = acc.interests
+            a_wishlist = acc.wishlist
+            acc.update_account(a_name, a_surname, a_birthday, a_email, a_notifications, a_username, a_password, a_interests, a_wishlist, friendlist)
+            acc = Account(ID = int(acc.ID))
+
+            st.session_state.account = acc
+            st.session_state.runpage = 'friendlist'
+            st.experimental_rerun() 
+        j = j + 1
+
+    if st.button('Back'):
+        st.session_state.runpage = 'friendlist'
+        st.experimental_rerun() 
+    print("Inside save friend list function")
 
 def deletefriend_page():
     acc = st.session_state.account
@@ -713,6 +699,8 @@ elif st.session_state.runpage == 'friendwishlist':
     viewwishlist_page()
 elif st.session_state.runpage == 'addfriend':
     addfriend_page()
+elif st.session_state.runpage == 'savefriend':
+    save_friendList()
 elif st.session_state.runpage == 'deletefriend':
     deletefriend_page()
 
