@@ -269,14 +269,6 @@ def wishlist_page():
         items = (acc.wishlist).replace("\"", "").split(",")
         items = [int(item) for item in items if item.isnumeric()]
         item_objs = [item(ID=id) for id in items] 
-        # item_titles = [(i.title).replace("\"", "") for i in item_objs]
-        # item_descs = [(i.desc).replace("\"", "") for i in item_objs]
-        # item_links = [(i.link.replace("\"", "")) for i in item_objs]
-        # item_costs = [i.cost for i in item_objs]
-        
-
-        # df = pd.DataFrame(list(zip(items, item_titles, item_descs, item_links, item_costs,item_buttons)), columns=('ID', 'Title', 'Description', 'Link', 'Cost','Edit Item'))
-        # df.set_index('ID', inplace=True)
         colms = st.columns((2,2, 2, 2, 2, 2,2))
         fields = ["Item Number","Title", 'Description', 'Link', 'Cost', "Edit Item","Remove Item"]
         for col, field_name in zip(colms, fields):
@@ -307,12 +299,6 @@ def wishlist_page():
 
     if st.button('Add item', type="primary"):
         st.session_state.runpage = 'additem'
-        st.experimental_rerun()
-    if st.button('Modify item', type="primary"):
-        st.session_state.runpage = 'modifyitem'
-        st.experimental_rerun()
-    if st.button('Remove item', type="primary"):
-        st.session_state.runpage = 'deleteitem'
         st.experimental_rerun()
 
     if st.button('Back'):
@@ -389,22 +375,7 @@ def modifyitem_page():
     items = [int(item) for item in items]
     id = st.session_state['edit_key']
     i = item(ID=int(id))
-    # id =st.text_input('Please enter ID of the item you want to modify')
-    # if st.button('Confirm'):
-    #     case = -1        
-    #     try: 
-    #         i = item(ID=int(id))
-    #     except ValueError:
-    #         case = 0
-        
-    #     try: int(id)
-    #     except ValueError: 
-    #         case = 1
-        
 
-    # if case == 0: st.error("Item ID does not exist")
-    # elif case == 1: st.error("Item ID must be an integer")
-    # else:
     form = st.form(key='ModifyItemForm')
     title = form.text_input('Title:', value= i.title, placeholder= i.title)
     desc = form.text_input('Description', value= i.desc, placeholder= i.desc)
@@ -436,22 +407,7 @@ def deleteitem_page():
     items = [int(item) for item in items]
     form = st.form(key='DeleteItemForm')
     i = item(ID=int(id))
-    # id =form.text_input('Please enter ID of the item you want to delete', value=items[0])
-    # case = -1
-    
-    # if form.form_submit_button('Delete item', type="primary"):
-    #     try: 
-    #         i = item(ID=int(id))
-    #     except ValueError:
-    #         case = 0
-        
-    #     try: int(id)
-    #     except ValueError: 
-    #         case = 1
-        
-    #     if case == 0: st.error("Item ID does not exist")
-    #     elif case == 1: st.error("Item ID must be an integer")
-    #     else:
+
     acc = st.session_state.account
     a_name = acc.name
     a_surname = acc.surname
@@ -476,9 +432,7 @@ def deleteitem_page():
     st.session_state.runpage = 'wishlist'
     st.experimental_rerun()
         
-    # if st.button('Back'):
-    #     st.session_state.runpage = 'wishlist'
-    #     st.experimental_rerun() 
+
 
 def friendlist_page():
     st.header('Friend List')
@@ -488,11 +442,6 @@ def friendlist_page():
         friendlist = friendlist.split(',')
         friendobj = [Account(ID=int(f)) for f in friendlist if f.isnumeric()]
 
-        # friendName = [f.name for f in friendobj]
-        # friendSur = [f.surname for f in friendobj]
-        # df = pd.DataFrame(list(zip(friendlist,friendName,friendSur)), columns=('ID', 'First Name', 'Last Name'))
-        # df.set_index('ID', inplace=True)
-        # st.table(df)
         colms = st.columns((5,5,5,5,5,5))
         fields = ["#Freind","First Name","Last Name", "Birthday","View freinds Wishlist","Delete Friend"]
         for col, field_name in zip(colms, fields):
@@ -520,15 +469,11 @@ def friendlist_page():
             j = j + 1
 
 
-    # if st.button('View Wishlist of friend', type="primary"):
-    #     st.session_state.runpage = 'friendwishlist'
-    #     st.experimental_rerun() 
+
     if st.button('Add friend', type="primary"):
         st.session_state.runpage = 'addfriend'
         st.experimental_rerun() 
-    # if st.button('Delete friend', type="primary"):
-    #     st.session_state.runpage = 'deletefriend'
-    #     st.experimental_rerun() 
+
     if st.button('Back', type="primary"):
         st.session_state.runpage = 'account'
         st.experimental_rerun()
@@ -669,21 +614,7 @@ def deletefriend_page():
     id = st.session_state['delete_friend']
     print("friend id")
     print(id)
-    # case = -1
-    
-    # if form.form_submit_button('Delete friend', type="primary"):
-    #     try: 
-    #         Account(ID=int(id))
-    #     except ValueError:
-    #         case = 0
 
-        
-    #     try: int(id)
-    #     except ValueError: 
-    #         case = 1
-    #     if case == 0: st.error("Friend ID does not exist")
-    #     elif case == 1: st.error("Friend ID must be an integer")
-    #     else:
     a_name = acc.name
     a_surname = acc.surname
     a_birthday = acc.birthday
