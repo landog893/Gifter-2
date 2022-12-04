@@ -577,38 +577,86 @@ def viewwishlist_page():
         st.experimental_rerun() 
 
 def addfriend_page():
+    if "Add_Friend" not in st.session_state:
+        st.session_state["Add_Friend"] = dict.fromkeys([1, 2, 3,4,5], False)
+    Add_Friend = st.session_state["Add_Friend"]
     acc = st.session_state.account
     friendlist = acc.friendlist
+    print("Friend list for the account:")
+    print(friendlist)
     form = st.form(key='addfriend')
-    username =form.text_input('Please enter the username of the friend')
+    user_list = None
+    username =form.text_input('Search friend by Name')
     id = -1
     
-    if form.form_submit_button('Add friend', type="primary"):
+    if form.form_submit_button('Search friend', type="primary"):
 
         accountMan = AccountInfo()
-        id = accountMan.find_id(username)
+        user_list = accountMan.find_friend(username)
+        if len(user_list) == 0 or user_list==None:
+            st.error("There no user with that Name! Please look for valid User.")
+    
+    if user_list != None:
+        colms = st.columns((5,5,5,5,5))
+        fields = ["#User","First Name","Last Name", "Birthday","Add Friend"]
+        for col, field_name in zip(colms, fields):
+            col.write(field_name) 
+        j = 0
+        for i in range(len(user_list)):
+
+            col0,col1,col2,col3,col4 = st.columns((5,5,5,5,5))
+            col0.write(j+1)
+            col1.write((user_list[i][1]))
+            col2.write((user_list[i][2]))
+            col3.write((user_list[i][3]))
+            with col4:
+                click = st.button("Add",key= j+1)
+                if click:
+                    print("inside the click")
+                    if friendlist:
+                        friendlist += ','+str(user_list[i][0])
+                    else:
+                        friendlist = str(user_list[i][0])
+                    
+                    a_name = acc.name
+                    a_surname = acc.surname
+                    a_birthday = acc.birthday
+                    a_email = acc.email
+                    a_notifications = acc.notifications
+                    a_username = acc.username
+                    a_password = acc.password
+                    a_interests = acc.interests
+                    a_wishlist = acc.wishlist
+                    acc.update_account(a_name, a_surname, a_birthday, a_email, a_notifications, a_username, a_password, a_interests, a_wishlist, friendlist)
+                    acc = Account(ID = int(acc.ID))
+
+                    st.session_state.account = acc
+                    st.session_state.runpage = 'friendlist'
+                    st.experimental_rerun() 
+            j = j + 1
+        #print(id)
         
-        if id == 0: st.error("Friend Username does not exist")
-        else:
-            if friendlist:
-                friendlist += ',' + str(id)
-            else:
-                friendlist = str(id)
-            a_name = acc.name
-            a_surname = acc.surname
-            a_birthday = acc.birthday
-            a_email = acc.email
-            a_notifications = acc.notifications
-            a_username = acc.username
-            a_password = acc.password
-            a_interests = acc.interests
-            a_wishlist = acc.wishlist
+        # if id == 0: st.error("Friend Username does not exist")
+        # else:
+        #     if friendlist:
+        #         friendlist += ',' + str(id)
+        #     else:
+        #         friendlist = str(id)
+        #     a_name = acc.name
+        #     a_surname = acc.surname
+        #     a_birthday = acc.birthday
+        #     a_email = acc.email
+        #     a_notifications = acc.notifications
+        #     a_username = acc.username
+        #     a_password = acc.password
+        #     a_interests = acc.interests
+        #     a_wishlist = acc.wishlist
             
-            acc.update_account(a_name, a_surname, a_birthday, a_email, a_notifications, a_username, a_password, a_interests, a_wishlist, friendlist)
-            acc = Account(ID = int(acc.ID))
-            st.session_state.account = acc
-            st.session_state.runpage = 'friendlist'
-            st.experimental_rerun() 
+        #     acc.update_account(a_name, a_surname, a_birthday, a_email, a_notifications, a_username, a_password, a_interests, a_wishlist, friendlist)
+        #     acc = Account(ID = int(acc.ID))
+        #     st.session_state.account = acc
+        #     st.session_state.runpage = 'friendlist'
+        #     st.experimental_rerun() 
     if st.button('Back'):
         st.session_state.runpage = 'friendlist'
         st.experimental_rerun() 
