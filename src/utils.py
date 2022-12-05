@@ -129,8 +129,6 @@ def footer_component():
         footer = window.parent.document.getElementById("footer")
         parentDir = window.parent.document.querySelectorAll(".main")[0]
         oldfooter = window.parent.document.querySelectorAll(".main > footer")[0]
-        console.log("New")
-        console.log(window.parent.document.querySelectorAll(".main > footer").length)
         if (window.parent.document.querySelectorAll(".main > footer").length < 2) {
             parentDir.insertBefore(footer, oldfooter)
             }

@@ -174,7 +174,7 @@ def account_page():
 def profile_page():
     st.header('Profile')
     acc = st.session_state.account
-    st.write('ID: ' + str(acc.ID))
+    # st.write('ID: ' + str(acc.ID))
     st.write('First Name: ' + acc.name)
     st.write('Last Name: ' + acc.surname)
     st.write('Birthday: ' + acc.birthday)
@@ -183,18 +183,21 @@ def profile_page():
     st.write('Email: ' + acc.email)
     st.write('Email Notifications: ' + acc.notifications)
     st.write('Interests: ' + (acc.interests).replace("\"", ""))
-    if st.button("Edit Profile", type="primary"):
-        st.session_state.runpage = 'editprofile'
-        st.experimental_rerun()
-    if st.button("Back"):
-        st.session_state.runpage = 'account'
-        st.experimental_rerun()
-    if st.button("Send Notifications"):
-        if (acc.friendlist != 'NaN' and acc.wishlist != 'NaN'):
-            acc.send_reminder_email()
-        else:
-            st.error("Please ensure you have added items to your wishlist and friends to your friendlist before attempting to send email notifications.")
-        st.experimental_rerun()
+    col0,col1,col2 = st.columns((2,2,2))
+    with col0:
+        if st.button("Edit Profile", type="primary"):
+            st.session_state.runpage = 'editprofile'
+            st.experimental_rerun()
+    # if st.button("Back"):
+    #     st.session_state.runpage = 'account'
+    #     st.experimental_rerun()
+    with col1:
+        if st.button("Send Notifications", type="primary"):
+            if (acc.friendlist != 'NaN' and acc.wishlist != 'NaN'):
+                acc.send_reminder_email()
+            else:
+                st.error("Please ensure you have added items to your wishlist and friends to your friendlist before attempting to send email notifications.")
+            st.experimental_rerun()
 
 def editprofile_page():
     st.header('Edit Profile')
@@ -277,26 +280,26 @@ def wishlist_page():
 
         # df = pd.DataFrame(list(zip(items, item_titles, item_descs, item_links, item_costs,item_buttons)), columns=('ID', 'Title', 'Description', 'Link', 'Cost','Edit Item'))
         # df.set_index('ID', inplace=True)
-        colms = st.columns((2,2, 2, 2, 2, 2,2))
-        fields = ["Item Number","Title", 'Description', 'Link', 'Cost', "Edit Item","Remove Item"]
+        colms = st.columns((2,2, 3, 1, 1, 2))
+        fields = ["Item Number","Title", 'Description', 'Cost', "Edit Item","Remove Item"]
         for col, field_name in zip(colms, fields):
             col.write(field_name)
         j = 0
         for i in item_objs:
-            col0,col1, col2, col3, col4, col5,col6 = st.columns((2,2, 2, 2, 2, 2,2))
+            col0,col1, col2, col4, col5,col6 = st.columns((2,2, 3, 1, 1, 2))
             col0.write(j+1)
             col1.write((i.title).replace("\"", ""))
             col2.write((i.desc).replace("\"", ""))
-            col3.write(i.link.replace("\"", ""))
-            col4.write(str(i.cost))
+            # col3.write(i.link.replace("\"", ""))
+            col4.write(str(i.cost)) 
             button_phold = col5.empty()
-            do_action = button_phold.button("Edit",key = items[j])
+            do_action = button_phold.button("Edit",key = items[j], type="primary")
             if do_action:
                 st.session_state['edit_key'] = items[j]
                 st.session_state.runpage = 'modifyitem'
                 st.experimental_rerun()
             button_remove = col6.empty()
-            do_remove_action = button_remove.button("Delete",key = str(items[j])+str(items[j]))
+            do_remove_action = button_remove.button("Delete",key = str(items[j])+str(items[j]), type="primary")
             if do_remove_action:
                 st.session_state['delete_key'] = items[j]
                 st.session_state.runpage = 'deleteitem'
@@ -304,31 +307,23 @@ def wishlist_page():
         # col5.write(st.button("Edit"),key=items[j])
             j = j + 1
         # st.table(df)
-
     if st.button('Add item', type="primary"):
         st.session_state.runpage = 'additem'
         st.experimental_rerun()
-    if st.button('Modify item', type="primary"):
-        st.session_state.runpage = 'modifyitem'
-        st.experimental_rerun()
-    if st.button('Remove item', type="primary"):
-        st.session_state.runpage = 'deleteitem'
-        st.experimental_rerun()
-
-    if st.button('Back'):
-        st.session_state.runpage = 'account'
-        st.experimental_rerun()      
+    # if st.button('Modify item', type="primary"):
+    #     st.session_state.runpage = 'modifyitem'
+    #     st.experimental_rerun()
+    # if st.button('Remove item', type="primary"):
+    #     st.session_state.runpage = 'deleteitem'
+    #     st.experimental_rerun()
+    # if st.button('Back'):
+    #     st.session_state.runpage = 'account'
+    #     st.experimental_rerun()      
     global extrajs
     extrajs += '''
         document.addEventListener('DOMContentLoaded', function(event) {
-    //the event occurred
-        forms = window.parent.document.querySelectorAll('.stButton');
-        for (const element of forms) {
-            element.classList.add("horizontalDiv");
-            element.parentElement.classList.add("horizontalDiv");
-            
-        }
-        forms[forms.length - 1].parentElement.classList.add("back");
+        //the event occurred
+        window.parent.document.querySelector('[data-testid="stHorizontalBlock"]').classList.add("colHeader");
         })
     '''
 
@@ -529,9 +524,9 @@ def friendlist_page():
     # if st.button('Delete friend', type="primary"):
     #     st.session_state.runpage = 'deletefriend'
     #     st.experimental_rerun() 
-    if st.button('Back', type="primary"):
-        st.session_state.runpage = 'account'
-        st.experimental_rerun()
+    # if st.button('Back', type="primary"):
+    #     st.session_state.runpage = 'account'
+    #     st.experimental_rerun()
     global extrajs
     extrajs += '''
         document.addEventListener('DOMContentLoaded', function(event) {
