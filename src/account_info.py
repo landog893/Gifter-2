@@ -312,6 +312,37 @@ class AccountInfo:
         
         return user_info[0].ID if user_info else 0
         
+    def find_friend(self, str_tomatch):
+        query = """Select "ID","Name","Surname","Birthday","UserName","Password","Interests","WishList","FriendList" From "Account";"""
+        conn = None
+        user_info = None
+        user_list = []
+        try:
+        # initializing connection
+            params = config()
+            print('Connecting to the PostgreSQL database...')
+            conn = psycopg2.connect(**params)
+            cur = conn.cursor()
+        # execute a statement
+            cur.execute(query)
+            user_info = cur.fetchall()
+            cur.close()
+            conn.commit()
+            cur.close()
+            for i in range(len(user_info)):
+                # print(user_info[i])
+                Name = user_info[i][1]+" "+user_info[i][2]
+                if str_tomatch.lower() in Name.lower():
+                    user_list.append(user_info[i])
+                print(Name)
+            
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection closed.')
+        return user_list        
 
 class Friends(AccountInfo):
     def __init__(self):

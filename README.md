@@ -19,7 +19,9 @@
 [![issue cl](https://img.shields.io/github/issues-closed/landog893/Gifter-2?style=plastic)](https://github.com/landog893/Gifter-2/issues?q=is%3Aissue+is%3Aclosed)
 [![pull](https://img.shields.io/github/issues-pr/landog893/Gifter-2?style=plastic)](https://github.com/landog893/Gifter-2/pulls?q=is%3Aopen+is%3Apr)
 [![pull_closed](https://img.shields.io/github/issues-pr-closed/landog893/Gifter-2?style=plastic)](https://github.com/landog893/Gifter-2/pulls?q=is%3Apr+is%3Aclosed)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/landog893/Gifter-2/Build%20Workflow?style=plastic)](https://github.com/landog893/Gifter-2/actions/workflows/build.yml)
+[![GitHub forks](https://img.shields.io/github/forks/landog893/Gifter-2)](https://github.com/landog893/Gifter-2/network/members)
+![workflow](https://github.com/landog893/Gifter-2/actions/workflows/python-app.yml/badge.svg)
+
 
 <br>
 <p align="center"><img width="400" src="https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/15883/christmas-gifts-clipart-xl.png"></p>
@@ -58,7 +60,8 @@ All new features are in bold.
 * Dashboard displaying friendlist with their associated wishlists.
 * **Significantly improved UI experience.**
 * **Login using a username and password.**
-* **Search for friends using usernames.**
+* **Enhance registration feature by incorporating unique username validation, email, password etc.**
+* **Search for friends using Given Name or SurName.**
 * **Search for items using keywords.**
 * **Send reminder emails for upcoming birthdays (if email notifications are on).**
 * **Usage of PostgreSQL database to persist information.** 
@@ -75,10 +78,18 @@ Programs:
 * PostgreSQL
 * Anaconda Navigator
 
- 1) Setup and launch Anaconda Navigator.
- 2) Navigate to the location of the application and use the command ```streamlit run src/main.py```.
+ 1) Install PostgreSQL following the official instruction: https://www.postgresql.org/download/
+ 2) After PostgreSQL is installed, adding bin folder of PostgreSQL to PATH environment and running the command below.
+ ```
+   createdb -h localhost -U postgres gifter2
+ ```
+ 3) The src/database.ini contains the configuration of the connection, within which the user name and password can be changed if it needs.
+ 4)  Use the command ```python src/DBInit.py``` to check whether PostgreSQL setup succeeded.
  
- ** DATABASE?? **
+ 5) Setup and launch Anaconda Navigator.
+ 6) Navigate to the location of the application and use the command ```streamlit run src/main.py```.
+ 
+
 
 Note: In order to use the "Email Notification" functionality for this project, your team must set up an **Outlook** email account, and add the username and password to the send_reminder_email() method in account.py. You cannot use Gmail for this feature because Google set up a new restriction this year that doesn't allow third-party apps to send emails from Gmail accounts. 
 
@@ -92,8 +103,7 @@ This project is a refactoring of the [Gifter](https://github.com/yagmurbbayrakta
 ** ADD VIDEO LINKS **
 
 ### Use Cases
-In order to learn more about how to run Gifter-2 and use its features, check out our [USAGE.md]() file!
-** ADD USAGE.MD FILE **
+In order to learn more about how to run Gifter-2 and use its features, check out our [USAGE.md](https://github.com/landog893/Gifter-2/blob/main/USAGE.md) file!
 
 ### Documentation
 **Still need to complete** 
