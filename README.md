@@ -1,6 +1,6 @@
 # CSC510_Project1 - Gifter
 
-[![DOI](https://zenodo.org/badge/541408861.svg)](https://zenodo.org/badge/latestdoi/541408861)
+[![DOI](https://zenodo.org/badge/560035935.svg)](https://zenodo.org/badge/latestdoi/560035935)
 [![GitHub license](https://img.shields.io/github/license/yagmurbbayraktar/CSC510_Project1)](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/yagmurbbayraktar/CSC510_Project1)](https://github.com/yagmurbbayraktar/CSC510_Project1/network)
 [![GitHub license](https://img.shields.io/github/license/yagmurbbayraktar/CSC510_Project1)](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/LICENSE)
@@ -9,7 +9,7 @@
 [![Build](https://github.com/yagmurbbayraktar/CSC510_Project1/actions/workflows/python-app.yml/badge.svg)](https://github.com/yagmurbbayraktar/CSC510_Project1/actions/workflows/python-app.yml)
 
 # Gifter-2
-[![DOI](https://zenodo.org/badge/535341071.svg)](https://zenodo.org/badge/latestdoi/535341071)
+[![DOI](https://zenodo.org/badge/560035935.svg)](https://zenodo.org/badge/latestdoi/560035935)
 [![License](https://img.shields.io/github/license/landog893/Gifter-2?style=plastic)](https://github.com/landog893/Gifter-2/blob/main/LICENSE.md)
 [![java](https://img.shields.io/badge/Made%20with-Java-brightgreen?style=plastic)](https://www.oracle.com/java/technologies/downloads/)
 [![size](https://img.shields.io/github/languages/code-size/landog893/Gifter-2?style=plastic)](https://github.com/landog893/Gifter-2)
