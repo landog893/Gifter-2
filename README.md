@@ -58,7 +58,8 @@ All new features are in bold.
 * Dashboard displaying friendlist with their associated wishlists.
 * **Significantly improved UI experience.**
 * **Login using a username and password.**
-* **Search for friends using usernames.**
+* **Enhance registration feature by incorporating unique username validation, email, password etc.**
+* **Search for friends using Given Name or SurName.**
 * **Search for items using keywords.**
 * **Send reminder emails for upcoming birthdays (if email notifications are on).**
 * **Usage of PostgreSQL database to persist information.** 
