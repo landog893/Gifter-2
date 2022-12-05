@@ -93,8 +93,7 @@ This project is a refactoring of the [Gifter](https://github.com/yagmurbbayrakta
 ** ADD VIDEO LINKS **
 
 ### Use Cases
-In order to learn more about how to run Gifter-2 and use its features, check out our [USAGE.md]() file!
-** ADD USAGE.MD FILE **
+In order to learn more about how to run Gifter-2 and use its features, check out our [USAGE.md](https://github.com/landog893/Gifter-2/blob/main/USAGE.md) file!
 
 ### Documentation
 **Still need to complete** 
