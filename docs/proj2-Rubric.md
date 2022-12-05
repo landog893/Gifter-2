@@ -91,7 +91,7 @@ Is the software hosted in an established, third-party repository like GitHub (ht
 |Are the test results publicly visible?|3|Yes. The Blackbox tests are described and the pytest tests has expected outputs.|
 |Are all manually-run tests documented?|3|The blackbox tests. https://github.com/landog893/Gifter-2/blob/main/docs/BlackBoxTest.md |
 |How the authors engage with the community|3||
-|Does the project have resources (e.g. blog, Twitter, RSS feed, Facebook page, wiki, mailing list) that are regularly updated with information about the software? e.g. release announcements, publications, workshops, conference presentations|3|The JobTracker README. |
+|Does the project have resources (e.g. blog, Twitter, RSS feed, Facebook page, wiki, mailing list) that are regularly updated with information about the software? e.g. release announcements, publications, workshops, conference presentations|3|The Gifter-2 README. |
 |Does the website state how many projects and users are associated with the project?|0|No.|
 |Do the authors provide success stories on the website? |0|There are no success stories|
 |Do the authors list the important partners and collaborators on the website?|3| In the README.|

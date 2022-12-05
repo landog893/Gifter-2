@@ -65,7 +65,7 @@ All new features are in bold.
 * **Search for items using keywords.**
 * **Send reminder emails for upcoming birthdays (if email notifications are on).**
 * **Usage of PostgreSQL database to persist information.** 
-* **Application deployed to web.**
+* **Application deployed to web. Link: http://35.175.148.139:8501/**
 
 ## Installation
 
