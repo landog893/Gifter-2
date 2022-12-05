@@ -666,7 +666,7 @@ if 'runpage' not in st.session_state or (st.session_state.account == 'None' and 
     st.session_state.runpage = 'initial'
 
 # st.set_page_config(layout="wide", page_title='Navbar sample')
-st.set_page_config(page_title='Gifter 2', page_icon='assets/images/gift-flat.ico')
+st.set_page_config(page_title='Gifter 2', page_icon='src/assets/images/gift-flat.ico')
 st.set_option('deprecation.showPyplotGlobalUse', False)
 utl.inject_custom_css()
 utl.navbar_component(st.session_state.account)

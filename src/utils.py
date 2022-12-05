@@ -36,7 +36,7 @@ def navbar_component(name):
         # nameTag = f'<p class="navName">' + name.name.to_string(index=False) + '</p>'
         nameTag = rf'''
             <div class="dropdown" id="settingsDropDown">
-                    <p class="navName">{name.name}</p>
+                    <p class="navName">{name.name} {name.surname}</p>
                     <img class="dropbtn" src="data:image/png;base64, {image_as_base64.decode("utf-8")}"/>
                     <div id="myDropdown" class="dropdown-content">
                         {settings_items}
