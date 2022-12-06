@@ -94,4 +94,3 @@ class wishlist():
         else:
             print("INVALID INPUT")
             self.option()
-            
