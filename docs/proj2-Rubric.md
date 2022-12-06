@@ -1,24 +1,23 @@
 |Notes|Points|Evidence|
 |-----|------|---------|
-| Video1 | 0 |  | 
-| Video2 | 0 |  | 
-| Workload is spread over the whole team (one team member is often Xtimes more productive than the others but nevertheless, here is a track record that everyone is contributing a lot) | 3 | Everyone contributed to the project. https://github.com/landog893/Gifter-2/graphs/contributors  |
-|Number of commits| 3 | There were over 161 commits made to the repository https://github.com/landog893/Gifter-2/graphs/commit-activity |
-|Number of commits: by different people| 3 | All team members contributed by making over 5 commits with over 200 lines of code added https://github.com/landog893/Gifter-2/graphs/commit-activity, https://github.com/landog893/Gifter-2/pulse |
-|Issues reports: there are **many**| 3 | 13 issues created https://github.com/landog893/Gifter-2/issues |
-|Issues are being closed| 3 | 13 issues closed https://github.com/landog893/Gifter-2/issues |
-|DOI badge: exists| 3 | https://github.com/landog893/Gifter-2#readme |
-|Docs: doco generated, format not ugly | 0 |  |
-|Docs: what: point descriptions of each class/function (in isolation) | 0 |  |
-|Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z| 0 |  |
-|Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing| 0 |  |
-|Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.| 0 |  |
+| Video1 | 3 | https://github.com/landog893/Gifter-2  | 
 |Use of version control tools| 3 | Used Git. |
-|Use of style checkers | 0 |  |
+|Use of style checkers | 3 | We use pycodestyle in every .py file |
 |Use of code formatters. | 0 |  |
 |Use of syntax checkers. | 0 |  |
 |Use of code coverage | 3 | source code tests (https://github.com/landog893/Gifter-2/tree/main/test) and blackbox tests (https://github.com/landog893/Gifter-2/blob/main/docs/BlackBoxTest.md). |
-|Other automated analysis tools| 0 |  |
+|Other automated analysis tools| 3 | We use github workflow (https://github.com/landog893/Gifter-2/tree/main/.github/workflows) |
+| Workload is spread over the whole team (one team member is often Xtimes more productive than the others but nevertheless, here is a track record that everyone is contributing a lot) | 3 | Everyone contributed to the project. https://github.com/landog893/Gifter-2/graphs/contributors  |
+|Number of commits| 3 | There were over 161 commits made to the repository https://github.com/landog893/Gifter-2/graphs/commit-activity |
+|Number of commits: by different people| 3 | All team members contributed by making over 5 commits with over 200 lines of code added https://github.com/landog893/Gifter-2/graphs/commit-activity, https://github.com/landog893/Gifter-2/pulse |
+|Issues reports: there are **many**| 3 | 20 issues created https://github.com/landog893/Gifter-2/issues |
+|Issues are being closed| 3 | 20 issues closed https://github.com/landog893/Gifter-2/issues |
+|DOI badge: exists| 3 | https://github.com/landog893/Gifter-2#readme |
+|Docs: doco generated, format not ugly | 3 | https://github.com/landog893/Gifter-2/tree/main/docs |
+|Docs: what: point descriptions of each class/function (in isolation) | 3 | https://github.com/landog893/Gifter-2/tree/main/docs  |
+|Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z| 3 | https://github.com/landog893/Gifter-2/blob/main/USAGE.md |
+|Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing| 3 | https://github.com/landog893/Gifter-2 |
+|Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.| 0 |  |
 |Test cases exist (dozens of tests and those test cases are more than 30% of the code base)| 3 | Blackbox testing (https://github.com/landog893/Gifter-2/blob/main/docs/BlackBoxTest.md) and source code testing (https://github.com/landog893/Gifter-2/tree/main/test). |
 |Test cases are routinely executed (E.g. travis-com.com or github actions or something) | 3 | Github |
 |The files CONTRIBUTING.md lists coding standards and lots of tips on how to extend the system without screwing things up| 3 | https://github.com/landog893/Gifter-2/blob/main/CONTRIBUTING.md |
