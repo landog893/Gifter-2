@@ -13,8 +13,8 @@
 |Issues reports: there are **many**| 3 | 20 issues created https://github.com/landog893/Gifter-2/issues |
 |Issues are being closed| 3 | 20 issues closed https://github.com/landog893/Gifter-2/issues |
 |DOI badge: exists| 3 | https://github.com/landog893/Gifter-2#readme |
-|Docs: doco generated, format not ugly | 3 | https://github.com/landog893/Gifter-2/tree/main/docs |
-|Docs: what: point descriptions of each class/function (in isolation) | 3 | https://github.com/landog893/Gifter-2/tree/main/docs  |
+|Docs: doco generated, format not ugly | 3 | https://github.com/landog893/Gifter-2/blob/main/docs/README.md |
+|Docs: what: point descriptions of each class/function (in isolation) | 3 | https://github.com/landog893/Gifter-2/blob/main/docs/README.md  |
 |Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z| 3 | https://github.com/landog893/Gifter-2/blob/main/USAGE.md |
 |Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing| 3 | https://github.com/landog893/Gifter-2 |
 |Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.| 0 |  |
