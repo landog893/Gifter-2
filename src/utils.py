@@ -22,7 +22,7 @@ def navbar_component(acc):
     for key, value in SETTINGS.items():
         settings_items += (
             f'<a id="{value}" class="settingsNav" href="#">{key}</a>')
-    
+
     nameTag = rf'''
             <div class="dropdown hide" id="settingsDropDown">
                     <p class="navName"></p>
@@ -75,11 +75,11 @@ def navbar_component(acc):
         var cleanNavbar = function(navigation_element) {
             navigation_element.removeAttribute('target')
         }
-        
+
         for (var i = 0; i < navigationTabs.length; i++) {
             cleanNavbar(navigationTabs[i]);
         }
-        
+
         // Dropdown hide / show
         var dropdown = window.parent.document.getElementById("settingsDropDown");
         dropdown.onclick = function() {
@@ -90,12 +90,12 @@ def navbar_component(acc):
                 dropWindow.style.visibility = "hidden";
             }
         };
-        
+
         var settingsNavs = window.parent.document.getElementsByClassName("settingsNav");
         var cleanSettings = function(navigation_element) {
             navigation_element.removeAttribute('target')
         }
-        
+
         for (var i = 0; i < settingsNavs.length; i++) {
             cleanSettings(settingsNavs[i]);
         }
@@ -141,11 +141,11 @@ def footer_component():
         var cleanFooter = function(footer_element) {
             footer_element.removeAttribute('target')
         }
-        
+
         for (var i = 0; i < footerTabs.length; i++) {
             cleanFooter(footerTabs[i]);
         }
-        
+
     </script>
     '''
     html(js)
