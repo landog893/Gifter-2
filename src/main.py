@@ -452,7 +452,7 @@ def friendlist_page():
         friendobj = [Account(ID=int(f)) for f in friendlist if f.isnumeric()]
 
         colms = st.columns((5,5,5,5,5,5))
-        fields = ["#Freind","First Name","Last Name", "Birthday","View freinds Wishlist","Delete Friend"]
+        fields = ["#Friend","First Name","Last Name", "Birthday","Friend's Wishlist","Delete Friend"]
         for col, field_name in zip(colms, fields):
             col.write(field_name)  
         
@@ -464,20 +464,18 @@ def friendlist_page():
             col2.write((i.surname).replace("\"", ""))
             col5.write((i.birthday))
             button_phold = col3.empty()
-            do_action = button_phold.button("View Wishlist",key = j+1)
+            do_action = button_phold.button("View Wishlist",key = j+1, type="primary")
             if do_action:
                 st.session_state['freindId'] = friendlist[j]
                 st.session_state.runpage = 'friendwishlist'
                 st.experimental_rerun() 
             button_remove = col4.empty()
-            do_remove_action = button_remove.button("Delete friend",key = str(j + 1)+str(j+1))
+            do_remove_action = button_remove.button("Delete friend",key = str(j + 1)+str(j+1), type="primary")
             if do_remove_action:
                 st.session_state['delete_friend'] = friendlist[j]
                 st.session_state.runpage = 'deletefriend'
                 st.experimental_rerun()
             j = j + 1
-
-
 
     if st.button('Add friend', type="primary"):
         st.session_state.runpage = 'addfriend'
@@ -499,6 +497,7 @@ def friendlist_page():
             
         }
         forms[forms.length - 1].parentElement.classList.add("back");
+        window.parent.document.querySelector('[data-testid="stHorizontalBlock"]').classList.add("colHeader");
         })
     '''
 
@@ -575,7 +574,7 @@ def save_friendList():
         col2.write((user_list[i][2]))
         col3.write((user_list[i][3]))
         button_phold = col4.empty()
-        do_action = button_phold.button("ADD",key = j +1 )
+        do_action = button_phold.button("ADD",key = j +1, type="primary")
         if do_action:
             if friendlist:
                 friendlist += ','+str(user_list[i][0])
