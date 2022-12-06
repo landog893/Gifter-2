@@ -293,3 +293,7 @@ button[kind="primary"]:active, button[kind="formSubmit"]:active {
 .wishlist colHeader {
     margin-bottom: 43px !important;
 }
+
+.stApp {
+    background:#ffffff;
+}
