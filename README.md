@@ -99,6 +99,9 @@ In order to view documentation of the source code, click [here](https://github.c
 ### Code Coverage
 Gifter-2 uses CodeCov to generate the code coverage of the source code. Additionally, we use [blackbox tests](https://github.com/landog893/Gifter-2/blob/main/docs/BlackBoxTest.md) on the UI to supplement the coverage and ensure that the functionality works as expected. 
 
+### Styling
+Gifter-2 uses PyCodeStyle to maintain a standard of code quality. 
+
 ## Future Features
 
 While Gifter-2 is ready for users, there are several enhancements that could be made to amplify user experience. Below, we have listed several scopes of future improvements to Gifter-2 with a brief description. 
