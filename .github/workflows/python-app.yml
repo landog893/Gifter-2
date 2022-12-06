@@ -64,3 +64,15 @@ jobs:
       run: |
         python test/item_manager_test.py
         python test/test_account_info.py
+    - name: Run PyCodeStyle
+      run: |
+        cd ${{ github.workspace }}
+        pip install pycodestyle
+        pycodestyle --first src/main.py
+        pycodestyle --first src/account.py
+        pycodestyle --first src/account_info.py
+        pycodestyle --first src/item.py
+        pycodestyle --first src/item_manager.py
+        pycodestyle --first src/utils.py
+        pycodestyle --first src/wishlist.py
+
