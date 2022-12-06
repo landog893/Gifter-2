@@ -98,10 +98,8 @@ Note: In order to use the "Email Notification" functionality for this project, y
 
 This project is a refactoring of the [Gifter](https://github.com/yagmurbbayraktar/CSC510_Project1) project from 2022. We have added several functionalities to significantly enhance the scope and user experience of this application. 
 
-* The video displaying the functionalities of the original project Gifter can be found [here](https://drive.google.com/file/d/1rd606Kqv0g8X0NEEwJfC2BZNNOSVkhe2/view?usp=sharing).
-* The video displaying the new functionalities of Gifter-2 in comparison to the original project Gifter can be found [here](https://drive.google.com/file/d/1tLdxItZo-kvn3QVKj2jIR8TasCeMzEBn/view?usp=sharing).
-
-** ADD VIDEO LINKS **
+* The video displaying the functionalities of the original project Gifter can be found [here](https://drive.google.com/file/d/1tLdxItZo-kvn3QVKj2jIR8TasCeMzEBn/view?usp=sharing).
+* The video displaying the new functionalities of Gifter-2 in comparison to the original project Gifter can be found [here](https://drive.google.com/file/d/1rd606Kqv0g8X0NEEwJfC2BZNNOSVkhe2/view?usp=sharing).
 
 ### Use Cases
 In order to learn more about how to run Gifter-2 and use its features, check out our [USAGE.md](https://github.com/landog893/Gifter-2/blob/main/USAGE.md) file!
