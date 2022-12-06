@@ -1,13 +1,3 @@
-# CSC510_Project1 - Gifter
-
-[![DOI](https://zenodo.org/badge/560035935.svg)](https://zenodo.org/badge/latestdoi/560035935)
-[![GitHub license](https://img.shields.io/github/license/yagmurbbayraktar/CSC510_Project1)](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/LICENSE)
-[![GitHub forks](https://img.shields.io/github/forks/yagmurbbayraktar/CSC510_Project1)](https://github.com/yagmurbbayraktar/CSC510_Project1/network)
-[![GitHub license](https://img.shields.io/github/license/yagmurbbayraktar/CSC510_Project1)](https://github.com/yagmurbbayraktar/CSC510_Project1/blob/main/LICENSE)
-[![codecov](https://codecov.io/gh/yagmurbbayraktar/CSC510_Project1/branch/main/graph/badge.svg?token=3SR30MKCUD)](https://codecov.io/gh/yagmurbbayraktar/CSC510_Project1)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build](https://github.com/yagmurbbayraktar/CSC510_Project1/actions/workflows/python-app.yml/badge.svg)](https://github.com/yagmurbbayraktar/CSC510_Project1/actions/workflows/python-app.yml)
-
 # Gifter-2
 [![DOI](https://zenodo.org/badge/560035935.svg)](https://zenodo.org/badge/latestdoi/560035935)
 [![License](https://img.shields.io/github/license/landog893/Gifter-2?style=plastic)](https://github.com/landog893/Gifter-2/blob/main/LICENSE.md)
@@ -31,7 +21,7 @@
 
 Gifter-2 is a social platform built on the idea of gift giving and receiving! The goal of this application is to aid in the process of picking out a gift for friends. Users can create wishlists for themselves and add items/gifts that they would like to receive for their birthday. Users can proceed to add friends and view their wishlists as well. Gifter-2 also allows users to opt-in to email notifications which send a user's friends a reminder email regarding their upcoming birthday (if their email notifications are on as well). Items in the wishlists contain the cost of the item as well as the website where it can be purchased. This application is deployed on the web and is available for individuals of all ages to use! 
 
-To start using Gifter-2, a user must first register by creating an account. The system collects information about a user's name, birthday, email, and interests. All of this information is stored in Gifter-2's database, and is not used by Gifter-2 in any other way. 
+To start using Gifter-2, a user must first register by creating an account. The system collects information about a user's name, birthday, email, and interests. All of this information is stored in Gifter-2's database, and is not used by Gifter-2 in any other way. This project is deployed on the web, click [here](http://35.175.148.139:8501/) to join Gifter-2! 
 
 ## Technologies
 <p align="left">
@@ -62,7 +52,7 @@ All new features are in bold.
 * **Significantly improved UI experience.**
 * **Login using a username and password.**
 * **Enhance registration feature by incorporating unique username validation, email, password etc.**
-* **Search for friends using Given Name or SurName.**
+* **Search for friends using either their name or surname.**
 * **Search for items using keywords.**
 * **Send reminder emails for upcoming birthdays (if email notifications are on).**
 * **Usage of PostgreSQL database to persist information.** 
@@ -91,7 +81,6 @@ Programs:
  6) Navigate to the location of the application and use the command ```streamlit run src/main.py```.
  
 
-
 Note: In order to use the "Email Notification" functionality for this project, your team must set up an **Outlook** email account, and add the username and password to the send_reminder_email() method in account.py. You cannot use Gmail for this feature because Google set up a new restriction this year that doesn't allow third-party apps to send emails from Gmail accounts. 
 
 ## Documentation
@@ -105,10 +94,13 @@ This project is a refactoring of the [Gifter](https://github.com/yagmurbbayrakta
 In order to learn more about how to run Gifter-2 and use its features, check out our [USAGE.md](https://github.com/landog893/Gifter-2/blob/main/USAGE.md) file!
 
 ### Documentation
-**Still need to complete** 
+In order to view documentation of the source code, click [here](https://github.com/landog893/Gifter-2/blob/main/docs/README.md).
 
 ### Code Coverage
 Gifter-2 uses CodeCov to generate the code coverage of the source code. Additionally, we use [blackbox tests](https://github.com/landog893/Gifter-2/blob/main/docs/BlackBoxTest.md) on the UI to supplement the coverage and ensure that the functionality works as expected. 
+
+### Styling
+Gifter-2 uses PyCodeStyle to maintain a standard of code quality. 
 
 ## Future Features
 
@@ -119,6 +111,7 @@ While Gifter-2 is ready for users, there are several enhancements that could be 
 * **Machine Learning:** Introduce machine learning algorithms to suggest gifts for users based on interests and previous gifts. 
 * **Chrome extension:** Create a Chrome extension so users can add items to their wishlist while browsing online.  
 * **Calendar:** Develop a calendar feature to display user birthdays. 
+* **Change Password:** Develop to feature that allows users to change their password. 
 
 ## Contribution
 
