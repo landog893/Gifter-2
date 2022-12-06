@@ -2,16 +2,16 @@
 |-----|------|---------|
 | Video1 | 3 | New functionalities of Gifter-2 in comparison to the original project Gifter  https://drive.google.com/file/d/1rd606Kqv0g8X0NEEwJfC2BZNNOSVkhe2/view  | 
 |Use of version control tools| 3 | Used Git. |
-|Use of style checkers | 3 | We use PyCodeStyle to maintain a standard of code quality. |
-|Use of code formatters. | 0 |  |
-|Use of syntax checkers. | 0 |  |
+|Use of style checkers | 3 | We use PyCodeStyle to maintain a standard of code quality. View here: https://github.com/landog893/Gifter-2/actions/workflows/python-app.yml |
+|Use of code formatters. | 3 |  We use PyCodeStyle to maintain a standard of code quality. View here: https://github.com/landog893/Gifter-2/actions/workflows/python-app.yml |
+|Use of syntax checkers. | 3 |  We use PyCodeStyle to maintain a standard of code quality. View here: https://github.com/landog893/Gifter-2/actions/workflows/python-app.yml |
 |Use of code coverage | 3 | source code tests (https://github.com/landog893/Gifter-2/tree/main/test) and blackbox tests (https://github.com/landog893/Gifter-2/blob/main/docs/BlackBoxTest.md). |
 |Other automated analysis tools| 3 | We use github workflow (https://github.com/landog893/Gifter-2/tree/main/.github/workflows) |
 | Workload is spread over the whole team (one team member is often Xtimes more productive than the others but nevertheless, here is a track record that everyone is contributing a lot) | 3 | Everyone contributed to the project. https://github.com/landog893/Gifter-2/graphs/contributors  |
-|Number of commits| 3 | There were over 161 commits made to the repository https://github.com/landog893/Gifter-2/graphs/commit-activity |
+|Number of commits| 3 | There were over 249 commits made to the repository https://github.com/landog893/Gifter-2/graphs/commit-activity |
 |Number of commits: by different people| 3 | All team members contributed by making over 5 commits with over 200 lines of code added https://github.com/landog893/Gifter-2/graphs/commit-activity, https://github.com/landog893/Gifter-2/pulse |
-|Issues reports: there are **many**| 3 | 20 issues created https://github.com/landog893/Gifter-2/issues |
-|Issues are being closed| 3 | 20 issues closed https://github.com/landog893/Gifter-2/issues |
+|Issues reports: there are **many**| 3 | 20+ issues created https://github.com/landog893/Gifter-2/issues |
+|Issues are being closed| 3 | 20+ issues closed https://github.com/landog893/Gifter-2/issues |
 |DOI badge: exists| 3 | https://github.com/landog893/Gifter-2#readme |
 |Docs: doco generated, format not ugly | 3 | https://github.com/landog893/Gifter-2/blob/main/docs/README.md |
 |Docs: what: point descriptions of each class/function (in isolation) | 3 | https://github.com/landog893/Gifter-2/blob/main/docs/README.md  |
@@ -19,14 +19,14 @@
 |Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing| 3 | https://github.com/landog893/Gifter-2 |
 |Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.| 0 |  |
 |Test cases exist (dozens of tests and those test cases are more than 30% of the code base)| 3 | Blackbox testing (https://github.com/landog893/Gifter-2/blob/main/docs/BlackBoxTest.md) and source code testing (https://github.com/landog893/Gifter-2/tree/main/test). |
-|Test cases are routinely executed (E.g. travis-com.com or github actions or something) | 3 | Github |
+|Test cases are routinely executed (E.g. travis-com.com or github actions or something) | 3 | https://github.com/landog893/Gifter-2/actions/workflows/python-app.yml |
 |The files CONTRIBUTING.md lists coding standards and lots of tips on how to extend the system without screwing things up| 3 | https://github.com/landog893/Gifter-2/blob/main/CONTRIBUTING.md |
 |Issues are discussed before they are closed (even if you discuss in slack, need a sumamry statement here) | 3 | https://github.com/landog893/Gifter-2/issues?q=is%3Aissue+is%3Aclosed |
 |Chat channel: exists (Link or screenshots)| 3 | https://github.com/landog893/Gifter-2/blob/main/README.md |
 |Test cases: a large proportion of the issues related to handling failing cases.(If a test case fails, open an issue and fix it) | 3 | https://github.com/landog893/Gifter-2/issues |
-|Evidence that the whole team is using the same tools: everyone can get to all tools and files| 3 | Everyone used Python with Anaconda.  |
+|Evidence that the whole team is using the same tools: everyone can get to all tools and files| 3 | Everyone used Python with Anaconda and VSCode.  |
 |Evidence that the whole team is using the same tools (e.g. config files in the repo, updated by lots of different people)| 3 |  |
-|Evidence that the whole team is using the same tools (e.g. tutor can ask anyone to share screen, they demonstrate the system running on their computer)| 3 | Everyone used Anaconda. |
+|Evidence that the whole team is using the same tools (e.g. tutor can ask anyone to share screen, they demonstrate the system running on their computer)| 3 | Everyone used Anaconda and VSCode. |
 |Evidence that the members of the team are working across multiple places in the code base| 3 | Members contributed to different parts of the codebase. |
 |Short release cycles (hard to see in short projects) project members are committing often enough so that everyone can get your work| 3 |  |
 |What the software does| | |
