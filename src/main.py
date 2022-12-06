@@ -535,6 +535,7 @@ def viewwishlist_page():
     friendlist = friendlist.split(',')
     form = st.form(key='Viewwishlistform')
     id = st.session_state['freindId']
+    item_objs = None
 
     try:
         friend = Account(ID=int(id))
@@ -544,14 +545,15 @@ def viewwishlist_page():
     except ValueError:
         st.error("This ID doesn't have any wishlist")
 
-    item_titles = [(i.title).replace("\"", "") for i in item_objs]
-    item_descs = [(i.desc).replace("\"", "") for i in item_objs]
-    item_links = [(i.link.replace("\"", "")) for i in item_objs]
-    item_costs = [i.cost for i in item_objs]
+    if (item_objs != None):
+        item_titles = [(i.title).replace("\"", "") for i in item_objs]
+        item_descs = [(i.desc).replace("\"", "") for i in item_objs]
+        item_links = [(i.link.replace("\"", "")) for i in item_objs]
+        item_costs = [i.cost for i in item_objs]
 
-    df = pd.DataFrame(list(zip(items, item_titles, item_descs, item_links, item_costs)), columns=('#Wish', 'Title', 'Description', 'Link', 'Cost'))
-    df.set_index('#Wish', inplace=True)
-    st.dataframe(df)
+        df = pd.DataFrame(list(zip(items, item_titles, item_descs, item_links, item_costs)), columns=('#Wish', 'Title', 'Description', 'Link', 'Cost'))
+        df.set_index('#Wish', inplace=True)
+        st.dataframe(df)
 
     if st.button('Back'):
         st.session_state.runpage = 'friendlist'
