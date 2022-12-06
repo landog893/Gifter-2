@@ -2,6 +2,7 @@ from item_manager import ItemManager
 
 # This class represents an item object. This item is a gift that a user can add to their wishlist.
 
+
 class item():
 
     # Initialization of the item object.
