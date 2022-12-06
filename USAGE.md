@@ -57,3 +57,13 @@ This document covers how to use the software and different use cases
 2. Click the "Add Friend" button 
 3. Endter the friend's information and search
 4. Click the button to add the friend to the friendslist
+
+## Use Case 10: Send Email Notifications to Friends
+
+By default, if your email notification preferences are "On", the application will send an email to all of your friends who also have their preferences "On" exactly one week before your birthday. However, you can trigger an email to be sent using the following steps.
+
+![Send Notifications](https://github.com/landog893/Gifter-2/blob/main/Resources/Usage%20Screenshots/Profile%20Page.png?raw=true)
+1. Add items to wishlist (see Use Case 7).
+2. Add friends to friendlist (see Use Case 9).
+3. Open the Profile page (see Use Case 4).
+4. Click the "Send Notifications" button.
