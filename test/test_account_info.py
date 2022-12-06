@@ -1,14 +1,13 @@
 try:
-    from account_info import AccountInfo, Friends
+    from account_info import AccountInfo
 except ImportError as e:
     import sys
     sys.path.append("./src")
     
-from account_info import AccountInfo, Friends
+from account_info import AccountInfo
 
 
 accInfo = AccountInfo()
-friendInfo = Friends()
 
 print('Creating new account')
 created_acc_id = accInfo.create_account('Ram', 'Bhusal', '12/23/1998', 'RBhusal98', '19981223', '"Eating pizza, Salsa, Ramen"', '"1, 2, 3, 5"', '"2, 3"')
