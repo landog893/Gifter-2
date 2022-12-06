@@ -67,9 +67,9 @@
     &nbsp&nbsp&nbsp&nbsp   Last Name: Bayraktar<br><br>
     &nbsp&nbsp&nbsp&nbsp   Birthday: 11/15/1990<br><br>
     &nbsp&nbsp&nbsp&nbsp   Email: lchang@ncsu.edu<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Email notifications: On
-    &nbsp&nbsp&nbsp&nbsp   User Name: asd
-    &nbsp&nbsp&nbsp&nbsp   Enter a password: dsa
+    &nbsp&nbsp&nbsp&nbsp   Email notifications: On<br><br>
+    &nbsp&nbsp&nbsp&nbsp   User Name: asd<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Enter a password: dsa<br><br>
     &nbsp&nbsp&nbsp&nbsp   Interest: Dancing, Reading, Cooking, Ballet, Writing<br><br>
     Click "Submit"
 </td>
@@ -100,9 +100,9 @@
     &nbsp&nbsp&nbsp&nbsp   Last Name: (whatever) <br><br>
     &nbsp&nbsp&nbsp&nbsp   Birthday: (whatever) <br><br>
     &nbsp&nbsp&nbsp&nbsp   Email: (whatever) <br><br>
-    &nbsp&nbsp&nbsp&nbsp   Email notifications: On
-    &nbsp&nbsp&nbsp&nbsp   User Name: asd (an exist username)
-    &nbsp&nbsp&nbsp&nbsp   Enter a password: (whatever)
+    &nbsp&nbsp&nbsp&nbsp   Email notifications: On<br><br>
+    &nbsp&nbsp&nbsp&nbsp   User Name: asd (an exist username)<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Enter a password: (whatever)<br><br>
     &nbsp&nbsp&nbsp&nbsp   Interest: (whatever) <br><br>
     Click "Submit"
 </td>
@@ -133,9 +133,9 @@
     &nbsp&nbsp&nbsp&nbsp   Last Name: Bayraktar<br><br>
     &nbsp&nbsp&nbsp&nbsp   Birthday: 11/15/1990<br><br>
     &nbsp&nbsp&nbsp&nbsp   Email: lchang@ncsu.edu<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Email notifications: On
-    &nbsp&nbsp&nbsp&nbsp   User Name: asd
-    &nbsp&nbsp&nbsp&nbsp   Enter a password: dsa
+    &nbsp&nbsp&nbsp&nbsp   Email notifications: On<br><br>
+    &nbsp&nbsp&nbsp&nbsp   User Name: asd<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Enter a password: dsa<br><br>
     &nbsp&nbsp&nbsp&nbsp   Interest: Dancing, Reading, Cooking, Ballet, Writing<br><br>
     Click "Submit"
 </td>
@@ -166,9 +166,9 @@
     &nbsp&nbsp&nbsp&nbsp   Last Name: Bayraktar<br><br>
     &nbsp&nbsp&nbsp&nbsp   Birthday: 15/18/1990 (invalid date format)<br><br>
     &nbsp&nbsp&nbsp&nbsp   Email: lchang@ncsu.edu<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Email notifications: On
-    &nbsp&nbsp&nbsp&nbsp   User Name: asd
-    &nbsp&nbsp&nbsp&nbsp   Enter a password: dsa
+    &nbsp&nbsp&nbsp&nbsp   Email notifications: On<br><br>
+    &nbsp&nbsp&nbsp&nbsp   User Name: asd<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Enter a password: dsa<br><br>
     &nbsp&nbsp&nbsp&nbsp   Interest: Dancing, Reading, Cooking, Ballet, Writing<br><br>
     &nbsp&nbsp&nbsp&nbsp   Interest: (whatever)<br><br>
     Click "Submit"
