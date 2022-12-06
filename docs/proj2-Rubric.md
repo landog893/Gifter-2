@@ -1,6 +1,6 @@
 |Notes|Points|Evidence|
 |-----|------|---------|
-| Video1 | 3 | https://github.com/landog893/Gifter-2  | 
+| Video1 | 3 | New functionalities of Gifter-2 in comparison to the original project Gifter  https://drive.google.com/file/d/1rd606Kqv0g8X0NEEwJfC2BZNNOSVkhe2/view  | 
 |Use of version control tools| 3 | Used Git. |
 |Use of style checkers | 3 | We use pycodestyle in every .py file |
 |Use of code formatters. | 0 |  |
