@@ -70,7 +70,6 @@ def login_page():
 
 def create_account():
 
-    # st.write('Please fill out the form')
     form = st.form(key='Create_form')
     f_name = form.text_input('First Name:')
     surname = form.text_input('Last Name:')
@@ -126,8 +125,6 @@ def create_account():
         acc = Account(f_name, surname, birthday, email, notifications, username, password, interest)
         if int(acc.ID) == -2:
             st.session_state.runpage = 'createaccount'
-            # st.write('Please fill out the form with unique user name')
-            # st.experimental_rerun()
         else:
             Account(ID=int(acc.ID))
             st.session_state.runpage = 'account'
@@ -185,7 +182,6 @@ def profile_page():
 
     st.header('Profile')
     acc = st.session_state.account
-    # st.write('ID: ' + str(acc.ID))
     st.write('First Name: ' + acc.name)
     st.write('Last Name: ' + acc.surname)
     st.write('Birthday: ' + acc.birthday)
@@ -199,9 +195,6 @@ def profile_page():
         if st.button("Edit Profile", type="primary"):
             st.session_state.runpage = 'editprofile'
             st.experimental_rerun()
-    # if st.button("Back"):
-    #     st.session_state.runpage = 'account'
-    #     st.experimental_rerun()
     with col1:
         if st.button("Send Notifications", type="primary"):
             if (acc.friendlist != 'NaN' and acc.wishlist != 'NaN'):
@@ -287,14 +280,6 @@ def wishlist_page():
         items = (acc.wishlist).replace("\"", "").split(",")
         items = [int(item) for item in items if item.isnumeric()]
         item_objs = [item(ID=id) for id in items]
-        # item_titles = [(i.title).replace("\"", "") for i in item_objs]
-        # item_descs = [(i.desc).replace("\"", "") for i in item_objs]
-        # item_links = [(i.link.replace("\"", "")) for i in item_objs]
-        # item_costs = [i.cost for i in item_objs]
-        # df = pd.DataFrame(list(zip(items, item_titles, item_descs,
-        # item_links, item_costs,item_buttons)), columns=('ID', 'Title',
-        # 'Description', 'Link', 'Cost','Edit Item'))
-        # df.set_index('ID', inplace=True)
         colms = st.columns((2, 2, 3, 1, 1, 2))
         fields = ["Item Number", "Title", 'Description', 'Cost', "Edit Item", "Remove Item"]
         for col, field_name in zip(colms, fields):
@@ -319,21 +304,10 @@ def wishlist_page():
                 st.session_state['delete_key'] = items[j]
                 st.session_state.runpage = 'deleteitem'
                 st.experimental_rerun()
-        # col5.write(st.button("Edit"),key=items[j])
             j = j + 1
-        # st.table(df)
     if st.button('Add item', type="primary"):
         st.session_state.runpage = 'additem'
         st.experimental_rerun()
-    # if st.button('Modify item', type="primary"):
-    #     st.session_state.runpage = 'modifyitem'
-    #     st.experimental_rerun()
-    # if st.button('Remove item', type="primary"):
-    #     st.session_state.runpage = 'deleteitem'
-    #     st.experimental_rerun()
-    # if st.button('Back'):
-    #     st.session_state.runpage = 'account'
-    #     st.experimental_rerun()
     global extrajs
     extrajs += '''
         document.addEventListener('DOMContentLoaded', function(event) {
@@ -506,12 +480,6 @@ def friendlist_page():
     if st.button('Add friend', type="primary"):
         st.session_state.runpage = 'addfriend'
         st.experimental_rerun()
-    # if st.button('Delete friend', type="primary"):
-    #     st.session_state.runpage = 'deletefriend'
-    #     st.experimental_rerun()
-    # if st.button('Back', type="primary"):
-    #     st.session_state.runpage = 'account'
-    #     st.experimental_rerun()
     global extrajs
     extrajs += '''
         document.addEventListener('DOMContentLoaded', function(event) {
@@ -655,7 +623,6 @@ def deletefriend_page():
     a_wishlist = acc.wishlist
 
     friends.remove(id)
-    # friends.remove('')
     friends = ','.join(friends)
 
     acc.update_account(a_name, a_surname, a_birthday, a_email, a_notifications, a_username, a_password, a_interests, a_wishlist, friends)
@@ -675,8 +642,6 @@ if 'account' not in st.session_state or st.session_state.runpage == 'initial':
 if 'runpage' not in st.session_state or (st.session_state.account == 'None' and not st.session_state.runpage == 'login' and not st.session_state.runpage == 'createaccount'):
     st.session_state.runpage = 'initial'
 
-
-# st.set_page_config(layout="wide", page_title='Navbar sample')
 st.set_page_config(page_title='Gifter 2', page_icon='src/assets/images/gift-flat.ico')
 st.set_option('deprecation.showPyplotGlobalUse', False)
 utl.inject_custom_css()
@@ -716,7 +681,6 @@ extrajs = '''
         }
     '''
 
-# navigation()
 
 if st.session_state.runpage == 'initial':
     initial_page()

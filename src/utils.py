@@ -33,7 +33,6 @@ def navbar_component(acc):
                 </div>
             '''
     if not acc == 'None':
-        # nameTag = f'<p class="navName">' + name.name.to_string(index=False) + '</p>'
         nameTag = rf'''
             <div class="dropdown" id="settingsDropDown">
                     <p class="navName">{acc.name} {acc.surname}</p>
@@ -111,7 +110,6 @@ def footer_component():
     footer_items = ''
     for key, value in FOOTER_PATHS.items():
         footer_items += (f'<a class="footeritem" href="{value} "target="_blank">{key}</a>')
-# <img class="gitHub" src="data:image/png;base64, {image_as_base64.decode("utf-8")}"/>
     component = rf'''
             <footer class="container footer" id="footer">
                 <ul class="footerlist">

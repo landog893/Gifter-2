@@ -3,12 +3,6 @@ from config import config
 
 
 class ItemManager:
-    # def __init__ (self):
-    #     try:
-    #         self.database = 'data/item_data - Copy.csv'
-    #         data = read_csv(self.database)
-    #     except:
-    #         self.database = '../data/item_data - Copy.csv'
 
     def add_item(self, title, desc='', link='',  cost=''):
         if title == '':
@@ -89,16 +83,6 @@ class ItemManager:
                 conn.close()
                 print('Database connection closed.')
         return 0
-
-        # cur.execute(query,(_id,))
-        # data = read_csv(self.database)
-        # if data.index[data['ItemID'] == ID].empty:
-        #     print("Item does not exist")
-        #     return -1
-        # data = data.drop(data.index[data['ItemID'] == ID], axis = 0)
-        # data.to_csv(self.database, mode='w', index=False)
-        # print("Item deleted.")
-        # return 0
 
     def update_item(self, ID: int, title, desc='', link='', cost=''):
 
