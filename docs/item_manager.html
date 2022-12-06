@@ -26,30 +26,26 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from pandas import *
-import psycopg2
-from config import config
-
-class ItemManager:
+<pre><code class="python">class ItemManager:
     # def __init__ (self):
     #     try:
-    #         self.database = &#39;data/item_data - Copy.csv&#39;
+    #         self.database = 'data/item_data - Copy.csv'
     #         data = read_csv(self.database)
     #     except: 
-    #         self.database = &#39;../data/item_data - Copy.csv&#39;
+    #         self.database = '../data/item_data - Copy.csv'
 
-    def add_item(self, title, desc = &#39;&#39;, link = &#39;&#39;,  cost = &#39;&#39;):
-        if title == &#39;&#39;:
-            print(&#39;Title cannot be empty&#39;)
+    def add_item(self, title, desc = '', link = '',  cost = ''):
+        if title == '':
+            print('Title cannot be empty')
             return -1
         
-        query = &#34;&#34;&#34;Insert Into public.&#34;Item&#34; (&#34;Title&#34;,&#34;Description&#34;,&#34;Link&#34;,&#34;Cost&#34;) values(%s,%s,%s,%s) returning &#34;ID&#34; &#34;&#34;&#34;
+        query = """Insert Into public."Item" ("Title","Description","Link","Cost") values(%s,%s,%s,%s) returning "ID" """
         conn = None
         ID = None
         try:
         # initializing connection
             params = config()
-            print(&#39;Connecting to the PostgreSQL database...&#39;)
+            print('Connecting to the PostgreSQL database...')
             conn = psycopg2.connect(**params)
             cur = conn.cursor()
         # execute a statement
@@ -64,19 +60,19 @@ class ItemManager:
         finally:
             if conn is not None:
                 conn.close()
-                print(&#39;Database connection closed.&#39;)
+                print('Database connection closed.')
                 
         return ID
 
 
     def get_item(self, ID: int):
-        query = &#34;&#34;&#34;Select &#34;Title&#34;,&#34;Description&#34;,&#34;Link&#34;,&#34;Cost&#34; From &#34;Item&#34; WHERE &#34;ID&#34; = %s;&#34;&#34;&#34;
+        query = """Select "Title","Description","Link","Cost" From "Item" WHERE "ID" = %s;"""
         conn = None
         item_info = None
         try:
         # initializing connection
             params = config()
-            print(&#39;Connecting to the PostgreSQL database...&#39;)
+            print('Connecting to the PostgreSQL database...')
             conn = psycopg2.connect(**params)
             cur = conn.cursor()
         # execute a statement
@@ -91,25 +87,20 @@ class ItemManager:
         finally:
             if conn is not None:
                 conn.close()
-                print(&#39;Database connection closed.&#39;)
+                print('Database connection closed.')
         
         return item_info[0] if item_info else None
         
-        
-        # data = read_csv(self.database)
-        # if data.loc[data[&#39;ItemID&#39;]==ID].empty:
-        #     print(&#34;Item does not exist&#34;)
-        #     return -1
-        # return (data.loc[data[&#39;ItemID&#39;] == ID])
+    
 
     def delete_item(self, ID: int):
         
-        query = &#34;&#34;&#34;Delete From &#34;Item&#34; Where &#34;ID&#34; = %s;&#34;&#34;&#34;
+        query = """Delete From "Item" Where "ID" = %s;"""
         conn = None
         try:
         # initializing connection
             params = config()
-            print(&#39;Connecting to the PostgreSQL database...&#39;)
+            print('Connecting to the PostgreSQL database...')
             conn = psycopg2.connect(**params)
             cur = conn.cursor()
         # execute a statement
@@ -117,33 +108,33 @@ class ItemManager:
             cur.close()
             conn.commit()
             cur.close()        
-            print(&#34;Item deleted.&#34;)
+            print("Item deleted.")
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
         finally:
             if conn is not None:
                 conn.close()
-                print(&#39;Database connection closed.&#39;)
+                print('Database connection closed.')
         return 0
     
         # cur.execute(query,(_id,))
         # data = read_csv(self.database)
-        # if data.index[data[&#39;ItemID&#39;] == ID].empty:
-        #     print(&#34;Item does not exist&#34;)
+        # if data.index[data['ItemID'] == ID].empty:
+        #     print("Item does not exist")
         #     return -1
-        # data = data.drop(data.index[data[&#39;ItemID&#39;] == ID], axis = 0)
-        # data.to_csv(self.database, mode=&#39;w&#39;, index=False)
-        # print(&#34;Item deleted.&#34;)
+        # data = data.drop(data.index[data['ItemID'] == ID], axis = 0)
+        # data.to_csv(self.database, mode='w', index=False)
+        # print("Item deleted.")
         # return 0
 
-    def update_item(self, ID: int, title, desc = &#39;&#39;, link = &#39;&#39;, cost = &#39;&#39;):
+    def update_item(self, ID: int, title, desc = '', link = '', cost = ''):
         
-        query = &#34;&#34;&#34;UPDATE &#34;Item&#34; Set &#34;Title&#34; = %s, &#34;Description&#34; = %s, &#34;Link&#34; = %s, &#34;Cost&#34; = %s  Where &#34;ID&#34; = %s&#34;&#34;&#34;
+        query = """UPDATE "Item" Set "Title" = %s, "Description" = %s, "Link" = %s, "Cost" = %s  Where "ID" = %s"""
         conn = None
         try:
         # initializing connection
             params = config()
-            print(&#39;Connecting to the PostgreSQL database...&#39;)
+            print('Connecting to the PostgreSQL database...')
             conn = psycopg2.connect(**params)
             cur = conn.cursor()
         # execute a statement
@@ -151,32 +142,17 @@ class ItemManager:
             cur.close()
             conn.commit()
             cur.close()
-            print(&#34;Item Updated.&#34;)
+            print("Item Updated.")
             
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
         finally:
             if conn is not None:
                 conn.close()
-                print(&#39;Database connection closed.&#39;)
+                print('Database connection closed.')
         
         return 0
-        
-        
-        
-        # data = read_csv(self.database)
-        # item = data.loc[data[&#39;ItemID&#39;] == ID]
-        # ind = data[&#39;ItemID&#39;] == ID
-        # if data.loc[data[&#39;ItemID&#39;] == ID].empty:
-        #     print(&#39;Item does not exist.&#39;)
-        #     return -1
-        # data.loc[ind,&#39;Title&#39;] = title
-        # data.loc[ind,&#39;Description&#39;] = desc
-        # data.loc[ind, &#39;Link&#39;] = link
-        # data.loc[ind, &#39;Cost&#39;] = cost
-        # data.to_csv(self.database, mode=&#39;w&#39;, index=False)
-        # print(&#39;Updated item&#39;)
-        # return 0</code></pre>
+        </code></pre>
 </details>
 </section>
 <section>
@@ -189,7 +165,7 @@ class ItemManager:
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
 <dt id="item_manager.ItemManager"><code class="flex name class">
-<span>class <span class="ident">ItemManager</span></span>
+<span>class <span class="ident">ItemManager</span><br>This class adds items to the database.</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -200,23 +176,23 @@ class ItemManager:
 <pre><code class="python">class ItemManager:
     # def __init__ (self):
     #     try:
-    #         self.database = &#39;data/item_data - Copy.csv&#39;
+    #         self.database = 'data/item_data - Copy.csv'
     #         data = read_csv(self.database)
     #     except: 
-    #         self.database = &#39;../data/item_data - Copy.csv&#39;
+    #         self.database = '../data/item_data - Copy.csv'
 
-    def add_item(self, title, desc = &#39;&#39;, link = &#39;&#39;,  cost = &#39;&#39;):
-        if title == &#39;&#39;:
-            print(&#39;Title cannot be empty&#39;)
+    def add_item(self, title, desc = '', link = '',  cost = ''):
+        if title == '':
+            print('Title cannot be empty')
             return -1
         
-        query = &#34;&#34;&#34;Insert Into public.&#34;Item&#34; (&#34;Title&#34;,&#34;Description&#34;,&#34;Link&#34;,&#34;Cost&#34;) values(%s,%s,%s,%s) returning &#34;ID&#34; &#34;&#34;&#34;
+        query = """Insert Into public."Item" ("Title","Description","Link","Cost") values(%s,%s,%s,%s) returning "ID" """
         conn = None
         ID = None
         try:
         # initializing connection
             params = config()
-            print(&#39;Connecting to the PostgreSQL database...&#39;)
+            print('Connecting to the PostgreSQL database...')
             conn = psycopg2.connect(**params)
             cur = conn.cursor()
         # execute a statement
@@ -231,19 +207,19 @@ class ItemManager:
         finally:
             if conn is not None:
                 conn.close()
-                print(&#39;Database connection closed.&#39;)
+                print('Database connection closed.')
                 
         return ID
 
 
     def get_item(self, ID: int):
-        query = &#34;&#34;&#34;Select &#34;Title&#34;,&#34;Description&#34;,&#34;Link&#34;,&#34;Cost&#34; From &#34;Item&#34; WHERE &#34;ID&#34; = %s;&#34;&#34;&#34;
+        query = """Select "Title","Description","Link","Cost" From "Item" WHERE "ID" = %s;"""
         conn = None
         item_info = None
         try:
         # initializing connection
             params = config()
-            print(&#39;Connecting to the PostgreSQL database...&#39;)
+            print('Connecting to the PostgreSQL database...')
             conn = psycopg2.connect(**params)
             cur = conn.cursor()
         # execute a statement
@@ -258,25 +234,20 @@ class ItemManager:
         finally:
             if conn is not None:
                 conn.close()
-                print(&#39;Database connection closed.&#39;)
+                print('Database connection closed.')
         
         return item_info[0] if item_info else None
         
-        
-        # data = read_csv(self.database)
-        # if data.loc[data[&#39;ItemID&#39;]==ID].empty:
-        #     print(&#34;Item does not exist&#34;)
-        #     return -1
-        # return (data.loc[data[&#39;ItemID&#39;] == ID])
+    
 
     def delete_item(self, ID: int):
         
-        query = &#34;&#34;&#34;Delete From &#34;Item&#34; Where &#34;ID&#34; = %s;&#34;&#34;&#34;
+        query = """Delete From "Item" Where "ID" = %s;"""
         conn = None
         try:
         # initializing connection
             params = config()
-            print(&#39;Connecting to the PostgreSQL database...&#39;)
+            print('Connecting to the PostgreSQL database...')
             conn = psycopg2.connect(**params)
             cur = conn.cursor()
         # execute a statement
@@ -284,33 +255,33 @@ class ItemManager:
             cur.close()
             conn.commit()
             cur.close()        
-            print(&#34;Item deleted.&#34;)
+            print("Item deleted.")
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
         finally:
             if conn is not None:
                 conn.close()
-                print(&#39;Database connection closed.&#39;)
+                print('Database connection closed.')
         return 0
     
         # cur.execute(query,(_id,))
         # data = read_csv(self.database)
-        # if data.index[data[&#39;ItemID&#39;] == ID].empty:
-        #     print(&#34;Item does not exist&#34;)
+        # if data.index[data['ItemID'] == ID].empty:
+        #     print("Item does not exist")
         #     return -1
-        # data = data.drop(data.index[data[&#39;ItemID&#39;] == ID], axis = 0)
-        # data.to_csv(self.database, mode=&#39;w&#39;, index=False)
-        # print(&#34;Item deleted.&#34;)
+        # data = data.drop(data.index[data['ItemID'] == ID], axis = 0)
+        # data.to_csv(self.database, mode='w', index=False)
+        # print("Item deleted.")
         # return 0
 
-    def update_item(self, ID: int, title, desc = &#39;&#39;, link = &#39;&#39;, cost = &#39;&#39;):
+    def update_item(self, ID: int, title, desc = '', link = '', cost = ''):
         
-        query = &#34;&#34;&#34;UPDATE &#34;Item&#34; Set &#34;Title&#34; = %s, &#34;Description&#34; = %s, &#34;Link&#34; = %s, &#34;Cost&#34; = %s  Where &#34;ID&#34; = %s&#34;&#34;&#34;
+        query = """UPDATE "Item" Set "Title" = %s, "Description" = %s, "Link" = %s, "Cost" = %s  Where "ID" = %s"""
         conn = None
         try:
         # initializing connection
             params = config()
-            print(&#39;Connecting to the PostgreSQL database...&#39;)
+            print('Connecting to the PostgreSQL database...')
             conn = psycopg2.connect(**params)
             cur = conn.cursor()
         # execute a statement
@@ -318,37 +289,22 @@ class ItemManager:
             cur.close()
             conn.commit()
             cur.close()
-            print(&#34;Item Updated.&#34;)
+            print("Item Updated.")
             
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
         finally:
             if conn is not None:
                 conn.close()
-                print(&#39;Database connection closed.&#39;)
+                print('Database connection closed.')
         
         return 0
-        
-        
-        
-        # data = read_csv(self.database)
-        # item = data.loc[data[&#39;ItemID&#39;] == ID]
-        # ind = data[&#39;ItemID&#39;] == ID
-        # if data.loc[data[&#39;ItemID&#39;] == ID].empty:
-        #     print(&#39;Item does not exist.&#39;)
-        #     return -1
-        # data.loc[ind,&#39;Title&#39;] = title
-        # data.loc[ind,&#39;Description&#39;] = desc
-        # data.loc[ind, &#39;Link&#39;] = link
-        # data.loc[ind, &#39;Cost&#39;] = cost
-        # data.to_csv(self.database, mode=&#39;w&#39;, index=False)
-        # print(&#39;Updated item&#39;)
-        # return 0</code></pre>
+        </code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
 <dt id="item_manager.ItemManager.add_item"><code class="name flex">
-<span>def <span class="ident">add_item</span></span>(<span>self, title, desc='', link='', cost='')</span>
+<span>def <span class="ident">add_item</span></span>(<span>self, title, desc='', link='', cost='')<br>Method to add an item to the database.</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -356,18 +312,18 @@ class ItemManager:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def add_item(self, title, desc = &#39;&#39;, link = &#39;&#39;,  cost = &#39;&#39;):
-    if title == &#39;&#39;:
-        print(&#39;Title cannot be empty&#39;)
+<pre><code class="python">def add_item(self, title, desc = '', link = '',  cost = ''):
+    if title == '':
+        print('Title cannot be empty')
         return -1
     
-    query = &#34;&#34;&#34;Insert Into public.&#34;Item&#34; (&#34;Title&#34;,&#34;Description&#34;,&#34;Link&#34;,&#34;Cost&#34;) values(%s,%s,%s,%s) returning &#34;ID&#34; &#34;&#34;&#34;
+    query = """Insert Into public."Item" ("Title","Description","Link","Cost") values(%s,%s,%s,%s) returning "ID" """
     conn = None
     ID = None
     try:
     # initializing connection
         params = config()
-        print(&#39;Connecting to the PostgreSQL database...&#39;)
+        print('Connecting to the PostgreSQL database...')
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
     # execute a statement
@@ -382,13 +338,13 @@ class ItemManager:
     finally:
         if conn is not None:
             conn.close()
-            print(&#39;Database connection closed.&#39;)
+            print('Database connection closed.')
             
     return ID</code></pre>
 </details>
 </dd>
 <dt id="item_manager.ItemManager.delete_item"><code class="name flex">
-<span>def <span class="ident">delete_item</span></span>(<span>self, ID: int)</span>
+<span>def <span class="ident">delete_item</span></span>(<span>self, ID: int)<br>Method to delete an item from the database.</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -397,42 +353,32 @@ class ItemManager:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def delete_item(self, ID: int):
-    
-    query = &#34;&#34;&#34;Delete From &#34;Item&#34; Where &#34;ID&#34; = %s;&#34;&#34;&#34;
-    conn = None
-    try:
-    # initializing connection
-        params = config()
-        print(&#39;Connecting to the PostgreSQL database...&#39;)
-        conn = psycopg2.connect(**params)
-        cur = conn.cursor()
-    # execute a statement
-        cur.execute(query, (ID,))
-        cur.close()
-        conn.commit()
-        cur.close()        
-        print(&#34;Item deleted.&#34;)
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-            print(&#39;Database connection closed.&#39;)
-    return 0
-
-    # cur.execute(query,(_id,))
-    # data = read_csv(self.database)
-    # if data.index[data[&#39;ItemID&#39;] == ID].empty:
-    #     print(&#34;Item does not exist&#34;)
-    #     return -1
-    # data = data.drop(data.index[data[&#39;ItemID&#39;] == ID], axis = 0)
-    # data.to_csv(self.database, mode=&#39;w&#39;, index=False)
-    # print(&#34;Item deleted.&#34;)
-    # return 0</code></pre>
+        
+        query = """Delete From "Item" Where "ID" = %s;"""
+        conn = None
+        try:
+        # initializing connection
+            params = config()
+            print('Connecting to the PostgreSQL database...')
+            conn = psycopg2.connect(**params)
+            cur = conn.cursor()
+        # execute a statement
+            cur.execute(query, (ID,))
+            cur.close()
+            conn.commit()
+            cur.close()        
+            print("Item deleted.")
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection closed.')
+        return 0</code></pre>
 </details>
 </dd>
 <dt id="item_manager.ItemManager.get_item"><code class="name flex">
-<span>def <span class="ident">get_item</span></span>(<span>self, ID: int)</span>
+<span>def <span class="ident">get_item</span></span>(<span>self, ID: int)<br>Method to get an item from the database.</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -441,41 +387,34 @@ class ItemManager:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_item(self, ID: int):
-    query = &#34;&#34;&#34;Select &#34;Title&#34;,&#34;Description&#34;,&#34;Link&#34;,&#34;Cost&#34; From &#34;Item&#34; WHERE &#34;ID&#34; = %s;&#34;&#34;&#34;
-    conn = None
-    item_info = None
-    try:
-    # initializing connection
-        params = config()
-        print(&#39;Connecting to the PostgreSQL database...&#39;)
-        conn = psycopg2.connect(**params)
-        cur = conn.cursor()
-    # execute a statement
-        cur.execute(query, (ID,))
-        item_info = cur.fetchall()
-        cur.close()
-        conn.commit()
-        cur.close()
+        query = """Select "Title","Description","Link","Cost" From "Item" WHERE "ID" = %s;"""
+        conn = None
+        item_info = None
+        try:
+        # initializing connection
+            params = config()
+            print('Connecting to the PostgreSQL database...')
+            conn = psycopg2.connect(**params)
+            cur = conn.cursor()
+        # execute a statement
+            cur.execute(query, (ID,))
+            item_info = cur.fetchall()
+            cur.close()
+            conn.commit()
+            cur.close()
+            
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection closed.')
         
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-            print(&#39;Database connection closed.&#39;)
-    
-    return item_info[0] if item_info else None
-    
-    
-    # data = read_csv(self.database)
-    # if data.loc[data[&#39;ItemID&#39;]==ID].empty:
-    #     print(&#34;Item does not exist&#34;)
-    #     return -1
-    # return (data.loc[data[&#39;ItemID&#39;] == ID])</code></pre>
+        return item_info[0] if item_info else None</code></pre>
 </details>
 </dd>
 <dt id="item_manager.ItemManager.update_item"><code class="name flex">
-<span>def <span class="ident">update_item</span></span>(<span>self, ID: int, title, desc='', link='', cost='')</span>
+<span>def <span class="ident">update_item</span></span>(<span>self, ID: int, title, desc='', link='', cost='')<br>Method to update an existing item in the database.</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -483,14 +422,14 @@ class ItemManager:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def update_item(self, ID: int, title, desc = &#39;&#39;, link = &#39;&#39;, cost = &#39;&#39;):
-    
-    query = &#34;&#34;&#34;UPDATE &#34;Item&#34; Set &#34;Title&#34; = %s, &#34;Description&#34; = %s, &#34;Link&#34; = %s, &#34;Cost&#34; = %s  Where &#34;ID&#34; = %s&#34;&#34;&#34;
+<pre><code class="python">def update_item(self, ID: int, title, desc = '', link = '', cost = ''):
+        
+    query = """UPDATE "Item" Set "Title" = %s, "Description" = %s, "Link" = %s, "Cost" = %s  Where "ID" = %s"""
     conn = None
     try:
     # initializing connection
         params = config()
-        print(&#39;Connecting to the PostgreSQL database...&#39;)
+        print('Connecting to the PostgreSQL database...')
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
     # execute a statement
@@ -498,32 +437,16 @@ class ItemManager:
         cur.close()
         conn.commit()
         cur.close()
-        print(&#34;Item Updated.&#34;)
+        print("Item Updated.")
         
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
         if conn is not None:
             conn.close()
-            print(&#39;Database connection closed.&#39;)
+            print('Database connection closed.')
     
-    return 0
-    
-    
-    
-    # data = read_csv(self.database)
-    # item = data.loc[data[&#39;ItemID&#39;] == ID]
-    # ind = data[&#39;ItemID&#39;] == ID
-    # if data.loc[data[&#39;ItemID&#39;] == ID].empty:
-    #     print(&#39;Item does not exist.&#39;)
-    #     return -1
-    # data.loc[ind,&#39;Title&#39;] = title
-    # data.loc[ind,&#39;Description&#39;] = desc
-    # data.loc[ind, &#39;Link&#39;] = link
-    # data.loc[ind, &#39;Cost&#39;] = cost
-    # data.to_csv(self.database, mode=&#39;w&#39;, index=False)
-    # print(&#39;Updated item&#39;)
-    # return 0</code></pre>
+    return 0</code></pre>
 </details>
 </dd>
 </dl>
