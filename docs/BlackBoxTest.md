@@ -16,15 +16,16 @@
 <td valign=top>
     Preconditions: LoginPage has loaded
     <br><br>
-    UserID: invalid userid
+    UserName: invalid user name <br><br>
+    Password: (whatever)
     <br><br>
     Click Log in
 </td>
 <td valign=top>
-    There will be a notificaion saying: "No saved data found".
+    There will be a notificaion saying: "User Name is Incorrect".
 </td>
 <td valign=top>
-    There is a notificaion saying: "UserId is not exist".
+    There is a notificaion saying: "User Name is Incorrect. Please use correct user name!".
     <br><br>
     Remain on the LoginScreen page without navigating.
 </td>
@@ -38,7 +39,8 @@
 <td valign=top>
     Preconditions: LoginPage has loaded
     <br><br>
-    UserID: Valid userid
+    User name: Valid user name <br><br>
+    Password: Valid password
     <br><br>
     Click Log in
 </td>
@@ -46,7 +48,7 @@
     After clicking the "Log in", the page will jump to the Main page with the user logged in.
 </td>
 <td valign=top>
-    After clicking the "Log in", the page jumps to the Main page with the user logged in.
+    After clicking the "Log in", the page jumps to the Main page with the user logged in, saying "Welcome (username)! Quote of the day: (random quote)"
 </td>
 </tr>
     
@@ -61,9 +63,13 @@
     Input new account infomation in the popped up modal.
     <br><br>
     &nbsp&nbsp   Info: <br><br>
-    &nbsp&nbsp&nbsp&nbsp   Name: Ayrak<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Surname: Bayraktar<br><br>
+    &nbsp&nbsp&nbsp&nbsp   First Name: Ayrak<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Last Name: Bayraktar<br><br>
     &nbsp&nbsp&nbsp&nbsp   Birthday: 11/15/1990<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Email: lchang@ncsu.edu<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Email notifications: On
+    &nbsp&nbsp&nbsp&nbsp   User Name: asd
+    &nbsp&nbsp&nbsp&nbsp   Enter a password: dsa
     &nbsp&nbsp&nbsp&nbsp   Interest: Dancing, Reading, Cooking, Ballet, Writing<br><br>
     Click "Submit"
 </td>
@@ -75,7 +81,7 @@
 <td valign=top>
     The modal pops up successfully.
     <br><br>
-    After clicking the "Submit", the page jumps to the MainPage with the created account logged in. A notification saying "Welcome Ayrak!". 
+    After clicking the "Submit", the page jumps to the MainPage with the created account logged in. A notification saying "Welcome Ayrak! Quote of the day: (random quote)". 
 </td>
 </tr>
 
@@ -90,21 +96,25 @@
     Input new account infomation in the popped up modal.
     <br><br>
     &nbsp&nbsp   Info: <br><br>
-    &nbsp&nbsp&nbsp&nbsp   Name: Ayrak (an exist username)<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Surname: (whatever)<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Birthday: (whatever)<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Interest: (whatever)<br><br>
+    &nbsp&nbsp&nbsp&nbsp   First Name: (whatever) <br><br>
+    &nbsp&nbsp&nbsp&nbsp   Last Name: (whatever) <br><br>
+    &nbsp&nbsp&nbsp&nbsp   Birthday: (whatever) <br><br>
+    &nbsp&nbsp&nbsp&nbsp   Email: (whatever) <br><br>
+    &nbsp&nbsp&nbsp&nbsp   Email notifications: On
+    &nbsp&nbsp&nbsp&nbsp   User Name: asd (an exist username)
+    &nbsp&nbsp&nbsp&nbsp   Enter a password: (whatever)
+    &nbsp&nbsp&nbsp&nbsp   Interest: (whatever) <br><br>
     Click "Submit"
 </td>
 <td valign=top>
     The modal will keep on screen.
     <br><br>
-    After clicking the "Submit", a notification saying "Registeration failed! User already exists." will show up. 
+    After clicking the "Submit", a notification saying "User already exists." will show up. 
 </td>
 <td valign=top>
     The modal keeps on screen.
     <br><br>
-    After clicking the "Submit", a notification saying "User already exists." shows up. 
+    After clicking the "Submit", a notification saying "User Name already in use. Please use another one!" shows up. 
 </td>
 </tr>
     
@@ -119,10 +129,14 @@
     Input edited profile infomation in the popped up modal.
     <br><br>
     &nbsp&nbsp   Info: <br><br>
-    &nbsp&nbsp&nbsp&nbsp   Name: Yrak<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Surname: Raktar<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Birthday: 11/18/1990<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Interest: Ballet, Writing<br><br>
+    &nbsp&nbsp&nbsp&nbsp   First Name: Yrak<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Last Name: Bayraktar<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Birthday: 11/15/1990<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Email: lchang@ncsu.edu<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Email notifications: On
+    &nbsp&nbsp&nbsp&nbsp   User Name: asd
+    &nbsp&nbsp&nbsp&nbsp   Enter a password: dsa
+    &nbsp&nbsp&nbsp&nbsp   Interest: Dancing, Reading, Cooking, Ballet, Writing<br><br>
     Click "Submit"
 </td>
 <td valign=top>
@@ -148,21 +162,26 @@
     Input edited profile infomation in the popped up modal.
     <br><br>
     &nbsp&nbsp   Info: <br><br>
-    &nbsp&nbsp&nbsp&nbsp   Name: (whatever)<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Surname: (whatever)<br><br>
+    &nbsp&nbsp&nbsp&nbsp   First Name: Ayrak<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Last Name: Bayraktar<br><br>
     &nbsp&nbsp&nbsp&nbsp   Birthday: 15/18/1990 (invalid date format)<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Email: lchang@ncsu.edu<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Email notifications: On
+    &nbsp&nbsp&nbsp&nbsp   User Name: asd
+    &nbsp&nbsp&nbsp&nbsp   Enter a password: dsa
+    &nbsp&nbsp&nbsp&nbsp   Interest: Dancing, Reading, Cooking, Ballet, Writing<br><br>
     &nbsp&nbsp&nbsp&nbsp   Interest: (whatever)<br><br>
     Click "Submit"
 </td>
 <td valign=top>
     The modal will keep on screen.
     <br><br>
-    After clicking the "Update", a notification saying "Failed to edit! Birthday format is wrong." will show up. 
+    After clicking the "Update", a notification saying "Failed to edit!" will show up. 
 </td>
 <td valign=top>
     The modal keeps on screen.
     <br><br>
-    After clicking the "Update", a notification saying "Birthday date is not valid (MM/DD/YYYY)" shows up. 
+    After clicking the "Update", a notification saying "Birthday should be formatted MM/DD/YYYY. " shows up. 
 </td>
 </tr>
     
@@ -174,15 +193,13 @@
 <td valign=top>
     Preconditions: ModifyItem page has loaded
     <br><br>
-    Input item id we want to modify, and edit infomation in the popped up modal.
+    Input item info we want to modify, and edit infomation in the popped up modal.
     <br><br>
-    &nbsp&nbsp   UserID: <br><br>
-    &nbsp&nbsp&nbsp&nbsp   ID: 2<br><br>
     &nbsp&nbsp   Info: <br><br>
-    &nbsp&nbsp&nbsp&nbsp   Name: Yrak<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Surname: Raktar<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Birthday: 11/18/1990<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Interest: Ballet, Writing<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Title: car<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Description: car<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Link: https://www.carmax.com/cars/all?location=raleigh+nc<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Cost: 8000<br><br>
     Click "Submit"
 </td>
 <td valign=top>
@@ -207,24 +224,21 @@
     <br><br>
     Input item id we want to modify, and edit infomation in the popped up modal.
     <br><br>
-    &nbsp&nbsp   UserID: <br><br>
-    &nbsp&nbsp&nbsp&nbsp   ID: 99(id is not exist)<br><br>
-    &nbsp&nbsp   Info: <br><br>
-    &nbsp&nbsp&nbsp&nbsp   Name: Yrak<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Surname: Raktar<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Birthday: 11/18/1990<br><br>
-    &nbsp&nbsp&nbsp&nbsp   Interest: Ballet, Writing<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Title: car<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Description: car<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Link: https://www.carmax.com/cars/all?location=raleigh+nc<br><br>
+    &nbsp&nbsp&nbsp&nbsp   Cost: (not a number) <br><br>
     Click "Submit"
 </td>
 <td valign=top>
     The modal will keep on screen.
     <br><br>
-    After clicking the "Modify item", a notification saying "Failed to modify! UserID is not exist." will show up. 
+    After clicking the "Modify item", a notification saying "Cost must be a number" will show up. 
 </td>
 <td valign=top>
     The modal keeps on screen.
     <br><br>
-    After clicking the "Modify item", a notification saying "UserId is not exist" shows up. 
+    After clicking the "Modify item", a notification saying "Cost must be a number" shows up. 
 </td>
 </tr>
 </table>
