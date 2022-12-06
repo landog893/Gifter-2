@@ -513,7 +513,7 @@ def viewwishlist_page():
     except ValueError:
         st.error("This ID doesn't have any wishlist")
 
-    if (item_objs != None):
+    if (item_objs is not None):
         item_titles = [(i.title).replace("\"", "") for i in item_objs]
         item_descs = [(i.desc).replace("\"", "") for i in item_objs]
         item_links = [(i.link.replace("\"", "")) for i in item_objs]
