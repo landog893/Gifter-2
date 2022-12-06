@@ -11,6 +11,7 @@
 # Gifter-2
 [![DOI](https://zenodo.org/badge/560035935.svg)](https://zenodo.org/badge/latestdoi/560035935)
 [![License](https://img.shields.io/github/license/landog893/Gifter-2?style=plastic)](https://github.com/landog893/Gifter-2/blob/main/LICENSE.md)
+[![codecov](https://codecov.io/gh/landog893/Gifter-2/branch/main/graph/badge.svg?token=E2ED8NHPSM)](https://codecov.io/gh/landog893/Gifter-2)
 [![java](https://img.shields.io/badge/Made%20with-Java-brightgreen?style=plastic)](https://www.oracle.com/java/technologies/downloads/)
 [![size](https://img.shields.io/github/languages/code-size/landog893/Gifter-2?style=plastic)](https://github.com/landog893/Gifter-2)
 [![lang](https://img.shields.io/github/languages/count/landog893/Gifter-2?style=plastic)](https://github.com/landog893/Gifter-2/search?l=Java&type=code)
@@ -97,10 +98,8 @@ Note: In order to use the "Email Notification" functionality for this project, y
 
 This project is a refactoring of the [Gifter](https://github.com/yagmurbbayraktar/CSC510_Project1) project from 2022. We have added several functionalities to significantly enhance the scope and user experience of this application. 
 
-* The video displaying the functionalities of the original project Gifter can be found [here](https://drive.google.com/file/d/1rd606Kqv0g8X0NEEwJfC2BZNNOSVkhe2/view?usp=sharing).
-* The video displaying the new functionalities of Gifter-2 in comparison to the original project Gifter can be found [here](https://drive.google.com/file/d/1tLdxItZo-kvn3QVKj2jIR8TasCeMzEBn/view?usp=sharing).
-
-** ADD VIDEO LINKS **
+* The video displaying the functionalities of the original project Gifter can be found [here](https://drive.google.com/file/d/1tLdxItZo-kvn3QVKj2jIR8TasCeMzEBn/view?usp=sharing).
+* The video displaying the new functionalities of Gifter-2 in comparison to the original project Gifter can be found [here](https://drive.google.com/file/d/1rd606Kqv0g8X0NEEwJfC2BZNNOSVkhe2/view?usp=sharing).
 
 ### Use Cases
 In order to learn more about how to run Gifter-2 and use its features, check out our [USAGE.md](https://github.com/landog893/Gifter-2/blob/main/USAGE.md) file!

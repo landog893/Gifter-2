@@ -297,3 +297,11 @@ button[kind="primary"]:active, button[kind="formSubmit"]:active {
 .stApp {
     background:#ffffff;
 }
+
+.friendlist .block-container {
+    max-width: 50% !important;
+}
+
+.friendlist colHeader {
+    margin-bottom: 43px !important;
+}

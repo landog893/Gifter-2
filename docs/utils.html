@@ -38,7 +38,7 @@ def inject_custom_css():
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 
-def navbar_component(name):
+def navbar_component(acc):
     with open("src/assets/images/profile.png", "rb") as image_file:
         image_as_base64 = base64.b64encode(image_file.read())
 
@@ -64,7 +64,7 @@ def navbar_component(name):
         # nameTag = f'<p class="navName">' + name.name.to_string(index=False) + '</p>'
         nameTag = rf'''
             <div class="dropdown" id="settingsDropDown">
-                    <p class="navName">{name.name} {name.surname}</p>
+                    <p class="navName">{acc.name} {name.surname}</p>
                     <img class="dropbtn" src="data:image/png;base64, {image_as_base64.decode("utf-8")}"/>
                     <div id="myDropdown" class="dropdown-content">
                         {settings_items}
