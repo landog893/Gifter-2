@@ -11,6 +11,7 @@
 # Gifter-2
 [![DOI](https://zenodo.org/badge/560035935.svg)](https://zenodo.org/badge/latestdoi/560035935)
 [![License](https://img.shields.io/github/license/landog893/Gifter-2?style=plastic)](https://github.com/landog893/Gifter-2/blob/main/LICENSE.md)
+[![codecov](https://codecov.io/gh/landog893/Gifter-2/branch/main/graph/badge.svg?token=E2ED8NHPSM)](https://codecov.io/gh/landog893/Gifter-2)
 [![java](https://img.shields.io/badge/Made%20with-Java-brightgreen?style=plastic)](https://www.oracle.com/java/technologies/downloads/)
 [![size](https://img.shields.io/github/languages/code-size/landog893/Gifter-2?style=plastic)](https://github.com/landog893/Gifter-2)
 [![lang](https://img.shields.io/github/languages/count/landog893/Gifter-2?style=plastic)](https://github.com/landog893/Gifter-2/search?l=Java&type=code)
